@@ -1,0 +1,49 @@
+{
+	"name" : "digedag/t3sportstats",
+	"description" : "Statistics extension for T3sports.",
+	"version" : "0.3.1",
+	"type" : "typo3-cms-extension",
+	"keywords" : [
+		"TYPO3 CMS",
+		"mvc",
+		"sports"
+	],
+	"homepage" : "http://www.system25.de/",
+	"license" : "GPL-2.0+",
+	"authors" : [{
+			"name" : "René Nitzsche",
+			"email" : "rene@system25.de",
+			"role" : "Developer"
+		}
+	],
+	"support" : {
+		"email" : "rene@system25.de",
+		"source" : "https://github.com/digedag/t3sportstats",
+	},
+	"replace" : {
+		"t3sportstats" : "self.version",
+		"typo3-ter/t3sportstats" : "self.version"
+	},
+	"require" : {
+		"php": "~5.5",
+		"typo3/cms-core" : ">=4.5.0 <=7.6.99",
+		"digedag/rn-base" : ">=0.14.0"
+		"digedag/cfc-league" : ">=0.9.1"
+		"digedag/cfc-league-fe" : ">=0.9.0"
+	},
+	"autoload" : {
+		"classmap" : [
+			"actions/",
+			"filter/",
+			"hooks/",
+			"marker/",
+			"mod/",
+			"models/",
+			"search/",
+			"srv/",
+			"util/",
+			"tests/",
+			"views/"
+		]
+	}
+}
