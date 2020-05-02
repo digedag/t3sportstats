@@ -1,9 +1,10 @@
 <?php
+namespace System25\T3sports\Hooks;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010 Rene Nitzsche
+ *  (c) 2010-2020 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -26,14 +27,15 @@
  *
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_hooks_ClearStats
+class ClearStats
 {
     public function clearStats4Comp($params, $parent)
     {
-        $srv = tx_t3sportstats_util_ServiceRegistry::getStatisticService();
-        /* @var $comp tx_cfcleague_models_Competition */
-        $comp = tx_rnbase::makeInstance('tx_cfcleague_models_Competition', $params['compUid']);
-        if ($comp && $comp->isValid())
+        $srv = \tx_t3sportstats_util_ServiceRegistry::getStatisticService();
+        /* @var $comp \tx_cfcleague_models_Competition */
+        $comp = \tx_rnbase::makeInstance('tx_cfcleague_models_Competition', $params['compUid']);
+        if ($comp && $comp->isValid()) {
             $srv->indexPlayerStatsByCompetition($comp);
+        }
     }
 }

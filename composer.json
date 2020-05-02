@@ -38,6 +38,9 @@
 		"friendsofphp/php-cs-fixer": "^2.15"
 	},
 	"autoload" : {
+		"psr-4": {
+			"System25\\T3sports\\" : "Classes"
+		},
 		"classmap" : [
 			"actions/",
 			"filter/",
