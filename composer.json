@@ -17,17 +17,25 @@
 	],
 	"support" : {
 		"email" : "rene@system25.de",
-		"source" : "https://github.com/digedag/t3sportstats"
+		"source" : "https://github.com/digedag/t3sportstats",
+		"issues" : "https://github.com/digedag/t3sportstats/issues"
 	},
 	"replace" : {
-		"t3sportstats" : "self.version",
-		"typo3-ter/t3sportstats" : "self.version"
+		"typo3-ter/t3sportstats" : "self.version",
+		"digedag/t3sportstats" : "self.version"
 	},
 	"require" : {
 		"typo3/cms-core" : "^7.6 || ^8.7 || ^9.5",
 		"digedag/rn-base" : "^1.11",
 		"digedag/cfc-league" : "^1.4.0",
 		"digedag/cfc-league-fe" : "^1.4.0"
+	},
+	"require-dev": {
+		"namelesscoder/typo3-repository-client": "^1.2",
+		"nimut/testing-framework": "^1.1 || ^2.0 || ^4.0",
+		"mikey179/vfsstream": "^1.4 || ^1.6",
+		"phpunit/phpunit": "^4.7|| ^7.0",
+		"friendsofphp/php-cs-fixer": "^2.15"
 	},
 	"autoload" : {
 		"classmap" : [
@@ -43,5 +51,28 @@
 			"tests/",
 			"views/"
 		]
-	}
+	},
+    "config": {
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin",
+        "preferred-install": {
+            "typo3/cms": "source"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "mkdir -p .Build/Web/typo3conf/ext/",
+            "[ -L .Build/Web/typo3conf/ext/t3sportstats ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/cfc_league_fe"
+        ]
+    },
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "extension-key": "t3sportstats",
+            "web-dir": ".Build/Web"
+        },
+		"branch-alias": {
+			"dev-master": "1.x-dev"
+		}
+    }
 }
