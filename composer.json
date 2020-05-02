@@ -43,8 +43,8 @@
 		},
 		"classmap" : [
 			"actions/",
+			"Deprecations/",
 			"filter/",
-			"hooks/",
 			"marker/",
 			"mod/",
 			"models/",

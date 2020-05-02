@@ -1,4 +1,11 @@
 <?php
+
+namespace System25\T3sports\Action;
+
+use Sys25\RnBase\Frontend\Controller\AbstractAction;
+use Sys25\RnBase\Frontend\Request\RequestInterface;
+
+
 /***************************************************************
  *  Copyright notice
  *
@@ -21,39 +28,37 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-tx_rnbase::load('tx_rnbase_action_BaseIOC');
-tx_rnbase::load('tx_rnbase_filter_BaseFilter');
-tx_rnbase::load('Tx_Rnbase_Utility_Strings');
 
 /**
- * Controller für Suchformular für Dokumenten.
  */
-class tx_t3sportstats_actions_PlayerStats extends tx_rnbase_action_BaseIOC
+class PlayerStats extends AbstractAction
 {
     /**
-     * @param tx_rnbase_IParameters $parameters
-     * @param tx_rnbase_configurations $configurations
-     * @param array $viewData
+     * @param RequestInterface $request
      *
      * @return string error msg or null
      */
-    public function handleRequest(&$parameters, &$configurations, &$viewData)
+    protected function handleRequest(RequestInterface $request)
     {
+        $parameters = $request->getParameters();
+        $configurations = $request->getConfigurations();
+        $viewData = $request->getViewContext();
+        
         // Zuerst die Art der Statistik ermitteln
-        $types = Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($this->getConfId().'statisticTypes'), 1);
+        $types = \Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($this->getConfId().'statisticTypes'), 1);
         if (!count($types)) {
             // Abbruch kein Typ angegeben
-            throw new Exception('No statistics type configured in: '.$this->getConfId().'statisticTypes');
+            throw new \Exception('No statistics type configured in: '.$this->getConfId().'statisticTypes');
         }
 
-        $statsData = array();
+        $statsData = [];
         foreach ($types as $type) {
             $statsData[$type] = $this->findData($parameters, $configurations, $viewData, $type);
         }
         $viewData->offsetSet('items', $statsData);
         $teamId = $configurations->get($this->getConfId().'highlightTeam');
         if ($teamId) {
-            $team = tx_rnbase::makeInstance('tx_cfcleague_models_Team', $teamId);
+            $team = \tx_rnbase::makeInstance('tx_cfcleague_models_Team', $teamId);
             if (is_object($team) && $team->isValid()) {
                 $viewData->offsetSet('team', $team);
             }
@@ -64,14 +69,14 @@ class tx_t3sportstats_actions_PlayerStats extends tx_rnbase_action_BaseIOC
 
     private function findData($parameters, $configurations, $viewData, $type)
     {
-        $srv = tx_t3sportstats_util_ServiceRegistry::getStatisticService();
+        $srv = \tx_t3sportstats_util_ServiceRegistry::getStatisticService();
         $confId = $this->getConfId().$type.'.';
-        $filter = tx_rnbase_filter_BaseFilter::createFilter($parameters, $configurations, $viewData, $confId);
+        $filter = \tx_rnbase_filter_BaseFilter::createFilter($parameters, $configurations, $viewData, $confId);
 
-        $fields = array();
-        $options = array(
+        $fields = [];
+        $options = [
             'enablefieldsoff' => 1,
-        );
+        ];
         $filter->init($fields, $options);
         $debug = $configurations->get($this->getConfId().'options.debug');
         if ($debug) {
@@ -79,15 +84,15 @@ class tx_t3sportstats_actions_PlayerStats extends tx_rnbase_action_BaseIOC
         }
 
         self::handlePageBrowser($configurations, $confId.'data.pagebrowser', $viewData, $fields, $options, array(
-            'searchcallback' => array(
+            'searchcallback' => [
                 $srv,
                 'searchPlayerStats',
-            ),
+            ],
             'pbid' => $type.'ps',
         ));
 
         $items = $srv->searchPlayerStats($fields, $options);
-        tx_rnbase_util_Misc::callHook('t3sportstats', 'playerstats_finddata', array(
+        \tx_rnbase_util_Misc::callHook('t3sportstats', 'playerstats_finddata', array(
             'type' => $type,
             'items' => &$items,
             'confid' => $confId,
@@ -105,8 +110,8 @@ class tx_t3sportstats_actions_PlayerStats extends tx_rnbase_action_BaseIOC
      *
      * @param string $confid
      *            Die Confid des PageBrowsers. z.B. myview.org.pagebrowser ohne Punkt!
-     * @param tx_rnbase_configurations $configurations
-     * @param array_object $viewdata
+     * @param \tx_rnbase_configurations $configurations
+     * @param \ArrayObject $viewdata
      * @param array $fields
      * @param array $options
      */
@@ -123,7 +128,7 @@ class tx_t3sportstats_actions_PlayerStats extends tx_rnbase_action_BaseIOC
                 $options['what'] = 'count(DISTINCT player) AS cnt';
                 $searchCallback = $cfg['searchcallback'];
                 if (!$searchCallback) {
-                    throw new Exception('No search callback defined!');
+                    throw new \Exception('No search callback defined!');
                 }
                 $listSize = call_user_func($searchCallback, $fields, $options);
                 // $listSize = $service->search($fields, $options);
@@ -132,8 +137,8 @@ class tx_t3sportstats_actions_PlayerStats extends tx_rnbase_action_BaseIOC
             }
             // PageBrowser initialisieren
             $pbId = $cfg['pbid'] ? $cfg['pbid'] : 'pb';
-            $pageBrowser = tx_rnbase::makeInstance('tx_rnbase_util_PageBrowser', $pbId);
-            $pageSize = intval($configurations->get($confid.'limit'));
+            $pageBrowser = \tx_rnbase::makeInstance('tx_rnbase_util_PageBrowser', $pbId);
+            $pageSize = $configurations->getInt($confid.'limit');
 
             $pageBrowser->setState($configurations->getParameters(), $listSize, $pageSize);
             $limit = $pageBrowser->getState();
@@ -144,13 +149,13 @@ class tx_t3sportstats_actions_PlayerStats extends tx_rnbase_action_BaseIOC
         }
     }
 
-    public function getTemplateName()
+    protected function getTemplateName()
     {
         return 'playerstats';
     }
 
-    public function getViewClassName()
+    protected function getViewClassName()
     {
-        return 'tx_t3sportstats_views_PlayerStats';
+        return \System25\T3sports\View\PlayerStats::class;
     }
 }
