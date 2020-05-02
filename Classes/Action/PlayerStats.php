@@ -5,7 +5,6 @@ namespace System25\T3sports\Action;
 use Sys25\RnBase\Frontend\Controller\AbstractAction;
 use Sys25\RnBase\Frontend\Request\RequestInterface;
 
-
 /***************************************************************
  *  Copyright notice
  *
@@ -29,8 +28,6 @@ use Sys25\RnBase\Frontend\Request\RequestInterface;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-/**
- */
 class PlayerStats extends AbstractAction
 {
     /**
@@ -43,7 +40,7 @@ class PlayerStats extends AbstractAction
         $parameters = $request->getParameters();
         $configurations = $request->getConfigurations();
         $viewData = $request->getViewContext();
-        
+
         // Zuerst die Art der Statistik ermitteln
         $types = \Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($this->getConfId().'statisticTypes'), 1);
         if (!count($types)) {
