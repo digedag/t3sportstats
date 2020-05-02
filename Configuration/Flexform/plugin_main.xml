@@ -5,7 +5,7 @@
         <sDEF>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.tab.common</sheetTitle>
+                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.flexform.tab.common</sheetTitle>
                 </TCEforms>
 
                 <type>array</type>
@@ -13,7 +13,7 @@
                     <action> <!-- Bezeichner ist frei wählbar -->
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.action</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.flexform.action</label>
                             <config>
                                 <type>select</type>
                                 <items type="array">
@@ -22,19 +22,19 @@
                                         <numIndex index="1">tx_cfcleaguefe_actions_CompetitionSelection</numIndex>
                                     </numIndex>
                                     <numIndex index="10" type="array">
-                                        <numIndex index="0">LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.action.playerstats</numIndex>
+                                        <numIndex index="0">LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.flexform.action.playerstats</numIndex>
                                         <numIndex index="1">tx_t3sportstats_actions_PlayerStats</numIndex>
                                     </numIndex>
                                     <numIndex index="20" type="array">
-                                        <numIndex index="0">LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.action.coachstats</numIndex>
+                                        <numIndex index="0">LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.flexform.action.coachstats</numIndex>
                                         <numIndex index="1">tx_t3sportstats_actions_CoachStats</numIndex>
                                     </numIndex>
                                     <numIndex index="30" type="array">
-                                        <numIndex index="0">LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.action.refereestats</numIndex>
+                                        <numIndex index="0">LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.flexform.action.refereestats</numIndex>
                                         <numIndex index="1">tx_t3sportstats_actions_RefereeStats</numIndex>
                                     </numIndex>
                                     <numIndex index="500" type="array">
-                                        <numIndex index="0">LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.action.dbstats</numIndex>
+                                        <numIndex index="0">LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.flexform.action.dbstats</numIndex>
                                         <numIndex index="1">tx_t3sportstats_actions_DBStats</numIndex>
                                     </numIndex>
 
@@ -230,7 +230,7 @@
         <s_playerstats>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.action.playerstats</sheetTitle>
+                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.flexform.action.playerstats</sheetTitle>
                 </TCEforms>
 
                 <type>array</type>
@@ -238,7 +238,7 @@
                     <playerstats.statisticTypes>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.reporttype</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.flexform.reporttype</label>
                             <config>
                                 <type>select</type>
                                 <items type="array">
@@ -253,7 +253,7 @@
                     <playerstats.highlightTeam>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.highlightteam</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.flexform.highlightteam</label>
                             <config>
                                 <type>group</type>
                                 <internal_type>db</internal_type>
@@ -266,7 +266,7 @@
                     <playerstats.options.debug>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.common.sqldebug</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.common.sqldebug</label>
                             <config>
                                 <type>check</type>
                             </config>
@@ -276,7 +276,7 @@
                     <playerstatsTemplate>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.common.template</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.common.template</label>
                             <config>
                                 <type>input</type>
                                 <size>24</size>
@@ -312,7 +312,7 @@
         <s_coachstats>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.action.coachstats</sheetTitle>
+                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.flexform.action.coachstats</sheetTitle>
                 </TCEforms>
 
                 <type>array</type>
@@ -320,7 +320,7 @@
                     <coachstats.statisticTypes>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.reporttype</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.flexform.reporttype</label>
                             <config>
                                 <type>select</type>
                                 <items type="array">
@@ -335,7 +335,7 @@
                     <coachstats.options.debug>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.common.sqldebug</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.common.sqldebug</label>
                             <config>
                                 <type>check</type>
                             </config>
@@ -345,7 +345,7 @@
                     <coachstatsTemplate>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.common.template</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.common.template</label>
                             <config>
                                 <type>input</type>
                                 <size>24</size>
@@ -381,7 +381,7 @@
         <s_refereestats>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.action.refereestats</sheetTitle>
+                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.flexform.action.refereestats</sheetTitle>
                 </TCEforms>
 
                 <type>array</type>
@@ -389,7 +389,7 @@
                     <refereestats.statisticTypes>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.reporttype</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.flexform.reporttype</label>
                             <config>
                                 <type>select</type>
                                 <items type="array">
@@ -404,7 +404,7 @@
                     <refereestats.options.debug>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.common.sqldebug</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.common.sqldebug</label>
                             <config>
                                 <type>check</type>
                             </config>
@@ -414,7 +414,7 @@
                     <refereestatsTemplate>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.common.template</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.common.template</label>
                             <config>
                                 <type>input</type>
                                 <size>24</size>
@@ -451,14 +451,14 @@
         <s_tssetup>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.tab.TSSetup</sheetTitle>
+                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.flexform.tab.TSSetup</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
                     <flexformTS>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.tssetup</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:plugin.t3sportstats.flexform.tssetup</label>
                             <config>
                                 <type>text</type>
                                 <cols>80</cols>

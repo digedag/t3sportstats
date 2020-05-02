@@ -20,4 +20,4 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['filterMatch_setfields']
 require tx_rnbase_util_Extensions::extPath('t3sportstats').'srv/ext_localconf.php';
 
 // Register a new matchnote type
-tx_cfcleague_util_Misc::registerMatchNote('LLL:EXT:t3sportstats/locallang_db.xml:tx_cfcleague_match_notes.type.goalfreekick', '13');
+tx_cfcleague_util_Misc::registerMatchNote('LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:tx_cfcleague_match_notes.type.goalfreekick', '13');
