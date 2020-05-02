@@ -24,12 +24,10 @@ tx_rnbase::load('tx_cfcleague_models_Competition');
 tx_rnbase::load('tx_rnbase_util_DB');
 
 /**
- *
  * @author Rene Nitzsche
  */
 class tx_t3sportstats_hooks_MergeProfiles
 {
-
     /**
      * Update der Statistikdaten.
      * Abgleich erfolgt ohne TCE, da die Tabellen nicht in der TCA beschrieben sind.
@@ -42,14 +40,14 @@ class tx_t3sportstats_hooks_MergeProfiles
         $leading = $params['leadingUid'];
         $obsolete = $params['obsoleteUid'];
 
-        Tx_Rnbase_Database_Connection::getInstance()->doUpdate('tx_t3sportstats_players', 'player=' . $obsolete, array(
-            'player' => $leading
+        Tx_Rnbase_Database_Connection::getInstance()->doUpdate('tx_t3sportstats_players', 'player='.$obsolete, array(
+            'player' => $leading,
         ));
-        Tx_Rnbase_Database_Connection::getInstance()->doUpdate('tx_t3sportstats_coachs', 'coach=' . $obsolete, array(
-            'coach' => $leading
+        Tx_Rnbase_Database_Connection::getInstance()->doUpdate('tx_t3sportstats_coachs', 'coach='.$obsolete, array(
+            'coach' => $leading,
         ));
-        Tx_Rnbase_Database_Connection::getInstance()->doUpdate('tx_t3sportstats_referees', 'referee=' . $obsolete, array(
-            'referee' => $leading
+        Tx_Rnbase_Database_Connection::getInstance()->doUpdate('tx_t3sportstats_referees', 'referee='.$obsolete, array(
+            'referee' => $leading,
         ));
     }
 }

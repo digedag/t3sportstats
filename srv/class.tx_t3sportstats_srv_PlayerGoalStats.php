@@ -27,17 +27,15 @@ tx_rnbase::load('tx_cfcleague_util_MatchNote');
 tx_rnbase::load('tx_t3sportstats_util_Config');
 
 /**
- *
  * @author Rene Nitzsche
  */
 class tx_t3sportstats_srv_PlayerGoalStats extends Tx_Rnbase_Service_Base
 {
-
     private $types = array();
 
     /**
      * Update statistics for a player
-     * goalshome, goalsaway, goalsjoker
+     * goalshome, goalsaway, goalsjoker.
      *
      * @param tx_t3sportstats_util_DataBag $dataBag
      * @param tx_cfcleague_models_Match $match
@@ -55,30 +53,32 @@ class tx_t3sportstats_srv_PlayerGoalStats extends Tx_Rnbase_Service_Base
         foreach ($notes as $note) {
             if ($this->isType($note->getType(), $goalTypes)) {
                 $dataBag->addType($homeAwayType, 1);
-                if (! $startPlayer)
+                if (!$startPlayer) {
                     $dataBag->addType('goalsjoker', 1);
+                }
             }
         }
         // $dataBag->addType('playtime', $time);
     }
 
     /**
-     *
      * @param tx_cfcleague_models_Match $match
-     * @param boolean $isHome
+     * @param bool $isHome
      */
     private function isStartPlayer($player, $match, $isHome)
     {
         $startPlayer = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',', $isHome ? $match->getProperty('players_home') : $match->getProperty('players_guest')));
+
         return array_key_exists($player, $startPlayer);
     }
 
     private function isType($type, $typeList)
     {
-        if (! array_key_exists($typeList, $this->types)) {
+        if (!array_key_exists($typeList, $this->types)) {
             $this->types[$typeList] = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',', $typeList));
         }
         $types = $this->types[$typeList];
+
         return array_key_exists($type, $types);
     }
 }

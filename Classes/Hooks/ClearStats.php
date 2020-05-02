@@ -1,4 +1,5 @@
 <?php
+
 namespace System25\T3sports\Hooks;
 
 /***************************************************************
@@ -24,7 +25,6 @@ namespace System25\T3sports\Hooks;
  ***************************************************************/
 
 /**
- *
  * @author Rene Nitzsche
  */
 class ClearStats

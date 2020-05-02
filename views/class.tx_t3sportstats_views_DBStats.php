@@ -25,15 +25,13 @@ tx_rnbase::load('tx_rnbase_view_Base');
 tx_rnbase::load('tx_rnbase_util_Templates');
 
 /**
- * Viewklasse
+ * Viewklasse.
  */
 class tx_t3sportstats_views_DBStats extends tx_rnbase_view_Base
 {
-
     private $playerIds = array();
 
     /**
-     *
      * @param string $template
      * @param ArrayObject $viewData
      * @param tx_rnbase_configurations $configurations
@@ -41,18 +39,19 @@ class tx_t3sportstats_views_DBStats extends tx_rnbase_view_Base
      */
     public function createOutput($template, &$viewData, &$configurations, &$formatter)
     {
-        $items = & $viewData->offsetGet('items');
+        $items = &$viewData->offsetGet('items');
 
         $subpartArr = array();
         foreach ($items as $table => $data) {
-            $tableMarker = '###' . strtoupper($table) . '###';
+            $tableMarker = '###'.strtoupper($table).'###';
             $subpart = tx_rnbase_util_Templates::getSubpart($template, $tableMarker);
             // Jetzt die Tabelle rein
             $markerArr = $formatter->getItemMarkerArrayWrapped($data, $this->getController()
-                ->getConfId() . $table . '.', 0, strtoupper($table) . '_');
+                ->getConfId().$table.'.', 0, strtoupper($table).'_');
             $subpartArr[$tableMarker] = tx_rnbase_util_Templates::substituteMarkerArrayCached($subpart, $markerArr);
         }
         $out = tx_rnbase_util_Templates::substituteMarkerArrayCached($template, array(), $subpartArr);
+
         return $out;
     }
 

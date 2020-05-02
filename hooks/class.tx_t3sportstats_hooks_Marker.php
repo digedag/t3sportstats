@@ -23,33 +23,32 @@
 tx_rnbase::load('tx_rnbase_filter_BaseFilter');
 
 /**
- * Extend marker classes
+ * Extend marker classes.
  *
  * @author Rene Nitzsche
  */
 class tx_t3sportstats_hooks_Marker
 {
-
     public static $filterData = array(
         'player' => array(
             'tableAlias' => 'PLAYERSTAT',
             'colName' => 'player',
-            'search' => 'searchPlayerStats'
+            'search' => 'searchPlayerStats',
         ),
         'coach' => array(
             'tableAlias' => 'COACHSTAT',
             'colName' => 'coach',
-            'search' => 'searchCoachStats'
+            'search' => 'searchCoachStats',
         ),
         'referee' => array(
             'tableAlias' => 'REFEREESTAT',
             'colName' => 'referee',
-            'search' => 'searchRefereeStats'
-        )
+            'search' => 'searchRefereeStats',
+        ),
     );
 
     /**
-     * Extend profileMarker for statistical data about profile
+     * Extend profileMarker for statistical data about profile.
      *
      * @param array $params
      * @param tx_cfcleaguefe_util_ProfileMarker $parent
@@ -61,7 +60,7 @@ class tx_t3sportstats_hooks_Marker
         // stats.liga.fields..
         // Marker: ###PROFILE_STATS_LIGA###
         $config = $params['conf'];
-        $confId = $params['confId'] . 'stats.';
+        $confId = $params['confId'].'stats.';
         $profile = $params['item'];
         $template = $params['template'];
         $markerPrefix = $params['marker'];
@@ -70,18 +69,19 @@ class tx_t3sportstats_hooks_Marker
         $statKeys = $config->getKeyNames($confId);
         foreach ($statKeys as $statKey) {
             // Die Daten holen
-            $subpartMarker = $markerPrefix . '_STATS_' . strtoupper($statKey);
+            $subpartMarker = $markerPrefix.'_STATS_'.strtoupper($statKey);
 
-            $subpart = tx_rnbase_util_Templates::getSubpart($template, '###' . $subpartMarker . '###');
-            if (! $subpart)
+            $subpart = tx_rnbase_util_Templates::getSubpart($template, '###'.$subpartMarker.'###');
+            if (!$subpart) {
                 continue;
+            }
             $items = $this->findData($profile, $config, $confId, $statKey);
             // Markerklasse aus Config holen
-            $markerClass = $config->get($confId . $statKey . '.markerClass');
+            $markerClass = $config->get($confId.$statKey.'.markerClass');
             $markerClass = $markerClass ? $markerClass : 'tx_t3sportstats_marker_PlayerStats';
             $marker = tx_rnbase::makeInstance($markerClass);
             // Wir sollten nur einen Datensatz haben und können diesen jetzt ausgeben
-            $subpartArray['###' . $subpartMarker . '###'] = $marker->parseTemplate($subpart, $items[0], $config->getFormatter(), $confId . $statKey . '.data.', $subpartMarker);
+            $subpartArray['###'.$subpartMarker.'###'] = $marker->parseTemplate($subpart, $items[0], $config->getFormatter(), $confId.$statKey.'.data.', $subpartMarker);
         }
 
         $params['template'] = tx_rnbase_util_Templates::substituteMarkerArrayCached($template, array(), $subpartArray);
@@ -90,24 +90,25 @@ class tx_t3sportstats_hooks_Marker
     private function findData($profile, $configurations, $confId, $type)
     {
         $srv = tx_t3sportstats_util_ServiceRegistry::getStatisticService();
-        $confId = $confId . $type . '.';
+        $confId = $confId.$type.'.';
         $filter = tx_rnbase_filter_BaseFilter::createFilter(new ArrayObject(), $configurations, new ArrayObject(), $confId);
 
         $fields = array();
-        $filterType = $configurations->get($confId . 'filterType');
-        if (! $filterType) {
-            throw new Exception('t3sportstats: No filter type configured in ' . $confId . 'filterType');
+        $filterType = $configurations->get($confId.'filterType');
+        if (!$filterType) {
+            throw new Exception('t3sportstats: No filter type configured in '.$confId.'filterType');
         }
         $filterType = strtolower($filterType);
-        $fields[self::$filterData[$filterType]['tableAlias'] . '.' . self::$filterData[$filterType]['colName']][OP_EQ_INT] = $profile->getUid();
+        $fields[self::$filterData[$filterType]['tableAlias'].'.'.self::$filterData[$filterType]['colName']][OP_EQ_INT] = $profile->getUid();
         $options = array(
-            'enablefieldsoff' => 1
+            'enablefieldsoff' => 1,
         );
         // $options['debug'] = 1;
         $filter->init($fields, $options);
 
         $searchMethod = self::$filterData[$filterType]['search'];
         $items = $srv->$searchMethod($fields, $options);
+
         return $items;
     }
 }

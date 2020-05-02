@@ -26,17 +26,15 @@ tx_rnbase::load('Tx_Rnbase_Utility_Strings');
 tx_rnbase::load('tx_cfcleague_util_MatchNote');
 
 /**
- *
  * @author Rene Nitzsche
  */
 class tx_t3sportstats_srv_PlayerTimeStats extends Tx_Rnbase_Service_Base
 {
-
     private $types = array();
 
     /**
      * Update statistics for a player
-     * playtime, played
+     * playtime, played.
      *
      * @param tx_t3sportstats_util_DataBag $dataBag
      * @param tx_cfcleague_models_Match $match
@@ -47,10 +45,11 @@ class tx_t3sportstats_srv_PlayerTimeStats extends Tx_Rnbase_Service_Base
         // Wir betrachten das Spiel für einen bestimmten Spieler
         $profId = $dataBag->getParentUid();
         $notes = $mnProv->getMatchNotes4Profile($profId);
-        $startMin = $this->isStartPlayer($profId, $match, $isHome) ? 0 : - 1;
-        $isEndPlayer = $startMin == 0 ? true : false;
-        if ($isEndPlayer)
+        $startMin = $this->isStartPlayer($profId, $match, $isHome) ? 0 : -1;
+        $isEndPlayer = 0 == $startMin ? true : false;
+        if ($isEndPlayer) {
             $dataBag->setType('played', 1);
+        }
         $time = 0;
 
         foreach ($notes as $note) {
@@ -80,28 +79,30 @@ class tx_t3sportstats_srv_PlayerTimeStats extends Tx_Rnbase_Service_Base
         $matchInfo = $sports->getMatchInfo();
         $key = $match->isExtraTime() ? tx_cfcleague_sports_MatchInfo::MATCH_EXTRA_TIME : tx_cfcleague_sports_MatchInfo::MATCH_TIME;
         $ret = $matchInfo->getInfo($key);
-        return $ret == NULL ? 90 : $ret;
+
+        return null == $ret ? 90 : $ret;
     }
 
     /**
-     *
      * @param tx_cfcleague_models_Match $match
-     * @param boolean $isHome
+     * @param bool $isHome
      */
     private function isStartPlayer($player, $match, $isHome)
     {
         $startPlayer = array_flip(
             Tx_Rnbase_Utility_Strings::intExplode(',', $isHome ? $match->getProperty('players_home') : $match->getProperty('players_guest'))
         );
+
         return array_key_exists($player, $startPlayer);
     }
 
     private function isType($type, $typeList)
     {
-        if (! array_key_exists($typeList, $this->types)) {
+        if (!array_key_exists($typeList, $this->types)) {
             $this->types[$typeList] = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',', $typeList));
         }
         $types = $this->types[$typeList];
+
         return array_key_exists($type, $types);
     }
 }

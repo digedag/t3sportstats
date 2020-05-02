@@ -22,46 +22,56 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
-
+require_once tx_rnbase_util_Extensions::extPath('rn_base').'class.tx_rnbase.php';
 
 tx_rnbase::load('tx_rnbase_util_Spyc');
 
-class tx_t3sportstats_tests_Util {
+class tx_t3sportstats_tests_Util
+{
+    public static function createCompetition($uid, $saison, $agegroup)
+    {
+        return new tx_cfcleague_models_Competition(array('uid' => $uid, 'saison' => $saison, 'agegroup' => $agegroup));
+    }
 
-	public static function createCompetition($uid, $saison, $agegroup) {
-		return new tx_cfcleague_models_Competition(array('uid'=>$uid, 'saison'=>$saison, 'agegroup' => $agegroup));
-	}
+    public static function getMatches()
+    {
+        $data = tx_rnbase_util_Spyc::YAMLLoad(self::getFixturePath('statistics.yaml'));
+        $comps = self::makeInstances($data['league_1'], $data['league_1']['clazz']);
 
-	public static function getMatches() {
-		$data = tx_rnbase_util_Spyc::YAMLLoad(self::getFixturePath('statistics.yaml'));
-		$comps = self::makeInstances($data['league_1'], $data['league_1']['clazz']);
+        $data = $data['league_1']['matches'];
+        $matches = self::makeInstances($data, $data['clazz']);
+        foreach ($matches as $match) {
+            $match->setCompetition($comps[0]);
+        }
 
-		$data = $data['league_1']['matches'];
-		$matches = self::makeInstances($data, $data['clazz']);
-		foreach($matches As $match) {
-			$match->setCompetition($comps[0]);
-		}
-		return $matches;
-	}
-	public static function getMatchNotes($matchIdx) {
-		$data = tx_rnbase_util_Spyc::YAMLLoad(self::getFixturePath('statistics.yaml'));
-		$data = $data['league_1']['matches'][$matchIdx]['matchnotes'];
-		$notes = self::makeInstances($data, $data['clazz']);
-		return $notes;
-	}
-	private static function makeInstances($yamlData, $clazzName) {
-		// Sicherstellen, daß die Klasse geladen wurde
-		$ret = array();
-		tx_rnbase::load($clazzName);
-		foreach($yamlData As $key => $arr) {
-			if(isset($arr['record']) && is_array($arr['record']))
-				$ret[$key] = new $clazzName($arr['record']);
-		}
-		return $ret;
-	}
-	private static function getFixturePath($filename) {
-		return tx_rnbase_util_Extensions::extPath('t3sportstats').'tests/fixtures/'.$filename;
-	}
+        return $matches;
+    }
+
+    public static function getMatchNotes($matchIdx)
+    {
+        $data = tx_rnbase_util_Spyc::YAMLLoad(self::getFixturePath('statistics.yaml'));
+        $data = $data['league_1']['matches'][$matchIdx]['matchnotes'];
+        $notes = self::makeInstances($data, $data['clazz']);
+
+        return $notes;
+    }
+
+    private static function makeInstances($yamlData, $clazzName)
+    {
+        // Sicherstellen, daß die Klasse geladen wurde
+        $ret = array();
+        tx_rnbase::load($clazzName);
+        foreach ($yamlData as $key => $arr) {
+            if (isset($arr['record']) && is_array($arr['record'])) {
+                $ret[$key] = new $clazzName($arr['record']);
+            }
+        }
+
+        return $ret;
+    }
+
+    private static function getFixturePath($filename)
+    {
+        return tx_rnbase_util_Extensions::extPath('t3sportstats').'tests/fixtures/'.$filename;
+    }
 }
-

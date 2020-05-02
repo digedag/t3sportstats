@@ -1,6 +1,8 @@
 <?php
-if (! defined('TYPO3_MODE'))
+
+if (!defined('TYPO3_MODE')) {
     die('Access denied.');
+}
 
 $tx_t3sportstats_tags = [
     'ctrl' => [
@@ -10,17 +12,17 @@ $tx_t3sportstats_tags = [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'dividers2tabs' => TRUE,
+        'dividers2tabs' => true,
         'default_sortby' => 'ORDER BY name',
         'delete' => 'deleted',
         'enablecolumns' => [],
-        'iconfile' => 'EXT:cfc_league/Resources/Public/Icons/icon_table.gif'
+        'iconfile' => 'EXT:cfc_league/Resources/Public/Icons/icon_table.gif',
     ],
     'interface' => [
-        'showRecordFieldList' => 'name'
+        'showRecordFieldList' => 'name',
     ],
     'feInterface' => [
-        'fe_admin_fieldList' => 'hidden, starttime, fe_group, name'
+        'fe_admin_fieldList' => 'hidden, starttime, fe_group, name',
     ],
     'columns' => [
         'name' => [
@@ -30,8 +32,8 @@ $tx_t3sportstats_tags = [
                 'type' => 'input',
                 'size' => '30',
                 'max' => '50',
-                'eval' => 'required,trim'
-            ]
+                'eval' => 'required,trim',
+            ],
         ],
         'label' => [
             'exclude' => 1,
@@ -40,20 +42,20 @@ $tx_t3sportstats_tags = [
                 'type' => 'input',
                 'size' => '30',
                 'max' => '50',
-                'eval' => 'required,trim'
-            ]
-        ]
+                'eval' => 'required,trim',
+            ],
+        ],
     ],
     'types' => [
         '0' => [
-            'showitem' => 'name,label'
-        ]
+            'showitem' => 'name,label',
+        ],
     ],
     'palettes' => [
         '1' => [
-            'showitem' => ''
-        ]
-    ]
+            'showitem' => '',
+        ],
+    ],
 ];
 
 return $tx_t3sportstats_tags;

@@ -26,23 +26,22 @@ tx_rnbase::load('tx_rnbase_util_Templates');
 tx_rnbase::load('Tx_Rnbase_Utility_Strings');
 
 /**
- * Viewklasse für die Darstellung von Nutzerinformationen aus der DB
+ * Viewklasse für die Darstellung von Nutzerinformationen aus der DB.
  */
 class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base
 {
-
     private $playerIds = array();
 
     public function createOutput($template, &$viewData, &$configurations, &$formatter)
     {
-        $items = & $viewData->offsetGet('items');
+        $items = &$viewData->offsetGet('items');
         $listBuilder = tx_rnbase::makeInstance('tx_rnbase_util_ListBuilder');
         $team = $viewData->offsetGet('team');
         if ($team) {
             $this->playerIds = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',', $team->getProperty('players')));
             $listBuilder->addVisitor([
                 $this,
-                'highlightPlayer'
+                'highlightPlayer',
             ]);
         }
 
@@ -50,15 +49,16 @@ class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base
         foreach ($items as $type => $data) {
             // Marker class can be configured
             $markerClass = $configurations->get($this->getController()
-                ->getConfId() . $type . '.markerClass');
-            if (! $markerClass) {
+                ->getConfId().$type.'.markerClass');
+            if (!$markerClass) {
                 $markerClass = 'tx_t3sportstats_marker_PlayerStats';
             }
 
-            $subTemplate = tx_rnbase_util_Templates::getSubpart($template, '###' . strtoupper($type) . '###');
+            $subTemplate = tx_rnbase_util_Templates::getSubpart($template, '###'.strtoupper($type).'###');
             $out .= $listBuilder->render($data, $viewData, $subTemplate, $markerClass, $this->getController()
-                ->getConfId() . $type . '.data.', 'DATA', $formatter);
+                ->getConfId().$type.'.data.', 'DATA', $formatter);
         }
+
         return $out;
     }
 
