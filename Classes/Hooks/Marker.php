@@ -94,8 +94,8 @@ class Marker
         $srv = \tx_t3sportstats_util_ServiceRegistry::getStatisticService();
         $confId = $confId.$type.'.';
         $filter = \tx_rnbase_filter_BaseFilter::createFilter(
-            new \ArrayObject(), 
-            $configurations, 
+            new \ArrayObject(),
+            $configurations,
             new \ArrayObject(),
             $confId
         );
