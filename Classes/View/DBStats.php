@@ -1,8 +1,15 @@
 <?php
+
+namespace System25\T3sports\View;
+
+use Sys25\RnBase\Frontend\View\Marker\BaseView;
+use Sys25\RnBase\Frontend\Request\RequestInterface;
+use Sys25\RnBase\Frontend\View\ContextInterface;
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2018 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -21,36 +28,32 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-tx_rnbase::load('tx_rnbase_view_Base');
-tx_rnbase::load('tx_rnbase_util_Templates');
 
 /**
  * Viewklasse.
  */
-class tx_t3sportstats_views_DBStats extends tx_rnbase_view_Base
+class DBStats extends BaseView
 {
-    private $playerIds = array();
 
     /**
      * @param string $template
-     * @param ArrayObject $viewData
-     * @param tx_rnbase_configurations $configurations
-     * @param tx_rnbase_util_FormatUtil $formatter
+     * @param RequestInterface $request
      */
-    public function createOutput($template, &$viewData, &$configurations, &$formatter)
+    protected function createOutput($template, RequestInterface $request, $formatter)
     {
+        $viewData = $request->getViewContext();
         $items = &$viewData->offsetGet('items');
 
         $subpartArr = array();
         foreach ($items as $table => $data) {
             $tableMarker = '###'.strtoupper($table).'###';
-            $subpart = tx_rnbase_util_Templates::getSubpart($template, $tableMarker);
+            $subpart = \tx_rnbase_util_Templates::getSubpart($template, $tableMarker);
             // Jetzt die Tabelle rein
-            $markerArr = $formatter->getItemMarkerArrayWrapped($data, $this->getController()
+            $markerArr = $formatter->getItemMarkerArrayWrapped($data, $request
                 ->getConfId().$table.'.', 0, strtoupper($table).'_');
-            $subpartArr[$tableMarker] = tx_rnbase_util_Templates::substituteMarkerArrayCached($subpart, $markerArr);
+            $subpartArr[$tableMarker] = \tx_rnbase_util_Templates::substituteMarkerArrayCached($subpart, $markerArr);
         }
-        $out = tx_rnbase_util_Templates::substituteMarkerArrayCached($template, array(), $subpartArr);
+        $out = \tx_rnbase_util_Templates::substituteMarkerArrayCached($template, array(), $subpartArr);
 
         return $out;
     }
@@ -62,7 +65,7 @@ class tx_t3sportstats_views_DBStats extends tx_rnbase_view_Base
      *
      * @return string
      */
-    public function getMainSubpart(&$viewData)
+    protected function getMainSubpart(ContextInterface $viewData)
     {
         return '###DBSTATS###';
     }

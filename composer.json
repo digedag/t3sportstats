@@ -42,7 +42,6 @@
 			"System25\\T3sports\\" : "Classes"
 		},
 		"classmap" : [
-			"actions/",
 			"Deprecations/",
 			"filter/",
 			"marker/",
@@ -51,8 +50,7 @@
 			"search/",
 			"srv/",
 			"util/",
-			"tests/",
-			"views/"
+			"tests/"
 		]
 	},
     "config": {

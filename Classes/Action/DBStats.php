@@ -1,4 +1,10 @@
 <?php
+
+namespace System25\T3sports\Action;
+
+use Sys25\RnBase\Frontend\Controller\AbstractAction;
+use Sys25\RnBase\Frontend\Request\RequestInterface;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -21,32 +27,31 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-tx_rnbase::load('tx_rnbase_action_BaseIOC');
-tx_rnbase::load('Tx_Rnbase_Utility_Strings');
-tx_rnbase::load('Tx_Rnbase_Database_Connection');
 
 /**
  * Controller.
  */
-class tx_t3sportstats_actions_DBStats extends tx_rnbase_action_BaseIOC
+class DBStats extends AbstractAction
 {
     /**
-     * @param array_object $parameters
-     * @param tx_rnbase_configurations $configurations
-     * @param array $viewData
+     * @param RequestInterface $request
      *
      * @return string error msg or null
      */
-    public function handleRequest(&$parameters, &$configurations, &$viewData)
+    protected function handleRequest(RequestInterface $request)
     {
+        $parameters = $request->getParameters();
+        $configurations = $request->getConfigurations();
+        $viewData = $request->getViewContext();
+
         // Zuerst die Art der Statistik ermitteln
-        $tables = Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($this->getConfId().'tables'), 1);
+        $tables = \Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($this->getConfId().'tables'), 1);
         if (!count($tables)) {
             // Abbruch kein Typ angegeben
-            throw new Exception('No database table configured in: '.$this->getConfId().'tables');
+            throw new \Exception('No database table configured in: '.$this->getConfId().'tables');
         }
 
-        $statsData = array();
+        $statsData = [];
         foreach ($tables as $table) {
             $statsData[$table] = $this->findData($parameters, $configurations, $viewData, $table);
         }
@@ -58,26 +63,26 @@ class tx_t3sportstats_actions_DBStats extends tx_rnbase_action_BaseIOC
     private function findData($parameters, $configurations, $viewData, $table)
     {
         // SELECT count(*) FROM table
-        $options = array();
+        $options = [];
         $debug = $configurations->get($this->getConfId().'options.debug');
         if ($debug) {
             $options['debug'] = 1;
         }
 
-        $res = Tx_Rnbase_Database_Connection::getInstance()->doSelect('count(*) AS cnt', $table, $options);
+        $res = \Tx_Rnbase_Database_Connection::getInstance()->doSelect('count(*) AS cnt', $table, $options);
 
         $items['size'] = $res[0]['cnt'];
 
         return $items;
     }
 
-    public function getTemplateName()
+    protected function getTemplateName()
     {
         return 'dbstats';
     }
 
-    public function getViewClassName()
+    protected function getViewClassName()
     {
-        return 'tx_t3sportstats_views_DBStats';
+        return \System25\T3sports\View\DBStats::class;
     }
 }

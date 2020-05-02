@@ -18,3 +18,10 @@ class tx_t3sportstats_actions_RefereeStats extends System25\T3sports\Action\Refe
 class tx_t3sportstats_views_RefereeStats extends System25\T3sports\View\RefereeStats
 {
 }
+class tx_t3sportstats_actions_DBStats extends System25\T3sports\Action\DBStats
+{
+}
+class tx_t3sportstats_views_DBStats extends System25\T3sports\View\DBStats
+{
+}
+
