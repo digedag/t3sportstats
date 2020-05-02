@@ -1,8 +1,11 @@
 <?php
+
+namespace System25\T3sports\Hooks;
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2017 Rene Nitzsche
+ *  (c) 2010-2020 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -20,29 +23,28 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
-tx_rnbase::load('Tx_Rnbase_Utility_Strings');
 
 /**
  * Make additional fields for match filter.
  *
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_hooks_Filter
+class Filter
 {
-    private static $tableData = array(
-        'player' => array(
+    private static $tableData = [
+        'player' => [
             'tableAlias' => 'PLAYERSTAT',
             'colName' => 'player',
-        ),
-        'coach' => array(
+        ],
+        'coach' => [
             'tableAlias' => 'COACHSTAT',
             'colName' => 'coach',
-        ),
-        'referee' => array(
+        ],
+        'referee' => [
             'tableAlias' => 'REFEREESTAT',
             'colName' => 'referee',
-        ),
-    );
+        ],
+    ];
 
     public function handleMatchFilter($params, $parent)
     {
@@ -92,7 +94,7 @@ class tx_t3sportstats_hooks_Filter
         if (!$cols) {
             return;
         }
-        $cols = array_flip(Tx_Rnbase_Utility_Strings::trimExplode(',', $cols));
+        $cols = array_flip(\Tx_Rnbase_Utility_Strings::trimExplode(',', $cols));
 
         if ($statsKey && array_key_exists(strtolower($statsKey), $cols)) {
             $fields[self::$tableData[$profileType]['tableAlias'].'.'.strtoupper($statsKey)][OP_GT_INT] = 0;
@@ -102,7 +104,7 @@ class tx_t3sportstats_hooks_Filter
 
         // Ziel ist ein JOIN auf die playerstats, für den aktuellen Spieler und die aktuellen
         // fields der stats
-        tx_rnbase_util_SearchBase::setConfigFields($fields, $configurations, $confId.'fields.');
+        \tx_rnbase_util_SearchBase::setConfigFields($fields, $configurations, $confId.'fields.');
         $fields[self::$tableData[$profileType]['tableAlias'].'.'.self::$tableData[$profileType]['colName']][OP_EQ_INT] = $profile;
         $parent->addFilterData($profileType, $profile);
     }

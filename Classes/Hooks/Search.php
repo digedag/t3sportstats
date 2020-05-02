@@ -1,9 +1,11 @@
 <?php
 
+namespace System25\T3sports\Hooks;
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2017 Rene Nitzsche
+ *  (c) 2010-2020 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -27,7 +29,7 @@
  *
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_hooks_Search
+class Search
 {
     public function getTableMappingMatch($params, $parent)
     {
