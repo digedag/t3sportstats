@@ -1,8 +1,14 @@
 <?php
+
+namespace System25\T3sports\Action;
+
+use Sys25\RnBase\Frontend\Controller\AbstractAction;
+use Sys25\RnBase\Frontend\Request\RequestInterface;
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2017 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -21,40 +27,38 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-tx_rnbase::load('tx_rnbase_action_BaseIOC');
-tx_rnbase::load('tx_rnbase_filter_BaseFilter');
-tx_rnbase::load('Tx_Rnbase_Utility_Strings');
 
 /**
- * Controller für Suchformular für Dokumenten.
+ * Controller.
  */
-class tx_t3sportstats_actions_RefereeStats extends tx_rnbase_action_BaseIOC
+class CoachStats extends AbstractAction
 {
     /**
-     * @param array_object $parameters
-     * @param tx_rnbase_configurations $configurations
-     * @param array $viewData
+     * @param RequestInterface $request
      *
      * @return string error msg or null
      */
-    public function handleRequest(&$parameters, &$configurations, &$viewData)
+    protected function handleRequest(RequestInterface $request)
     {
+        $parameters = $request->getParameters();
+        $configurations = $request->getConfigurations();
+        $viewData = $request->getViewContext();
+
         // Zuerst die Art der Statistik ermitteln
-        $types = Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($this->getConfId().'statisticTypes'), 1);
+        $types = \Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($this->getConfId().'statisticTypes'), 1);
         if (!count($types)) {
             // Abbruch kein Typ angegeben
-            throw new Exception('No statistics type configured in: '.$this->getConfId().'statisticTypes');
+            throw new \Exception('No statistics type configured in: '.$this->getConfId().'statisticTypes');
         }
 
-        $statsData = array();
+        $statsData = [];
         foreach ($types as $type) {
             $statsData[$type] = $this->findData($parameters, $configurations, $viewData, $type);
         }
         $viewData->offsetSet('items', $statsData);
         $teamId = $configurations->get($this->getConfId().'highlightTeam');
         if ($teamId) {
-            tx_rnbase::load('tx_cfcleague_models_Team');
-            $team = tx_cfcleague_models_Team::getInstance($teamId);
+            $team = \tx_cfcleague_models_Team::getInstance($teamId);
             if (is_object($team) && $team->isValid()) {
                 $viewData->offsetSet('team', $team);
             }
@@ -65,14 +69,14 @@ class tx_t3sportstats_actions_RefereeStats extends tx_rnbase_action_BaseIOC
 
     private function findData($parameters, $configurations, $viewData, $type)
     {
-        $srv = tx_t3sportstats_util_ServiceRegistry::getStatisticService();
+        $srv = \tx_t3sportstats_util_ServiceRegistry::getStatisticService();
         $confId = $this->getConfId().$type.'.';
-        $filter = tx_rnbase_filter_BaseFilter::createFilter($parameters, $configurations, $viewData, $confId);
+        $filter = \tx_rnbase_filter_BaseFilter::createFilter($parameters, $configurations, $viewData, $confId);
 
-        $fields = array();
-        $options = array(
+        $fields = [];
+        $options = [
             'enablefieldsoff' => 1,
-        );
+        ];
         $filter->init($fields, $options);
         $debug = $configurations->get($this->getConfId().'options.debug');
         if ($debug) {
@@ -80,14 +84,14 @@ class tx_t3sportstats_actions_RefereeStats extends tx_rnbase_action_BaseIOC
         }
 
         self::handlePageBrowser($configurations, $confId.'data.pagebrowser', $viewData, $fields, $options, array(
-            'searchcallback' => array(
+            'searchcallback' => [
                 $srv,
-                'searchRefereeStats',
-            ),
+                'searchCoachStats',
+            ],
             'pbid' => $type.'ps',
         ));
 
-        $items = $srv->searchRefereeStats($fields, $options);
+        $items = $srv->searchCoachStats($fields, $options);
 
         return $items;
     }
@@ -98,12 +102,12 @@ class tx_t3sportstats_actions_RefereeStats extends tx_rnbase_action_BaseIOC
      *
      * @param string $confid
      *            Die Confid des PageBrowsers. z.B. myview.org.pagebrowser ohne Punkt!
-     * @param tx_rnbase_configurations $configurations
-     * @param array_object $viewdata
+     * @param \tx_rnbase_configurations $configurations
+     * @param \ArrayObject $viewdata
      * @param array $fields
      * @param array $options
      */
-    private static function handlePageBrowser(&$configurations, $confid, &$viewdata, &$fields, &$options, $cfg = array())
+    private static function handlePageBrowser($configurations, $confid, &$viewdata, &$fields, &$options, $cfg = array())
     {
         $confid .= '.';
         if (is_array($configurations->get($confid))) {
@@ -113,10 +117,10 @@ class tx_t3sportstats_actions_RefereeStats extends tx_rnbase_action_BaseIOC
                 // Mit Pagebrowser benötigen wir zwei Zugriffe, um die Gesamtanzahl der Items zu ermitteln
                 $options['count'] = 1;
                 $oldWhat = $options['what'];
-                $options['what'] = 'count(DISTINCT referee) AS cnt';
+                $options['what'] = 'count(DISTINCT coach) AS cnt';
                 $searchCallback = $cfg['searchcallback'];
                 if (!$searchCallback) {
-                    throw new Exception('No search callback defined!');
+                    throw new \Exception('No search callback defined!');
                 }
                 $listSize = call_user_func($searchCallback, $fields, $options);
                 // $listSize = $service->search($fields, $options);
@@ -125,8 +129,8 @@ class tx_t3sportstats_actions_RefereeStats extends tx_rnbase_action_BaseIOC
             }
             // PageBrowser initialisieren
             $pbId = $cfg['pbid'] ? $cfg['pbid'] : 'pb';
-            $pageBrowser = tx_rnbase::makeInstance('tx_rnbase_util_PageBrowser', $pbId);
-            $pageSize = intval($configurations->get($confid.'limit'));
+            $pageBrowser = \tx_rnbase::makeInstance('tx_rnbase_util_PageBrowser', $pbId);
+            $pageSize = $configurations->getInt($confid.'limit');
 
             $pageBrowser->setState($configurations->getParameters(), $listSize, $pageSize);
             $limit = $pageBrowser->getState();
@@ -139,11 +143,11 @@ class tx_t3sportstats_actions_RefereeStats extends tx_rnbase_action_BaseIOC
 
     public function getTemplateName()
     {
-        return 'refereestats';
+        return 'coachstats';
     }
 
     public function getViewClassName()
     {
-        return 'tx_t3sportstats_views_RefereeStats';
+        return \System25\T3sports\View\CoachStats::class;
     }
 }

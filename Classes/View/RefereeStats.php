@@ -1,8 +1,15 @@
 <?php
+
+namespace System25\T3sports\View;
+
+use Sys25\RnBase\Frontend\View\Marker\BaseView;
+use Sys25\RnBase\Frontend\Request\RequestInterface;
+use Sys25\RnBase\Frontend\View\ContextInterface;
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2018 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -21,23 +28,23 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-tx_rnbase::load('tx_rnbase_view_Base');
-tx_rnbase::load('tx_rnbase_util_Templates');
 
 /**
  * Viewklasse für die Darstellung von Nutzerinformationen aus der DB.
  */
-class tx_t3sportstats_views_RefereeStats extends tx_rnbase_view_Base
+class RefereeStats extends BaseView
 {
-    public function createOutput($template, &$viewData, &$configurations, &$formatter)
+    protected function createOutput($template, RequestInterface $request, $formatter)
     {
+        $viewData = $request->getViewContext();
+        
         $items = &$viewData->offsetGet('items');
-        $listBuilder = tx_rnbase::makeInstance('tx_rnbase_util_ListBuilder');
+        $listBuilder = \tx_rnbase::makeInstance('tx_rnbase_util_ListBuilder');
 
         $out = '';
         foreach ($items as $type => $data) {
-            $subTemplate = tx_rnbase_util_Templates::getSubpart($template, '###'.strtoupper($type).'###');
-            $out .= $listBuilder->render($data, $viewData, $subTemplate, 'tx_t3sportstats_marker_RefereeStats', $this->getController()
+            $subTemplate = \tx_rnbase_util_Templates::getSubpart($template, '###'.strtoupper($type).'###');
+            $out .= $listBuilder->render($data, $viewData, $subTemplate, 'tx_t3sportstats_marker_RefereeStats', $request
                 ->getConfId().$type.'.data.', 'DATA', $formatter);
         }
 
@@ -51,7 +58,7 @@ class tx_t3sportstats_views_RefereeStats extends tx_rnbase_view_Base
      *
      * @return string
      */
-    public function getMainSubpart(&$viewData)
+    protected function getMainSubpart(ContextInterface $viewData)
     {
         return '###REFEREESTATS###';
     }

@@ -36,7 +36,7 @@ class PlayerStats extends BaseView
 {
     private $playerIds = [];
 
-    public function createOutput($template, RequestInterface $request, $formatter)
+    protected function createOutput($template, RequestInterface $request, $formatter)
     {
         $configurations = $request->getConfigurations();
         $viewData = $request->getViewContext();
@@ -60,14 +60,14 @@ class PlayerStats extends BaseView
             }
 
             $subTemplate = \tx_rnbase_util_Templates::getSubpart($template, '###'.strtoupper($type).'###');
-            $out .= $listBuilder->render($data, $viewData, $subTemplate, $markerClass, $this->getController()
+            $out .= $listBuilder->render($data, $viewData, $subTemplate, $markerClass, $request
                 ->getConfId().$type.'.data.', 'DATA', $formatter);
         }
 
         return $out;
     }
 
-    public function highlightPlayer($item)
+    protected function highlightPlayer($item)
     {
         if (array_key_exists($item->getProperty('player'), $this->playerIds)) {
             $item->setProperty('hlTeam', 1);
@@ -81,7 +81,7 @@ class PlayerStats extends BaseView
      *
      * @return string
      */
-    public function getMainSubpart(ContextInterface $viewData)
+    protected function getMainSubpart(ContextInterface $viewData)
     {
         return '###PLAYERSTATS###';
     }
