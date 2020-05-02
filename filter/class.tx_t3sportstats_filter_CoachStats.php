@@ -26,15 +26,14 @@ tx_rnbase::load('tx_cfcleaguefe_util_ScopeController');
 tx_rnbase::load('Tx_Rnbase_Utility_Strings');
 
 /**
- * Default filter for coach statistics
+ * Default filter for coach statistics.
  *
  * @author Rene Nitzsche
  */
 class tx_t3sportstats_filter_CoachStats extends tx_rnbase_filter_BaseFilter
 {
-
     /**
-     * Abgeleitete Filter können diese Methode überschreiben und zusätzliche Filter setzen
+     * Abgeleitete Filter können diese Methode überschreiben und zusätzliche Filter setzen.
      *
      * @param array $fields
      * @param array $options
@@ -46,15 +45,15 @@ class tx_t3sportstats_filter_CoachStats extends tx_rnbase_filter_BaseFilter
     {
         // $options['distinct'] = 1;
         // Wir benötigen zuerst die Spalten für WHAT
-        $cols = Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($confId . 'columns'));
+        $cols = Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($confId.'columns'));
         $columns = array();
         foreach ($cols as $col) {
             if ($col) {
-                $columns[] = 'sum(' . $col . ') AS ' . $col;
+                $columns[] = 'sum('.$col.') AS '.$col;
             }
         }
         if (count($columns)) {
-            $options['what'] .= ',' . implode(', ', $columns);
+            $options['what'] .= ','.implode(', ', $columns);
         }
         $scopeArr = tx_cfcleaguefe_util_ScopeController::handleCurrentScope($parameters, $configurations);
         tx_t3sportstats_search_Builder::buildCoachStatsByScope($fields, $scopeArr);

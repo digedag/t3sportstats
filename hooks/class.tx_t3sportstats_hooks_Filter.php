@@ -23,26 +23,25 @@
 tx_rnbase::load('Tx_Rnbase_Utility_Strings');
 
 /**
- * Make additional fields for match filter
+ * Make additional fields for match filter.
  *
  * @author Rene Nitzsche
  */
 class tx_t3sportstats_hooks_Filter
 {
-
     private static $tableData = array(
         'player' => array(
             'tableAlias' => 'PLAYERSTAT',
-            'colName' => 'player'
+            'colName' => 'player',
         ),
         'coach' => array(
             'tableAlias' => 'COACHSTAT',
-            'colName' => 'coach'
+            'colName' => 'coach',
         ),
         'referee' => array(
             'tableAlias' => 'REFEREESTAT',
-            'colName' => 'referee'
-        )
+            'colName' => 'referee',
+        ),
     );
 
     public function handleMatchFilter($params, $parent)
@@ -52,52 +51,59 @@ class tx_t3sportstats_hooks_Filter
 
         $parameters = $configurations->getParameters();
         $statsType = $parameters->get('statstype');
-        if (! $statsType) // Ist was per TS konfiguriert
-            $statsType = $configurations->get($confId . 'filter.statsType');
-        if (! $statsType)
+        if (!$statsType) { // Ist was per TS konfiguriert
+            $statsType = $configurations->get($confId.'filter.statsType');
+        }
+        if (!$statsType) {
             return;
+        }
 
         $statsKey = $parameters->get('statskey');
-        if (! $statsKey) // Ist was per TS konfiguriert
-            $statsKey = $configurations->get($confId . 'filter.statsKey');
+        if (!$statsKey) { // Ist was per TS konfiguriert
+            $statsKey = $configurations->get($confId.'filter.statsKey');
+        }
 
         $profileType = 'player';
         $profile = $parameters->getInt($profileType);
-        if (! $profile) {
+        if (!$profile) {
             $profileType = 'coach';
             $profile = $parameters->getInt($profileType);
         }
-        if (! $profile) {
+        if (!$profile) {
             $profileType = 'referee';
             $profile = $parameters->getInt($profileType);
         }
-        if (! $profile) { // Ist was per TS konfiguriert
-            $profileType = $configurations->get($confId . 'filter.profileType');
-            $profileParam = $configurations->get($confId . 'filter.profileParam');
-            if ($profileType && $profileParam)
+        if (!$profile) { // Ist was per TS konfiguriert
+            $profileType = $configurations->get($confId.'filter.profileType');
+            $profileParam = $configurations->get($confId.'filter.profileParam');
+            if ($profileType && $profileParam) {
                 $profile = $parameters->getInt($profileParam);
+            }
         }
 
-        if (! $profile)
+        if (!$profile) {
             return;
+        }
 
-        $fields = & $params['fields'];
-        $confId .= 'filter.stats.' . $statsType . '.';
+        $fields = &$params['fields'];
+        $confId .= 'filter.stats.'.$statsType.'.';
 
-        $cols = $configurations->get($confId . 'columns');
-        if (! $cols)
+        $cols = $configurations->get($confId.'columns');
+        if (!$cols) {
             return;
+        }
         $cols = array_flip(Tx_Rnbase_Utility_Strings::trimExplode(',', $cols));
 
         if ($statsKey && array_key_exists(strtolower($statsKey), $cols)) {
-            $fields[self::$tableData[$profileType]['tableAlias'] . '.' . strtoupper($statsKey)][OP_GT_INT] = 0;
-        } else
+            $fields[self::$tableData[$profileType]['tableAlias'].'.'.strtoupper($statsKey)][OP_GT_INT] = 0;
+        } else {
             return;
+        }
 
         // Ziel ist ein JOIN auf die playerstats, für den aktuellen Spieler und die aktuellen
         // fields der stats
-        tx_rnbase_util_SearchBase::setConfigFields($fields, $configurations, $confId . 'fields.');
-        $fields[self::$tableData[$profileType]['tableAlias'] . '.' . self::$tableData[$profileType]['colName']][OP_EQ_INT] = $profile;
+        tx_rnbase_util_SearchBase::setConfigFields($fields, $configurations, $confId.'fields.');
+        $fields[self::$tableData[$profileType]['tableAlias'].'.'.self::$tableData[$profileType]['colName']][OP_EQ_INT] = $profile;
         $parent->addFilterData($profileType, $profile);
     }
 }

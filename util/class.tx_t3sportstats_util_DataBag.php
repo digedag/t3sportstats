@@ -22,38 +22,51 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
 /**
- * Data container
+ * Data container.
  */
-class tx_t3sportstats_util_DataBag {
-	private $data = array();
+class tx_t3sportstats_util_DataBag
+{
+    private $data = array();
 
-	public function setParentUid($uid) {
-		$this->parent = $uid;
-	}
-	public function getParentUid() {
-		return $this->parent;
-	}
-	public function addType($type, $value) {
-		$this->data[$type] = intval($this->data[$type]) + $value;
-	}
-	public function setType($type, $value) {
-		$this->data[$type] = $value;
-	}
-	public function getTypeValue($type) {
-		return intval($this->data[$type]);
-	}
-	public function getTypeValues() {
-		return $this->data;
-	}
-	function __toString() {
-		$out = "\n\nData:\n";
-		while (list($key,$val)=each($this->data))	{
-			$out .= $key. ' = ' . $val . "\n";
-		}
-		reset($this->data);
-		return $out;
-	}
+    public function setParentUid($uid)
+    {
+        $this->parent = $uid;
+    }
+
+    public function getParentUid()
+    {
+        return $this->parent;
+    }
+
+    public function addType($type, $value)
+    {
+        $this->data[$type] = intval($this->data[$type]) + $value;
+    }
+
+    public function setType($type, $value)
+    {
+        $this->data[$type] = $value;
+    }
+
+    public function getTypeValue($type)
+    {
+        return intval($this->data[$type]);
+    }
+
+    public function getTypeValues()
+    {
+        return $this->data;
+    }
+
+    public function __toString()
+    {
+        $out = "\n\nData:\n";
+        while (list($key, $val) = each($this->data)) {
+            $out .= $key.' = '.$val."\n";
+        }
+        reset($this->data);
+
+        return $out;
+    }
 }
-

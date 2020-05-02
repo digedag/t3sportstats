@@ -25,23 +25,22 @@ tx_rnbase::load('tx_rnbase_util_BaseMarker');
 tx_rnbase::load('tx_cfcleague_models_Profile');
 
 /**
- * Diese Klasse ist für die Erstellung von Markerarrays verantwortlich
+ * Diese Klasse ist für die Erstellung von Markerarrays verantwortlich.
  */
 class tx_t3sportstats_marker_RefereeStats extends tx_rnbase_util_BaseMarker
 {
-
     /**
-     *
      * @param $template das HTML-Template
      * @param tx_t3sportstats_models_RefereeStat $item
      * @param tx_rnbase_util_FormatUtil $formatter der zu verwendente Formatter
      * @param $confId Pfad der TS-Config des Spiels, z.B. 'listView.match.'
      * @param $marker Name des Markers für ein Spiel, z.B. MATCH
-     * @return String das geparste Template
+     *
+     * @return string das geparste Template
      */
     public function parseTemplate($template, $item, &$formatter, $confId, $marker = 'MATCH')
     {
-        if (! is_object($item)) {
+        if (!is_object($item)) {
             return $formatter->getConfigurations()->getLL('item_notFound');
         }
         $this->prepareFields($item, $template, $marker);
@@ -50,20 +49,21 @@ class tx_t3sportstats_marker_RefereeStats extends tx_rnbase_util_BaseMarker
             'template' => &$template,
             'confid' => $confId,
             'marker' => $marker,
-            'formatter' => $formatter
+            'formatter' => $formatter,
         ), $this);
 
         // Das Markerarray wird gefüllt
         $ignore = self::findUnusedCols($item->getProperty(), $template, $marker);
-        $markerArray = $formatter->getItemMarkerArrayWrapped($item->getProperty(), $confId, $ignore, $marker . '_');
+        $markerArray = $formatter->getItemMarkerArrayWrapped($item->getProperty(), $confId, $ignore, $marker.'_');
         $wrappedSubpartArray = array();
         $subpartArray = array();
 
         $this->prepareLinks($item, $marker, $markerArray, $subpartArray, $wrappedSubpartArray, $confId, $formatter, $template);
         // Es wird jetzt das Template verändert und die Daten der Teams eingetragen
 
-        if ($this->containsMarker($template, $marker . '_REFEREE_'))
-            $template = $this->addReferee($template, $item, $formatter, $confId . 'referee.', $marker . '_REFEREE');
+        if ($this->containsMarker($template, $marker.'_REFEREE_')) {
+            $template = $this->addReferee($template, $item, $formatter, $confId.'referee.', $marker.'_REFEREE');
+        }
 
         $template = tx_rnbase_util_Templates::substituteMarkerArrayCached($template, $markerArray, $subpartArray, $wrappedSubpartArray);
         tx_rnbase_util_Misc::callHook('t3sportstats', 'refereeStatsMarker_afterSubst', array(
@@ -71,31 +71,35 @@ class tx_t3sportstats_marker_RefereeStats extends tx_rnbase_util_BaseMarker
             'template' => &$template,
             'confid' => $confId,
             'marker' => $marker,
-            'formatter' => $formatter
+            'formatter' => $formatter,
         ), $this);
+
         return $template;
     }
 
     /**
-     * Bindet den Spieler ein
+     * Bindet den Spieler ein.
      *
      * @param string $template
      * @param tx_t3sportstats_models_RefereeStat $item
      * @param tx_rnbase_util_FormatUtil $formatter
      * @param string $confId
      * @param string $markerPrefix
+     *
      * @return string
      */
     protected function addReferee($template, $item, &$formatter, $confId, $markerPrefix)
     {
         $sub = $item->getRefereeUid();
-        if (! $sub) {
+        if (!$sub) {
             // Kein Stadium vorhanden. Leere Instanz anlegen und altname setzen
             $sub = tx_rnbase_util_BaseMarker::getEmptyInstance('tx_cfcleague_models_Profile');
-        } else
+        } else {
             $sub = tx_cfcleague_models_Profile::getProfileInstance($sub);
+        }
         $marker = tx_rnbase::makeInstance('tx_cfcleaguefe_util_ProfileMarker');
         $template = $marker->parseTemplate($template, $sub, $formatter, $confId, $markerPrefix);
+
         return $template;
     }
 
@@ -112,18 +116,18 @@ class tx_t3sportstats_marker_RefereeStats extends tx_rnbase_util_BaseMarker
     {
         $perMatch = array();
         foreach ($item->getProperty() as $key => $value) {
-            if (self::containsMarker($template, $markerPrefix . '_' . strtoupper($key) . '_PER_MATCH')) {
-                $perMatch[$key . '_per_match'] = intval($item->getProperty('played')) ? intval($item->getProperty($key)) / intval($item->getProperty('played')) : 0;
+            if (self::containsMarker($template, $markerPrefix.'_'.strtoupper($key).'_PER_MATCH')) {
+                $perMatch[$key.'_per_match'] = intval($item->getProperty('played')) ? intval($item->getProperty($key)) / intval($item->getProperty('played')) : 0;
             }
-            if (self::containsMarker($template, $markerPrefix . '_' . strtoupper($key) . '_AFTER_MINUTES')) {
-                $perMatch[$key . '_after_minutes'] = (intval($item->getProperty($key))) ? intval($item->getProperty('playtime')) / intval($item->getProperty($key)) : 0;
+            if (self::containsMarker($template, $markerPrefix.'_'.strtoupper($key).'_AFTER_MINUTES')) {
+                $perMatch[$key.'_after_minutes'] = (intval($item->getProperty($key))) ? intval($item->getProperty('playtime')) / intval($item->getProperty($key)) : 0;
             }
         }
         $item->setProperty(array_merge($item->getProperty(), $perMatch));
     }
 
     /**
-     * Links vorbereiten
+     * Links vorbereiten.
      *
      * @param tx_t3sportstats_models_RefereeStat $item
      * @param string $marker
@@ -135,18 +139,18 @@ class tx_t3sportstats_marker_RefereeStats extends tx_rnbase_util_BaseMarker
     private function prepareLinks($item, $marker, &$markerArray, &$subpartArray, &$wrappedSubpartArray, $confId, &$formatter, $template)
     {
         // Verlinkung auf Spielplan mit den Spielen der aktuellen Auswertung
-        $linkNames = $formatter->getConfigurations()->getKeyNames($confId . 'links.');
+        $linkNames = $formatter->getConfigurations()->getKeyNames($confId.'links.');
         foreach ($linkNames as $linkId) {
             if ($item->getProperty($linkId)) {
                 // Link nur bei Wert größer 0 ausführen, damit keine leere Liste verlinkt wird.
                 $params = array(
                     'statskey' => $linkId,
-                    'referee' => $item->getProperty('referee')
+                    'referee' => $item->getProperty('referee'),
                 );
                 $this->initLink($markerArray, $subpartArray, $wrappedSubpartArray, $formatter, $confId, $linkId, $marker, $params, $template);
             } else {
-                $linkMarker = $marker . '_' . strtoupper($linkId) . 'LINK';
-                $remove = intval($formatter->getConfigurations()->get($confId . 'links.' . $linkId . '.removeIfDisabled'));
+                $linkMarker = $marker.'_'.strtoupper($linkId).'LINK';
+                $remove = intval($formatter->getConfigurations()->get($confId.'links.'.$linkId.'.removeIfDisabled'));
                 $this->disableLink($markerArray, $subpartArray, $wrappedSubpartArray, $linkMarker, $remove > 0);
             }
         }

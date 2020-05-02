@@ -27,44 +27,55 @@ tx_rnbase::load('Tx_Rnbase_Domain_Model_Base');
 /**
  * Model for a player stats record.
  */
-class tx_t3sportstats_models_PlayerStat extends Tx_Rnbase_Domain_Model_Base {
+class tx_t3sportstats_models_PlayerStat extends Tx_Rnbase_Domain_Model_Base
+{
+    public function getTableName()
+    {
+        return 'tx_t3sportstats_players';
+    }
 
-	public function getTableName(){return 'tx_t3sportstats_players';}
+    /**
+     * Returns the competition uid.
+     *
+     * @return int
+     */
+    public function getCompetitionUid()
+    {
+        return $this->getProperty('competition');
+    }
 
-	/**
-	 * Returns the competition uid
-	 *
-	 * @return int
-	 */
-	public function getCompetitionUid() {
-		return $this->getProperty('competition');
-	}
-	public function getMatchUid() {
-		return $this->getProperty('t3match');
-	}
-	/**
-	 * Returns the club
-	 *
-	 * @return int
-	 */
-	public function getClubUid() {
-		return $this->getProperty('club');
-	}
-	/**
-	 * Returns the opponent club uid.
-	 *
-	 * @return int
-	 */
-	public function getClubOppUid() {
-		return $this->getProperty('clubopp');
-	}
-	/**
-	 * Returns the player uid.
-	 *
-	 * @return int
-	 */
-	public function getPlayerUid() {
-		return $this->getProperty('player');
-	}
+    public function getMatchUid()
+    {
+        return $this->getProperty('t3match');
+    }
+
+    /**
+     * Returns the club.
+     *
+     * @return int
+     */
+    public function getClubUid()
+    {
+        return $this->getProperty('club');
+    }
+
+    /**
+     * Returns the opponent club uid.
+     *
+     * @return int
+     */
+    public function getClubOppUid()
+    {
+        return $this->getProperty('clubopp');
+    }
+
+    /**
+     * Returns the player uid.
+     *
+     * @return int
+     */
+    public function getPlayerUid()
+    {
+        return $this->getProperty('player');
+    }
 }
-

@@ -23,13 +23,12 @@
  ***************************************************************/
 
 /**
- * Make additional join for match search
+ * Make additional join for match search.
  *
  * @author Rene Nitzsche
  */
 class tx_t3sportstats_hooks_Search
 {
-
     public function getTableMappingMatch($params, $parent)
     {
         $params['tableMapping']['PLAYERSTAT'] = 'tx_t3sportstats_players';

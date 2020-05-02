@@ -33,21 +33,20 @@ tx_rnbase::load('Tx_Rnbase_Utility_Strings');
  */
 class tx_t3sportstats_srv_RefereeStats extends Tx_Rnbase_Service_Base
 {
-
     private $types = array();
 
     /**
-     * Update statistics for a referee
+     * Update statistics for a referee.
      *
      * @param tx_t3sportstats_util_DataBag $dataBag
      * @param tx_cfcleague_models_Match $match
      * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
-     * @param boolean $isHome
+     * @param bool $isHome
      */
     public function indexRefereeStats($dataBag, $match, $mnProv, $isHome)
     {
         // Wir betrachten das Spiel für einen bestimmten SR
-        if (! $this->isAssist($dataBag)) {
+        if (!$this->isAssist($dataBag)) {
             // Diese Daten sind für die SRA nicht relevant
             $this->indexSimple($dataBag, $mnProv, $isHome);
             $this->indexPenalties($dataBag, $match, $isHome, $mnProv);
@@ -57,10 +56,9 @@ class tx_t3sportstats_srv_RefereeStats extends Tx_Rnbase_Service_Base
     }
 
     /**
-     *
      * @param tx_t3sportstats_util_DataBag $dataBag
      * @param tx_cfcleague_models_Match $match
-     * @param boolean $isHome
+     * @param bool $isHome
      * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
      */
     private function indexPenalties($dataBag, $match, $isHome, $mnProv)
@@ -73,10 +71,9 @@ class tx_t3sportstats_srv_RefereeStats extends Tx_Rnbase_Service_Base
     }
 
     /**
-     *
      * @param tx_t3sportstats_util_DataBag $dataBag
      * @param tx_cfcleague_models_Match $match
-     * @param boolean $isHome
+     * @param bool $isHome
      * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
      */
     private function indexOwnAgainst($baseType, $dataBag, $match, $isHome, $mnProv)
@@ -89,46 +86,41 @@ class tx_t3sportstats_srv_RefereeStats extends Tx_Rnbase_Service_Base
             if ($this->isType($note->getType(), $noteTypes)) {
                 if ($note->isHome()) {
                     $key = $isHome ? 'own' : 'against';
-                }
-                else {
+                } else {
                     $key = $isHome ? 'against' : 'own';
                 }
-                $dataBag->addType($baseType . $key, 1);
+                $dataBag->addType($baseType.$key, 1);
             }
         }
     }
 
     /**
-     *
      * @param tx_t3sportstats_util_DataBag $dataBag
      * @param tx_cfcleague_models_Match $match
-     * @param boolean $isHome
+     * @param bool $isHome
      */
     private function indexWinLoose($dataBag, $match, $isHome)
     {
         $dataBag->setType('played', 1);
         $toto = $match->getToto();
         $type = 'draw';
-        if ($toto == 1 && $isHome || $toto == 2 && ! $isHome) {
+        if (1 == $toto && $isHome || 2 == $toto && !$isHome) {
             $type = 'win';
-        }
-        elseif ($toto == 2 && $isHome || $toto == 1 && ! $isHome) {
+        } elseif (2 == $toto && $isHome || 1 == $toto && !$isHome) {
             $type = 'loose';
         }
         $dataBag->addType($type, 1);
     }
 
     /**
-     *
      * @param tx_t3sportstats_util_DataBag $dataBag
      */
     private function isAssist($dataBag)
     {
-        return (intval($dataBag->getTypeValue('assist')) > 0);
+        return intval($dataBag->getTypeValue('assist')) > 0;
     }
 
     /**
-     *
      * @param tx_t3sportstats_util_DataBag $dataBag
      * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
      */
@@ -138,7 +130,7 @@ class tx_t3sportstats_srv_RefereeStats extends Tx_Rnbase_Service_Base
         // $notes = $isHome ? $mnProv->getMatchNotesHome() : $mnProv->getMatchNotesGuest();
         $notes = $mnProv->getMatchNotes();
 
-        if (! $notes || count($notes) == 0) {
+        if (!$notes || 0 == count($notes)) {
             return;
         }
         $statTypes = tx_t3sportstats_util_Config::getRefereeStatsSimple();
@@ -154,10 +146,11 @@ class tx_t3sportstats_srv_RefereeStats extends Tx_Rnbase_Service_Base
 
     private function isType($type, $typeList)
     {
-        if (! array_key_exists($typeList, $this->types)) {
+        if (!array_key_exists($typeList, $this->types)) {
             $this->types[$typeList] = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',', $typeList));
         }
         $types = $this->types[$typeList];
+
         return array_key_exists($type, $types);
     }
 }

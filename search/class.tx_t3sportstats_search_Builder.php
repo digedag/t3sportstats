@@ -23,18 +23,19 @@
 tx_rnbase::load('tx_rnbase_util_SearchBase');
 
 /**
- * Mit dem Builder werden haufig auftretende Suchanfragen zusammengebaut
+ * Mit dem Builder werden haufig auftretende Suchanfragen zusammengebaut.
  *
  * @author Rene Nitzsche
  */
 class tx_t3sportstats_search_Builder
 {
     /**
-     * Search for player statistics by scope
+     * Search for player statistics by scope.
      *
      * @param array $fields
      * @param string $scope
      *            Scope Array
+     *
      * @return true
      */
     public static function buildPlayerStatsByScope(&$fields, $scope)
@@ -44,15 +45,17 @@ class tx_t3sportstats_search_Builder
         $result = self::setField($fields, 'PLAYERSTAT.AGEGROUP', OP_IN_INT, $scope['GROUP_UIDS']) || $result;
         $result = self::setField($fields, 'PLAYERSTAT.COMPETITION', OP_IN_INT, $scope['COMP_UIDS']) || $result;
         $result = self::setField($fields, 'PLAYERSTAT.CLUB', OP_IN_INT, $scope['CLUB_UIDS']) || $result;
+
         return true;
     }
 
     /**
-     * Search for coach statistics by scope
+     * Search for coach statistics by scope.
      *
      * @param array $fields
      * @param string $scope
      *            Scope Array
+     *
      * @return true
      */
     public static function buildCoachStatsByScope(&$fields, $scope)
@@ -62,15 +65,17 @@ class tx_t3sportstats_search_Builder
         $result = self::setField($fields, 'COACHSTAT.AGEGROUP', OP_IN_INT, $scope['GROUP_UIDS']) || $result;
         $result = self::setField($fields, 'COACHSTAT.COMPETITION', OP_IN_INT, $scope['COMP_UIDS']) || $result;
         $result = self::setField($fields, 'COACHSTAT.CLUB', OP_IN_INT, $scope['CLUB_UIDS']) || $result;
+
         return true;
     }
 
     /**
-     * Search for referee statistics by scope
+     * Search for referee statistics by scope.
      *
      * @param array $fields
      * @param string $scope
      *            Scope Array
+     *
      * @return true
      */
     public static function buildRefereeStatsByScope(&$fields, $scope)
@@ -80,6 +85,7 @@ class tx_t3sportstats_search_Builder
         $result = self::setField($fields, 'REFEREESTAT.AGEGROUP', OP_IN_INT, $scope['GROUP_UIDS']) || $result;
         $result = self::setField($fields, 'REFEREESTAT.COMPETITION', OP_IN_INT, $scope['COMP_UIDS']) || $result;
         $result = self::setField($fields, 'REFEREESTAT.CLUB', OP_IN_INT, $scope['CLUB_UIDS']) || $result;
+
         return true;
     }
 
@@ -90,6 +96,7 @@ class tx_t3sportstats_search_Builder
             $fields[$field][$operator] = $value;
             $result = true;
         }
+
         return $result;
     }
 }

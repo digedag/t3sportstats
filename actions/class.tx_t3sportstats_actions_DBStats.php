@@ -26,25 +26,24 @@ tx_rnbase::load('Tx_Rnbase_Utility_Strings');
 tx_rnbase::load('Tx_Rnbase_Database_Connection');
 
 /**
- * Controller
+ * Controller.
  */
 class tx_t3sportstats_actions_DBStats extends tx_rnbase_action_BaseIOC
 {
-
     /**
-     *
      * @param array_object $parameters
      * @param tx_rnbase_configurations $configurations
      * @param array $viewData
+     *
      * @return string error msg or null
      */
     public function handleRequest(&$parameters, &$configurations, &$viewData)
     {
         // Zuerst die Art der Statistik ermitteln
-        $tables = Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($this->getConfId() . 'tables'), 1);
-        if (! count($tables)) {
+        $tables = Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($this->getConfId().'tables'), 1);
+        if (!count($tables)) {
             // Abbruch kein Typ angegeben
-            throw new Exception('No database table configured in: ' . $this->getConfId() . 'tables');
+            throw new Exception('No database table configured in: '.$this->getConfId().'tables');
         }
 
         $statsData = array();
@@ -52,17 +51,18 @@ class tx_t3sportstats_actions_DBStats extends tx_rnbase_action_BaseIOC
             $statsData[$table] = $this->findData($parameters, $configurations, $viewData, $table);
         }
         $viewData->offsetSet('items', $statsData);
+
         return null;
     }
 
     private function findData($parameters, $configurations, $viewData, $table)
     {
-
         // SELECT count(*) FROM table
         $options = array();
-        $debug = $configurations->get($this->getConfId() . 'options.debug');
-        if ($debug)
+        $debug = $configurations->get($this->getConfId().'options.debug');
+        if ($debug) {
             $options['debug'] = 1;
+        }
 
         $res = Tx_Rnbase_Database_Connection::getInstance()->doSelect('count(*) AS cnt', $table, $options);
 
@@ -71,12 +71,12 @@ class tx_t3sportstats_actions_DBStats extends tx_rnbase_action_BaseIOC
         return $items;
     }
 
-    function getTemplateName()
+    public function getTemplateName()
     {
         return 'dbstats';
     }
 
-    function getViewClassName()
+    public function getViewClassName()
     {
         return 'tx_t3sportstats_views_DBStats';
     }

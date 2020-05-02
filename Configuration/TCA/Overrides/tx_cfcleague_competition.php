@@ -1,6 +1,8 @@
 <?php
-if (! defined('TYPO3_MODE'))
+
+if (!defined('TYPO3_MODE')) {
     die('Access denied.');
+}
 
 $columns = [
     'tags' => [
@@ -16,22 +18,21 @@ $columns = [
             'maxitems' => 100,
             'MM' => 'tx_t3sportstats_tags_mm',
             'MM_match_fields' => [
-                'tablenames' => 'tx_cfcleague_competition'
-            ]
-        ]
-    ]
+                'tablenames' => 'tx_cfcleague_competition',
+            ],
+        ],
+    ],
 ];
 
 $table = [
-    'columns' => &$columns
+    'columns' => &$columns,
 ];
 Tx_Rnbase_Utility_TcaTool::configureWizards($table, [
     'tags' => [
         'suggest' => true,
-        'targettable' => 'tx_t3sportstats_tags'
-    ]
+        'targettable' => 'tx_t3sportstats_tags',
+    ],
 ]);
 
 tx_rnbase_util_Extensions::addTCAcolumns('tx_cfcleague_competition', $columns, 1);
 tx_rnbase_util_Extensions::addToAllTCAtypes('tx_cfcleague_competition', 'tags', '', 'after:point_system');
-

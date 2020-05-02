@@ -25,22 +25,22 @@ tx_rnbase::load('tx_rnbase_view_Base');
 tx_rnbase::load('tx_rnbase_util_Templates');
 
 /**
- * Viewklasse für die Darstellung von Nutzerinformationen aus der DB
+ * Viewklasse für die Darstellung von Nutzerinformationen aus der DB.
  */
 class tx_t3sportstats_views_RefereeStats extends tx_rnbase_view_Base
 {
-
     public function createOutput($template, &$viewData, &$configurations, &$formatter)
     {
-        $items = & $viewData->offsetGet('items');
+        $items = &$viewData->offsetGet('items');
         $listBuilder = tx_rnbase::makeInstance('tx_rnbase_util_ListBuilder');
 
         $out = '';
         foreach ($items as $type => $data) {
-            $subTemplate = tx_rnbase_util_Templates::getSubpart($template, '###' . strtoupper($type) . '###');
+            $subTemplate = tx_rnbase_util_Templates::getSubpart($template, '###'.strtoupper($type).'###');
             $out .= $listBuilder->render($data, $viewData, $subTemplate, 'tx_t3sportstats_marker_RefereeStats', $this->getController()
-                ->getConfId() . $type . '.data.', 'DATA', $formatter);
+                ->getConfId().$type.'.data.', 'DATA', $formatter);
         }
+
         return $out;
     }
 

@@ -28,48 +28,55 @@ tx_rnbase::load('tx_rnbase_util_Templates');
 tx_rnbase::load('tx_rnbase_util_BaseMarker');
 tx_rnbase::load('tx_rnbase_util_TYPO3');
 
-
 /**
  * Module function.
  *
  * @author	Rene Nitzsche <rene@system25.de>
- * @package	TYPO3
- * @subpackage	tx_t3sportstats
  */
-class tx_t3sportstats_mod_index extends tx_rnbase_mod_ExtendedModFunc {
+class tx_t3sportstats_mod_index extends tx_rnbase_mod_ExtendedModFunc
+{
+    protected function getContent($template, &$configurations, &$formatter, $formTool)
+    {
+        $commonStart = tx_rnbase_util_Templates::getSubpart($template, '###COMMON_START###');
+        $commonEnd = tx_rnbase_util_Templates::getSubpart($template, '###COMMON_END###');
+        $tabContent = 'Tst';
 
-	protected function getContent($template, &$configurations, &$formatter, $formTool) {
-		$commonStart = tx_rnbase_util_Templates::getSubpart($template, '###COMMON_START###');
-		$commonEnd = tx_rnbase_util_Templates::getSubpart($template, '###COMMON_END###');
-		$tabContent = 'Tst';
+        $out = $commonStart;
+        $out .= $tabContent;
+        $out .= $commonEnd;
 
-		$out = $commonStart;
-		$out .= $tabContent;
-		$out .= $commonEnd;
-		return $out;
-	}
-	protected function getFuncId() {
-		return 'funct3sportstats';
-	}
+        return $out;
+    }
 
-	/**
-	 * Liefert die Einträge für das Tab-Menü.
-	 * return array
-	 */
-	protected function getSubMenuItems() {
-		$menuItems = array();
-		$menuItems[] = tx_rnbase::makeInstance('tx_cfcleague_mod1_handler_ClubStadiums');
-		tx_rnbase_util_Misc::callHook('cfc_league','modClub_tabItems',
-			array('tabItems' => &$menuItems), $this);
-		return $menuItems;
-	}
-	protected function makeSubSelectors(&$selStr) {
-		return false;
-	}
+    protected function getFuncId()
+    {
+        return 'funct3sportstats';
+    }
 
+    /**
+     * Liefert die Einträge für das Tab-Menü.
+     * return array.
+     */
+    protected function getSubMenuItems()
+    {
+        $menuItems = array();
+        $menuItems[] = tx_rnbase::makeInstance('tx_cfcleague_mod1_handler_ClubStadiums');
+        tx_rnbase_util_Misc::callHook(
+            'cfc_league',
+            'modClub_tabItems',
+            array('tabItems' => &$menuItems),
+            $this
+        );
+
+        return $menuItems;
+    }
+
+    protected function makeSubSelectors(&$selStr)
+    {
+        return false;
+    }
 }
 
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/mod1/class.tx_t3sportstats_mod_index.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/mod1/class.tx_t3sportstats_mod_index.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/mod1/class.tx_t3sportstats_mod_index.php']) {
+    include_once $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/mod1/class.tx_t3sportstats_mod_index.php'];
 }
