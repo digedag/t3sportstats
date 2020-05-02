@@ -43,7 +43,7 @@ class RefereeStats extends AbstractAction
         $parameters = $request->getParameters();
         $configurations = $request->getConfigurations();
         $viewData = $request->getViewContext();
-        
+
         // Zuerst die Art der Statistik ermitteln
         $types = \Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($this->getConfId().'statisticTypes'), 1);
         if (!count($types)) {

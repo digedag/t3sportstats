@@ -37,7 +37,7 @@ class RefereeStats extends BaseView
     protected function createOutput($template, RequestInterface $request, $formatter)
     {
         $viewData = $request->getViewContext();
-        
+
         $items = &$viewData->offsetGet('items');
         $listBuilder = \tx_rnbase::makeInstance('tx_rnbase_util_ListBuilder');
 
