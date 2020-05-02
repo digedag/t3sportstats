@@ -34,7 +34,6 @@ use Sys25\RnBase\Frontend\View\ContextInterface;
  */
 class DBStats extends BaseView
 {
-
     /**
      * @param string $template
      * @param RequestInterface $request
