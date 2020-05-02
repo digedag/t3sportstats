@@ -1,8 +1,11 @@
 <?php
+
+namespace System25\T3sports\Filter;
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2017 Rene Nitzsche
+ *  (c) 2010-2020 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -21,32 +24,27 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
 
-tx_rnbase::load('tx_rnbase_filter_BaseFilter');
-tx_rnbase::load('tx_t3sportstats_search_Builder');
-tx_rnbase::load('tx_cfcleaguefe_util_ScopeController');
-tx_rnbase::load('Tx_Rnbase_Utility_Strings');
-
 /**
  * Default filter for coach statistics.
  *
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_filter_RefereeStats extends tx_rnbase_filter_BaseFilter
+class RefereeStatsFilter extends \tx_rnbase_filter_BaseFilter
 {
     /**
      * Abgeleitete Filter können diese Methode überschreiben und zusätzliche Filter setzen.
      *
      * @param array $fields
      * @param array $options
-     * @param tx_rnbase_IParameters $parameters
-     * @param tx_rnbase_configurations $configurations
+     * @param \tx_rnbase_IParameters $parameters
+     * @param \tx_rnbase_configurations $configurations
      * @param string $confId
      */
     protected function initFilter(&$fields, &$options, &$parameters, &$configurations, $confId)
     {
         //  	$options['distinct'] = 1;
         // Wir benötigen zuerst die Spalten für WHAT
-        $cols = Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($confId.'columns'));
+        $cols = \Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($confId.'columns'));
         $columns = array();
         foreach ($cols as $col) {
             if ($col) {
@@ -56,7 +54,7 @@ class tx_t3sportstats_filter_RefereeStats extends tx_rnbase_filter_BaseFilter
         if (count($columns)) {
             $options['what'] .= ','.implode(', ', $columns);
         }
-        $scopeArr = tx_cfcleaguefe_util_ScopeController::handleCurrentScope($parameters, $configurations);
-        tx_t3sportstats_search_Builder::buildRefereeStatsByScope($fields, $scopeArr);
+        $scopeArr = \tx_cfcleaguefe_util_ScopeController::handleCurrentScope($parameters, $configurations);
+        \tx_t3sportstats_search_Builder::buildRefereeStatsByScope($fields, $scopeArr);
     }
 }

@@ -2,10 +2,11 @@
 includeLibs.tx_rnbase_controller = EXT:rn_base/class.tx_rnbase_controller.php
 
 
-plugin.tx_t3sportstats                = USER_INT
+plugin.tx_t3sportstats                = USER
 plugin.tx_t3sportstats.flexform       = flexform_main.xml
+plugin.tx_t3sportstats.toUserInt      = 1
 plugin.tx_t3sportstats.userFunc       = tx_rnbase_controller->main
-plugin.tx_t3sportstats.defaultAction  = tx_t3sportstats_actions_PlayerStats
+plugin.tx_t3sportstats.defaultAction  = System25\T3sports\Action\PlayerStats
 plugin.tx_t3sportstats.qualifier      = cfc_league_fe
 plugin.tx_t3sportstats.templatePath   = EXT:t3sportstats/templates
 plugin.tx_t3sportstats.locallangFilename = EXT:t3sportstats/locallang.xml
@@ -67,47 +68,47 @@ lib.t3sports.statsData {
 }
 
 lib.t3sports.statsFilter {
-	filter = tx_t3sportstats_filter_PlayerStats
-	options.what = player
-	options.forcewrapper = 1
-	options.groupby = PLAYERSTAT.player
-	columns = played,win,draw,loose,cardyellow,cardyr,cardred,playtime,goals,assists,goalshome,goalsaway,goalshead,goalsjoker,goalsown,goalspenalty,goalsfreekick,changein,changeout,captain
+  filter = System25\T3sports\Filter\PlayerStatsFilter
+  options.what = player
+  options.forcewrapper = 1
+  options.groupby = PLAYERSTAT.player
+  columns = played,win,draw,loose,cardyellow,cardyr,cardred,playtime,goals,assists,goalshome,goalsaway,goalshead,goalsjoker,goalsown,goalspenalty,goalsfreekick,changein,changeout,captain
   data =< lib.t3sports.statsData
 }
 lib.t3sports.statsPlayerFilter < lib.t3sports.statsFilter
 lib.t3sports.statsPlayerFilter {
-  filter = tx_t3sportstats_filter_PlayerStats
+  filter = System25\T3sports\Filter\PlayerStatsFilter
   options.what = player
-	options.groupby = PLAYERSTAT.player
-	markerClass = tx_t3sportstats_marker_PlayerStats
-	filterType = player
+  options.groupby = PLAYERSTAT.player
+  markerClass = tx_t3sportstats_marker_PlayerStats
+  filterType = player
 }
 
 lib.t3sports.statsCoachFilter < lib.t3sports.statsFilter
 lib.t3sports.statsCoachFilter {
-  filter = tx_t3sportstats_filter_CoachStats
+  filter = System25\T3sports\Filter\CoachStatsFilter
   options.what = coach
-	options.groupby = COACHSTAT.coach
-	columns = played,win,draw,loose,cardyellow,cardyr,cardred,goals,goalshome,goalsaway,goalsjoker,changeout
-	markerClass = tx_t3sportstats_marker_CoachStats
-	filterType = coach
+  options.groupby = COACHSTAT.coach
+  columns = played,win,draw,loose,cardyellow,cardyr,cardred,goals,goalshome,goalsaway,goalsjoker,changeout
+  markerClass = tx_t3sportstats_marker_CoachStats
+  filterType = coach
   data.links.played.useKeepVars.add = cfc_league_fe::statstype=defaultCoach
   data.links.goals.useKeepVars.add = cfc_league_fe::statstype=defaultCoach
 }
 lib.t3sports.statsRefereeFilter < lib.t3sports.statsFilter
 lib.t3sports.statsRefereeFilter {
-  filter = tx_t3sportstats_filter_RefereeStats
+  filter = System25\T3sports\Filter\RefereeStatsFilter
   options.what = referee
-	options.groupby = REFEREESTAT.referee
-	columns (
-	 played,mainref,assist,win,draw,loose,
-	 cardyellow,cardyr,cardred,
-	 cardyellowown,cardyrown,cardredown,
-	 cardyellowagainst,cardyragainst,cardredagainst,
-	 goalspenalty,goalspenaltyown,goalspenaltyagainst,penalty,penaltyown,penaltyagainst
-	)
-	markerClass = tx_t3sportstats_marker_RefereeStats
-	filterType = referee
+  options.groupby = REFEREESTAT.referee
+  columns (
+    played,mainref,assist,win,draw,loose,
+    cardyellow,cardyr,cardred,
+    cardyellowown,cardyrown,cardredown,
+    cardyellowagainst,cardyragainst,cardredagainst,
+    goalspenalty,goalspenaltyown,goalspenaltyagainst,penalty,penaltyown,penaltyagainst
+  )
+  markerClass = tx_t3sportstats_marker_RefereeStats
+  filterType = referee
   data.links.played.useKeepVars.add = cfc_league_fe::statstype=defaultRef
   data.links.goals.useKeepVars.add = cfc_league_fe::statstype=defaultRef
 }
@@ -120,7 +121,7 @@ plugin.tx_t3sportstats {
   refereestatsTemplate = {$plugin.tx_t3sportstats.refereestatsTemplate}
   dbstatsTemplate = {$plugin.tx_t3sportstats.dbstatsTemplate}
 
-	scopeSelection =< plugin.tx_cfcleaguefe_competition.scopeSelection
+  scopeSelection =< plugin.tx_cfcleaguefe_competition.scopeSelection
   playerstats {
     default =< lib.t3sports.statsPlayerFilter
     default.options.orderby.PLAYER.LAST_NAME = asc

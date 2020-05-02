@@ -10,14 +10,17 @@ Extension erstellen und in TYPO3 registrieren.
 Der eigene Report benötigt zunächst einen eindeutigen eigenen Identifier. Für die 
 Torschützenliste wird die ID `scorerlist` verwendet. In der Datei ext_localconf.php wird diese
 ID registriert:
+
 ```php
 tx_t3sportstats_util_Config::registerPlayerStatsReport('scorerlist');
 ```
+
 Nach Löschen des System-Caches sollte diese ID direkt im Plugin von **T3sportstats** mit angezeigt 
 werden.
 
 Die eigentliche Konfiguration des Reports erfolgt nun per Typoscript. Für die Torschützenliste 
 wurde folgendes Typoscript erstellt:
+
 ```
 plugin.tx_t3sportstats {
   playerstats {
@@ -34,10 +37,12 @@ plugin.tx_t3sportstats {
   }
 }
 ```
+
 Jetzt muss nur noch ein Subpart für die Ausgabe der Daten angelegt werden. Der Hauptsubpart für die 
 Spielerstatistiken heißt `###PLAYERSTATS###`. Innerhalb dieses Templates werden vom Plugin weitere 
 Subparts für die Reports erwartet. Diese müssen genauso genannt werden, wie die Report-ID, nur in 
 Großschreibweise. Für die Torschützen also `###SCORERLIST###`. So kann ein einfaches Beispiel aussehen:
+
 ```
 ###SCORERLIST###
 
@@ -73,6 +78,7 @@ plugin.tx_t3sportstats {
   }
 }
 ```
+
 Die Spalte `competition` wird also in die Ergebnisliste und die `GROUP BY` Anweisung aufgenommen.
 Sollte ein Spieler in dieser Statistik seine Tore doch in unterschiedlichen Wettbewerben erzielt
 haben, dann wird er einmal pro gefundenem Wettbewerb in der Ergebnisliste erscheinen.
@@ -94,5 +100,6 @@ plugin.tx_t3sportstats {
   }
 }
 ```
+
 Im HTML-Template kann man den Namen des Vereins über folgenden Marker anzeigen: `######DATA_CLUB_NAME######`.
 Und auch hier können natürlich auch alle anderen Marker des Wettbewerbs genutzt werden.
