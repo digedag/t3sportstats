@@ -1,4 +1,6 @@
 <?php
+use System25\T3sports\Utility\StatsMatchNoteProvider;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -22,18 +24,13 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once tx_rnbase_util_Extensions::extPath('rn_base').'class.tx_rnbase.php';
-
-tx_rnbase::load('tx_t3sportstats_tests_Util');
-tx_rnbase::load('tx_t3sportstats_util_MatchNoteProvider');
-
 class tx_t3sportstats_tests_utilMatchNoteProvider_testcase extends tx_phpunit_testcase
 {
     public function test_getMatchNotes4Profile()
     {
         $matchIdx = 0;
         $notes = tx_t3sportstats_tests_Util::getMatchNotes($matchIdx);
-        $mnProv = tx_t3sportstats_util_MatchNoteProvider::createInstance($notes);
+        $mnProv = StatsMatchNoteProvider::createInstance($notes);
         $notes = $mnProv->getMatchNotes4Profile(100);
         $this->assertEquals(3, count($notes), 'Number of notes for player is wrong');
         $notes = $mnProv->getMatchNotes4Profile(202);
@@ -41,8 +38,4 @@ class tx_t3sportstats_tests_utilMatchNoteProvider_testcase extends tx_phpunit_te
         $notes = $mnProv->getMatchNotes4Profile(110);
         $this->assertEquals(2, count($notes), 'Number of notes for player is wrong');
     }
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/tests/class.tx_t3sportstats_tests_utilMatchNoteProvider_testcase.php']) {
-    include_once $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/tests/class.tx_t3sportstats_tests_utilMatchNoteProvider_testcase.php'];
 }

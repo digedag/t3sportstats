@@ -1,8 +1,11 @@
 <?php
+
+namespace System25\T3sports\Utility;
+
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2017 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -25,9 +28,9 @@
 /**
  * Data container.
  */
-class tx_t3sportstats_util_DataBag
+class StatsDataBag
 {
-    private $data = array();
+    private $data = [];
 
     public function setParentUid($uid)
     {
@@ -51,7 +54,7 @@ class tx_t3sportstats_util_DataBag
 
     public function getTypeValue($type)
     {
-        return intval($this->data[$type]);
+        return (int) $this->data[$type];
     }
 
     public function getTypeValues()

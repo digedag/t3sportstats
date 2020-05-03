@@ -1,4 +1,6 @@
 <?php
+use System25\T3sports\Utility\StatsMatchNoteProvider;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -22,12 +24,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once tx_rnbase_util_Extensions::extPath('rn_base').'class.tx_rnbase.php';
-
-tx_rnbase::load('tx_rnbase_configurations');
-tx_rnbase::load('tx_rnbase_util_Spyc');
-tx_rnbase::load('tx_t3sportstats_util_MatchNoteProvider');
-
 class tx_t3sportstats_tests_srvPlayerTimeStats_testcase extends tx_phpunit_testcase
 {
     public function test_indexPlayerStatsHome()
@@ -44,7 +40,7 @@ class tx_t3sportstats_tests_srvPlayerTimeStats_testcase extends tx_phpunit_testc
         }
         $notes = tx_t3sportstats_tests_Util::getMatchNotes($matchIdx);
 
-        $mnProv = tx_t3sportstats_util_MatchNoteProvider::createInstance($notes);
+        $mnProv = StatsMatchNoteProvider::createInstance($notes);
         $this->getService()->indexPlayerStats($bagHash[100], $match, $mnProv, true);
 
         $this->assertEquals(90, $bagHash[100]->getTypeValue('playtime'), 'Playtime is wrong');
@@ -70,7 +66,7 @@ class tx_t3sportstats_tests_srvPlayerTimeStats_testcase extends tx_phpunit_testc
         }
         $notes = tx_t3sportstats_tests_Util::getMatchNotes($matchIdx);
 
-        $mnProv = tx_t3sportstats_util_MatchNoteProvider::createInstance($notes);
+        $mnProv = StatsMatchNoteProvider::createInstance($notes);
 
         $this->getService()->indexPlayerStats($bagHash[202], $match, $mnProv, false);
         $this->assertEquals(90, $bagHash[202]->getTypeValue('playtime'), 'Playtime is wrong');
@@ -105,8 +101,4 @@ class tx_t3sportstats_tests_srvPlayerTimeStats_testcase extends tx_phpunit_testc
     {
         return tx_rnbase::makeInstance('tx_t3sportstats_srv_PlayerTimeStats');
     }
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/tests/class.tx_t3sportstats_tests_srvPlayerTimeStats_testcase.php']) {
-    include_once $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/tests/class.tx_t3sportstats_tests_srvPlayerTimeStats_testcase.php'];
 }

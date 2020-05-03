@@ -1,4 +1,7 @@
 <?php
+use System25\T3sports\Utility\StatsDataBag;
+use System25\T3sports\Utility\StatsMatchNoteProvider;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -30,15 +33,15 @@ tx_rnbase::load('tx_cfcleague_util_MatchNote');
  */
 class tx_t3sportstats_srv_PlayerTimeStats extends Tx_Rnbase_Service_Base
 {
-    private $types = array();
+    private $types = [];
 
     /**
      * Update statistics for a player
      * playtime, played.
      *
-     * @param tx_t3sportstats_util_DataBag $dataBag
+     * @param StatsDataBag $dataBag
      * @param tx_cfcleague_models_Match $match
-     * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
+     * @param StatsMatchNoteProvider $mnProv
      */
     public function indexPlayerStats($dataBag, $match, $mnProv, $isHome)
     {

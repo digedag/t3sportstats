@@ -1,8 +1,11 @@
 <?php
+
+namespace System25\T3sports\Utility;
+
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -25,13 +28,13 @@
 /**
  * Data container.
  */
-class tx_t3sportstats_util_MatchNoteProvider
+class StatsMatchNoteProvider
 {
-    private $notes = array();
+    private $notes = [];
 
-    private $notesHome = array();
+    private $notesHome = [];
 
-    private $notesGuest = array();
+    private $notesGuest = [];
 
     private function __construct($notes)
     {
@@ -43,7 +46,7 @@ class tx_t3sportstats_util_MatchNoteProvider
      *
      * @param array $notes
      *
-     * @return tx_t3sportstats_util_MatchNoteProvider
+     * @return StatsMatchNoteProvider
      */
     public static function createInstance($notes)
     {
@@ -52,11 +55,11 @@ class tx_t3sportstats_util_MatchNoteProvider
 
     private function setMatchNotes($notes)
     {
-        $this->notes = is_array($notes) ? $notes : array();
-        $this->notesHome = array();
-        $this->notesHome['_all'] = array();
-        $this->notesGuest = array();
-        $this->notesGuest['_all'] = array();
+        $this->notes = is_array($notes) ? $notes : [];
+        $this->notesHome = [];
+        $this->notesHome['_all'] = [];
+        $this->notesGuest = [];
+        $this->notesGuest['_all'] = [];
         foreach ($notes as $note) {
             $profile = $note->getPlayer();
             if ($note->isHome()) {
@@ -73,7 +76,7 @@ class tx_t3sportstats_util_MatchNoteProvider
     }
 
     /**
-     * @return array[tx_cfcleague_models_MatchNote]
+     * @return array[\tx_cfcleague_models_MatchNote]
      */
     public function getMatchNotes()
     {
@@ -81,7 +84,7 @@ class tx_t3sportstats_util_MatchNoteProvider
     }
 
     /**
-     * @return array[tx_cfcleague_models_MatchNote]
+     * @return array[\tx_cfcleague_models_MatchNote]
      */
     public function getMatchNotesHome()
     {
@@ -89,7 +92,7 @@ class tx_t3sportstats_util_MatchNoteProvider
     }
 
     /**
-     * @return array[tx_cfcleague_models_MatchNote]
+     * @return array[\tx_cfcleague_models_MatchNote]
      */
     public function getMatchNotesGuest()
     {
@@ -101,7 +104,7 @@ class tx_t3sportstats_util_MatchNoteProvider
      *
      * @param int $profileUid
      *
-     * @return array[tx_cfcleague_models_MatchNote]
+     * @return array[\tx_cfcleague_models_MatchNote]
      */
     public function getMatchNotes4Profile($profileUid)
     {
@@ -112,10 +115,6 @@ class tx_t3sportstats_util_MatchNoteProvider
             return $this->notesGuest[$profileUid];
         }
 
-        return array();
+        return [];
     }
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/util/class.tx_t3sportstats_util_MatchNoteProvider.php']) {
-    include_once $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/util/class.tx_t3sportstats_util_MatchNoteProvider.php'];
 }

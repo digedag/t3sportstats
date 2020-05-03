@@ -1,4 +1,6 @@
 <?php
+use System25\T3sports\Utility\StatsMatchNoteProvider;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -22,12 +24,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once tx_rnbase_util_Extensions::extPath('rn_base').'class.tx_rnbase.php';
-
-tx_rnbase::load('tx_rnbase_configurations');
-tx_rnbase::load('tx_rnbase_util_Spyc');
-tx_rnbase::load('tx_t3sportstats_util_MatchNoteProvider');
-
 class tx_t3sportstats_tests_srvPlayerStats_testcase extends tx_phpunit_testcase
 {
     public function test_indexPlayerStats()
@@ -48,7 +44,7 @@ class tx_t3sportstats_tests_srvPlayerStats_testcase extends tx_phpunit_testcase
         }
         $notes = tx_t3sportstats_tests_Util::getMatchNotes($matchIdx);
 
-        $mnProv = tx_t3sportstats_util_MatchNoteProvider::createInstance($notes);
+        $mnProv = StatsMatchNoteProvider::createInstance($notes);
         $this->getService()->indexPlayerStats($bagHash[100], $match, $mnProv, true);
 
         //		Tx_Rnbase_Utility_T3General::debug($bagHash[100], 'class.tx_t3sportstats_tests_srvPlayerStats_testcase.php'); // TODO: remove me
@@ -81,8 +77,4 @@ class tx_t3sportstats_tests_srvPlayerStats_testcase extends tx_phpunit_testcase
     {
         return tx_rnbase::makeInstance('tx_t3sportstats_srv_PlayerStats');
     }
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/tests/class.tx_t3sportstats_tests_srvPlayerStats_testcase.php']) {
-    include_once $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/tests/class.tx_t3sportstats_tests_srvPlayerStats_testcase.php'];
 }

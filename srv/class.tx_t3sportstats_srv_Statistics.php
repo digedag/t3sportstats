@@ -2,6 +2,8 @@
 use System25\T3sports\Search\SearchCoachStats;
 use System25\T3sports\Search\SearchPlayerStats;
 use System25\T3sports\Search\SearchRefereeStats;
+use System25\T3sports\Utility\StatsDataBag;
+use System25\T3sports\Utility\StatsMatchNoteProvider;
 
 /***************************************************************
  *  Copyright notice
@@ -25,12 +27,6 @@ use System25\T3sports\Search\SearchRefereeStats;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-tx_rnbase::load('Tx_Rnbase_Service_Base');
-tx_rnbase::load('Tx_Rnbase_Utility_Strings');
-tx_rnbase::load('tx_rnbase_util_Logger');
-tx_rnbase::load('tx_rnbase_util_Dates');
-tx_rnbase::load('tx_t3sportstats_util_MatchNoteProvider');
-tx_rnbase::load('Tx_Rnbase_Database_Connection');
 
 /**
  * Service for accessing team information.
@@ -72,7 +68,7 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
         // Über alle Spiele iterieren und die Spieler an die Services geben
         for ($j = 0, $mc = count($matches); $j < $mc; ++$j ) {
             $matchNotes = tx_cfcleague_util_ServiceRegistry::getMatchService()->retrieveMatchNotes($matches[$j], true);
-            $mnProv = tx_t3sportstats_util_MatchNoteProvider::createInstance($matchNotes);
+            $mnProv = StatsMatchNoteProvider::createInstance($matchNotes);
             // handle Hometeam
             $this->indexPlayerData($matches[$j], $mnProv, true);
             $this->indexCoachData($matches[$j], $mnProv, true);
@@ -98,7 +94,7 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
      * Indizierung der Daten und Speicherung in der DB.
      *
      * @param tx_cfcleague_models_Match $match
-     * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
+     * @param StatsMatchNoteProvider $mnProv
      * @param bool $homeTeam
      */
     private function indexPlayerData($match, $mnProv, $homeTeam)
@@ -125,7 +121,7 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
      * Indizierung der Daten und Speicherung in der DB.
      *
      * @param tx_cfcleague_models_Match $match
-     * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
+     * @param StatsMatchNoteProvider $mnProv
      * @param bool $homeTeam
      */
     private function indexCoachData($match, $mnProv, $homeTeam)
@@ -152,7 +148,7 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
      * Indizierung der Schiedsrichter-Daten und Speicherung in der DB.
      *
      * @param tx_cfcleague_models_Match $match
-     * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
+     * @param StatsMatchNoteProvider $mnProv
      * @param bool $homeTeam
      */
     private function indexRefereeData($match, $mnProv, $homeTeam)
@@ -247,7 +243,7 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
      * @param bool $home
      *            true, wenn das Heimteam geholt werden soll
      *
-     * @return array[tx_t3sportstats_util_DataBag]
+     * @return array[StatsDataBag]
      */
     public function getPlayerBags($match, $home)
     {
@@ -281,7 +277,7 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
      * @param bool $home
      *            true, wenn das Heimteam geholt werden soll
      *
-     * @return array[tx_t3sportstats_util_DataBag]
+     * @return array[StatsDataBag]
      */
     public function getCoachBags($match, $home)
     {
@@ -304,7 +300,7 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
      * @param bool $home
      *            true, wenn das Heimteam geholt werden soll
      *
-     * @return array[tx_t3sportstats_util_DataBag]
+     * @return array[StatsDataBag]
      */
     public function getRefereeBags($match, $home)
     {
@@ -336,7 +332,7 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
 
     private function createProfileBag($uid, $match, $home, $profileField)
     {
-        $bag = tx_rnbase::makeInstance('tx_t3sportstats_util_DataBag');
+        $bag = tx_rnbase::makeInstance(StatsDataBag::class);
         $bag->setParentUid($uid);
         // Hier noch die allgemeinen Daten rein!
         $bag->setType('t3match', $match->getUid());
@@ -380,7 +376,6 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
      */
     public function searchPlayerStats($fields, $options)
     {
-        tx_rnbase::load('tx_rnbase_util_SearchBase');
         $searcher = tx_rnbase_util_SearchBase::getInstance(SearchPlayerStats::class);
 
         return $searcher->search($fields, $options);
@@ -396,7 +391,6 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
      */
     public function searchCoachStats($fields, $options)
     {
-        tx_rnbase::load('tx_rnbase_util_SearchBase');
         $searcher = tx_rnbase_util_SearchBase::getInstance(SearchCoachStats::class);
 
         return $searcher->search($fields, $options);
@@ -412,7 +406,6 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
      */
     public function searchRefereeStats($fields, $options)
     {
-        tx_rnbase::load('tx_rnbase_util_SearchBase');
         $searcher = tx_rnbase_util_SearchBase::getInstance(SearchRefereeStats::class);
 
         return $searcher->search($fields, $options);

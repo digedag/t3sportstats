@@ -1,5 +1,7 @@
 <?php
 use System25\T3sports\Utility\StatsConfig;
+use System25\T3sports\Utility\StatsDataBag;
+use System25\T3sports\Utility\StatsMatchNoteProvider;
 
 /***************************************************************
  *  Copyright notice
@@ -35,14 +37,14 @@ tx_rnbase::load('Tx_Rnbase_Utility_Strings');
  */
 class tx_t3sportstats_srv_RefereeStats extends Tx_Rnbase_Service_Base
 {
-    private $types = array();
+    private $types = [];
 
     /**
      * Update statistics for a referee.
      *
-     * @param tx_t3sportstats_util_DataBag $dataBag
+     * @param StatsDataBag $dataBag
      * @param tx_cfcleague_models_Match $match
-     * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
+     * @param StatsMatchNoteProvider $mnProv
      * @param bool $isHome
      */
     public function indexRefereeStats($dataBag, $match, $mnProv, $isHome)
@@ -58,10 +60,10 @@ class tx_t3sportstats_srv_RefereeStats extends Tx_Rnbase_Service_Base
     }
 
     /**
-     * @param tx_t3sportstats_util_DataBag $dataBag
+     * @param StatsDataBag $dataBag
      * @param tx_cfcleague_models_Match $match
      * @param bool $isHome
-     * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
+     * @param StatsMatchNoteProvider $mnProv
      */
     private function indexPenalties($dataBag, $match, $isHome, $mnProv)
     {
@@ -73,10 +75,10 @@ class tx_t3sportstats_srv_RefereeStats extends Tx_Rnbase_Service_Base
     }
 
     /**
-     * @param tx_t3sportstats_util_DataBag $dataBag
+     * @param StatsDataBag $dataBag
      * @param tx_cfcleague_models_Match $match
      * @param bool $isHome
-     * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
+     * @param StatsMatchNoteProvider $mnProv
      */
     private function indexOwnAgainst($baseType, $dataBag, $match, $isHome, $mnProv)
     {
@@ -97,7 +99,7 @@ class tx_t3sportstats_srv_RefereeStats extends Tx_Rnbase_Service_Base
     }
 
     /**
-     * @param tx_t3sportstats_util_DataBag $dataBag
+     * @param StatsDataBag $dataBag
      * @param tx_cfcleague_models_Match $match
      * @param bool $isHome
      */
@@ -115,7 +117,7 @@ class tx_t3sportstats_srv_RefereeStats extends Tx_Rnbase_Service_Base
     }
 
     /**
-     * @param tx_t3sportstats_util_DataBag $dataBag
+     * @param StatsDataBag $dataBag
      */
     private function isAssist($dataBag)
     {
@@ -123,8 +125,8 @@ class tx_t3sportstats_srv_RefereeStats extends Tx_Rnbase_Service_Base
     }
 
     /**
-     * @param tx_t3sportstats_util_DataBag $dataBag
-     * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
+     * @param StatsDataBag $dataBag
+     * @param StatsMatchNoteProvider $mnProv
      */
     private function indexSimple($dataBag, $mnProv, $isHome)
     {
