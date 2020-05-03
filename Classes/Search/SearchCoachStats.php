@@ -2,6 +2,8 @@
 
 namespace System25\T3sports\Search;
 
+use System25\T3sports\Model\CoachStat;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -65,7 +67,7 @@ class SearchCoachStats extends \tx_rnbase_util_SearchBase
 
     public function getWrapperClass()
     {
-        return 'tx_t3sportstats_models_CoachStat';
+        return CoachStat::class;
     }
 
     protected function getJoins($tableAliases)

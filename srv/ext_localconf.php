@@ -82,37 +82,36 @@ tx_rnbase_util_Extensions::addService(
     ]
 );
 
-tx_rnbase::load('tx_t3sportstats_util_Config');
 
-tx_t3sportstats_util_Config::registerPlayerStatsSimple('goals', '10,11,12,13');
-tx_t3sportstats_util_Config::registerPlayerStatsSimple('assists', '31');
-tx_t3sportstats_util_Config::registerPlayerStatsSimple('goalshead', '11');
-tx_t3sportstats_util_Config::registerPlayerStatsSimple('goalspenalty', '12');
-tx_t3sportstats_util_Config::registerPlayerStatsSimple('goalsown', '30');
-tx_t3sportstats_util_Config::registerPlayerStatsSimple('cardyellow', '70');
-tx_t3sportstats_util_Config::registerPlayerStatsSimple('cardyr', '71');
-tx_t3sportstats_util_Config::registerPlayerStatsSimple('cardred', '72');
-tx_t3sportstats_util_Config::registerPlayerStatsSimple('changeout', '80');
-tx_t3sportstats_util_Config::registerPlayerStatsSimple('changein', '81');
-tx_t3sportstats_util_Config::registerPlayerStatsSimple('captain', '200');
+System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('goals', '10,11,12,13');
+System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('assists', '31');
+System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('goalshead', '11');
+System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('goalspenalty', '12');
+System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('goalsown', '30');
+System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('cardyellow', '70');
+System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('cardyr', '71');
+System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('cardred', '72');
+System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('changeout', '80');
+System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('changein', '81');
+System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('captain', '200');
 
 // Tore kommen über das Spielergebnis
-//tx_t3sportstats_util_Config::registerCoachStatsSimple('goals', '10,11,12,13');
-tx_t3sportstats_util_Config::registerCoachStatsSimple('cardyellow', '70');
-tx_t3sportstats_util_Config::registerCoachStatsSimple('cardyr', '71');
-tx_t3sportstats_util_Config::registerCoachStatsSimple('cardred', '72');
-tx_t3sportstats_util_Config::registerCoachStatsSimple('changeout', '80');
+//System25\T3sports\Utility\StatsConfig::registerCoachStatsSimple('goals', '10,11,12,13');
+System25\T3sports\Utility\StatsConfig::registerCoachStatsSimple('cardyellow', '70');
+System25\T3sports\Utility\StatsConfig::registerCoachStatsSimple('cardyr', '71');
+System25\T3sports\Utility\StatsConfig::registerCoachStatsSimple('cardred', '72');
+System25\T3sports\Utility\StatsConfig::registerCoachStatsSimple('changeout', '80');
 
-tx_t3sportstats_util_Config::registerRefereeStatsSimple('goalspenalty', '12');
-tx_t3sportstats_util_Config::registerRefereeStatsSimple('penalty', '12,32');
-tx_t3sportstats_util_Config::registerRefereeStatsSimple('cardyellow', '70');
-tx_t3sportstats_util_Config::registerRefereeStatsSimple('cardyr', '71');
-tx_t3sportstats_util_Config::registerRefereeStatsSimple('cardred', '72');
+System25\T3sports\Utility\StatsConfig::registerRefereeStatsSimple('goalspenalty', '12');
+System25\T3sports\Utility\StatsConfig::registerRefereeStatsSimple('penalty', '12,32');
+System25\T3sports\Utility\StatsConfig::registerRefereeStatsSimple('cardyellow', '70');
+System25\T3sports\Utility\StatsConfig::registerRefereeStatsSimple('cardyr', '71');
+System25\T3sports\Utility\StatsConfig::registerRefereeStatsSimple('cardred', '72');
 
 // Register reports for plugin
-tx_t3sportstats_util_Config::registerPlayerStatsReport('default');
-tx_t3sportstats_util_Config::registerPlayerStatsReport('scorerlist');
-tx_t3sportstats_util_Config::registerPlayerStatsReport('assistlist');
+System25\T3sports\Utility\StatsConfig::registerPlayerStatsReport('default');
+System25\T3sports\Utility\StatsConfig::registerPlayerStatsReport('scorerlist');
+System25\T3sports\Utility\StatsConfig::registerPlayerStatsReport('assistlist');
 
-tx_t3sportstats_util_Config::registerCoachStatsReport('default');
-tx_t3sportstats_util_Config::registerRefereeStatsReport('default');
+System25\T3sports\Utility\StatsConfig::registerCoachStatsReport('default');
+System25\T3sports\Utility\StatsConfig::registerRefereeStatsReport('default');

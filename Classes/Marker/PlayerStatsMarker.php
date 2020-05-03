@@ -2,6 +2,8 @@
 
 namespace System25\T3sports\Marker;
 
+use System25\T3sports\Model\PlayerStat;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +34,7 @@ class PlayerStatsMarker extends \tx_rnbase_util_BaseMarker
 {
     /**
      * @param string $template das HTML-Template
-     * @param \tx_t3sportstats_models_PlayerStat $item
+     * @param PlayerStat $item
      * @param \tx_rnbase_util_FormatUtil $formatter der zu verwendente Formatter
      * @param string $confId Pfad der TS-Config des Spiels, z.B. 'listView.match.'
      * @param string $marker Name des Markers für ein Spiel, z.B. MATCH
@@ -87,7 +89,7 @@ class PlayerStatsMarker extends \tx_rnbase_util_BaseMarker
      * Bindet den Spieler ein.
      *
      * @param string $template
-     * @param \tx_t3sportstats_models_PlayerStat $item
+     * @param PlayerStat $item
      * @param \tx_rnbase_util_FormatUtil $formatter
      * @param string $confId
      * @param string $markerPrefix
@@ -113,7 +115,7 @@ class PlayerStatsMarker extends \tx_rnbase_util_BaseMarker
      * Bindet den Wettbewerb ein.
      *
      * @param string $template
-     * @param \tx_t3sportstats_models_PlayerStat $item
+     * @param PlayerStat $item
      * @param \tx_rnbase_util_FormatUtil $formatter
      * @param string $confId
      * @param string $markerPrefix
@@ -139,7 +141,7 @@ class PlayerStatsMarker extends \tx_rnbase_util_BaseMarker
      * Bindet den Verein ein.
      *
      * @param string $template
-     * @param \tx_t3sportstats_models_PlayerStat $item
+     * @param PlayerStat $item
      * @param \tx_rnbase_util_FormatUtil $formatter
      * @param string $confId
      * @param string $markerPrefix
@@ -168,7 +170,7 @@ class PlayerStatsMarker extends \tx_rnbase_util_BaseMarker
      * werden auch vorhandene MatchNotes berücksichtigt, so daß ein Spieler mit gelber
      * Karte diese z.B. neben seinem Namen angezeigt bekommt.
      *
-     * @param \tx_t3sportstats_models_PlayerStat $item
+     * @param PlayerStat $item
      */
     private function prepareFields($item, $template, $markerPrefix)
     {
@@ -187,7 +189,7 @@ class PlayerStatsMarker extends \tx_rnbase_util_BaseMarker
     /**
      * Links vorbereiten.
      *
-     * @param \tx_t3sportstats_models_PlayerStat $item
+     * @param PlayerStat $item
      * @param string $marker
      * @param array $markerArray
      * @param array $wrappedSubpartArray

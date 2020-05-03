@@ -12,7 +12,7 @@ Torschützenliste wird die ID `scorerlist` verwendet. In der Datei ext_localconf
 ID registriert:
 
 ```php
-tx_t3sportstats_util_Config::registerPlayerStatsReport('scorerlist');
+System25\T3sports\Utility\StatsConfig::registerPlayerStatsReport('scorerlist');
 ```
 
 Nach Löschen des System-Caches sollte diese ID direkt im Plugin von **T3sportstats** mit angezeigt 

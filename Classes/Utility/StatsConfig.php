@@ -1,8 +1,11 @@
 <?php
+
+namespace System25\T3sports\Utility;
+
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,9 +25,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-tx_rnbase::load('Tx_Rnbase_Utility_Strings');
-
-class tx_t3sportstats_util_Config
+class StatsConfig
 {
     /**
      * Returns all configured statistics type for flexform.
@@ -34,9 +35,9 @@ class tx_t3sportstats_util_Config
     public static function lookupPlayerStatsReport($config)
     {
         if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['reports']) {
-            $types = Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['reports']);
+            $types = \Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['reports']);
             foreach ($types as $type) {
-                $config['items'][] = array($type, $type);
+                $config['items'][] = [$type, $type];
             }
         }
 
@@ -51,9 +52,9 @@ class tx_t3sportstats_util_Config
     public static function lookupCoachStatsReport($config)
     {
         if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports']) {
-            $types = Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports']);
+            $types = \Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports']);
             foreach ($types as $type) {
-                $config['items'][] = array($type, $type);
+                $config['items'][] = [$type, $type];
             }
         }
 
@@ -68,9 +69,9 @@ class tx_t3sportstats_util_Config
     public static function lookupRefereeStatsReport($config)
     {
         if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports']) {
-            $types = Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports']);
+            $types = \Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports']);
             foreach ($types as $type) {
-                $config['items'][] = array($type, $type);
+                $config['items'][] = [$type, $type];
             }
         }
 
@@ -94,9 +95,9 @@ class tx_t3sportstats_util_Config
 
     private static function registerStatsReport($baseType, $statsType)
     {
-        $current = array();
+        $current = [];
         if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports']) {
-            $current = array_flip(Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports']));
+            $current = array_flip(\Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports']));
         }
         if (!array_key_exists($statsType, $current)) {
             $current = array_flip($current);
@@ -189,8 +190,4 @@ class tx_t3sportstats_util_Config
     {
         return $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['simpleStats'];
     }
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/util/class.tx_t3sportstats_util_Config.php']) {
-    include_once $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/util/class.tx_t3sportstats_util_Config.php'];
 }

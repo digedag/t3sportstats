@@ -243,7 +243,7 @@
                                 <type>select</type>
                                 <items type="array">
                                 </items>
-                                <itemsProcFunc>tx_t3sportstats_util_Config->lookupPlayerStatsReport</itemsProcFunc>
+                                <itemsProcFunc>System25\T3sports\Utility\StatsConfig->lookupPlayerStatsReport</itemsProcFunc>
                                 <multiple>0</multiple>
                                 <maxitems>10</maxitems>
                                 <size>5</size>
@@ -325,7 +325,7 @@
                                 <type>select</type>
                                 <items type="array">
                                 </items>
-                                <itemsProcFunc>tx_t3sportstats_util_Config->lookupCoachStatsReport</itemsProcFunc>
+                                <itemsProcFunc>System25\T3sports\Utility\StatsConfig->lookupCoachStatsReport</itemsProcFunc>
                                 <multiple>0</multiple>
                                 <maxitems>10</maxitems>
                                 <size>5</size>
@@ -394,7 +394,7 @@
                                 <type>select</type>
                                 <items type="array">
                                 </items>
-                                <itemsProcFunc>tx_t3sportstats_util_Config->lookupRefereeStatsReport</itemsProcFunc>
+                                <itemsProcFunc>System25\T3sports\Utility\StatsConfig->lookupRefereeStatsReport</itemsProcFunc>
                                 <multiple>0</multiple>
                                 <maxitems>10</maxitems>
                                 <size>5</size>

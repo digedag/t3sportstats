@@ -1,4 +1,6 @@
 <?php
+use System25\T3sports\Utility\StatsConfig;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -58,7 +60,7 @@ class tx_t3sportstats_srv_CoachStats extends Tx_Rnbase_Service_Base
     {
         // Wir benötigen die Events der gesamten Mannschaft
         $notes = $isHome ? $mnProv->getMatchNotesHome() : $mnProv->getMatchNotesGuest();
-        $statTypes = tx_t3sportstats_util_Config::getPlayerStatsSimple();
+        $statTypes = StatsConfig::getPlayerStatsSimple();
         $goalTypes = $statTypes['goals']['types'];
         foreach ($notes as $note) {
             if ($this->isType($note->getType(), $goalTypes)) {
@@ -117,7 +119,7 @@ class tx_t3sportstats_srv_CoachStats extends Tx_Rnbase_Service_Base
         if (!$notes || 0 == count($notes)) {
             return;
         }
-        $statTypes = tx_t3sportstats_util_Config::getCoachStatsSimple();
+        $statTypes = StatsConfig::getCoachStatsSimple();
         foreach ($notes as $note) {
             foreach ($statTypes as $type => $info) {
                 // Entspricht die Note dem Type in der Info

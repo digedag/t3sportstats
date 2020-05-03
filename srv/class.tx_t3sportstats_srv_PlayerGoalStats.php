@@ -1,4 +1,6 @@
 <?php
+use System25\T3sports\Utility\StatsConfig;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -21,10 +23,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-tx_rnbase::load('Tx_Rnbase_Service_Base');
-tx_rnbase::load('Tx_Rnbase_Utility_Strings');
-tx_rnbase::load('tx_cfcleague_util_MatchNote');
-tx_rnbase::load('tx_t3sportstats_util_Config');
 
 /**
  * @author Rene Nitzsche
@@ -47,7 +45,7 @@ class tx_t3sportstats_srv_PlayerGoalStats extends Tx_Rnbase_Service_Base
         $profId = $dataBag->getParentUid();
         $notes = $mnProv->getMatchNotes4Profile($profId);
         $startPlayer = $this->isStartPlayer($profId, $match, $isHome);
-        $statTypes = tx_t3sportstats_util_Config::getPlayerStatsSimple();
+        $statTypes = StatsConfig::getPlayerStatsSimple();
         $goalTypes = $statTypes['goals']['types'];
         $homeAwayType = $isHome ? 'goalshome' : 'goalsaway';
         foreach ($notes as $note) {

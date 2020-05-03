@@ -2,6 +2,8 @@
 
 namespace System25\T3sports\Marker;
 
+use System25\T3sports\Model\CoachStat;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +34,7 @@ class CoachStatsMarker extends \tx_rnbase_util_BaseMarker
 {
     /**
      * @param string $template das HTML-Template
-     * @param \tx_t3sportstats_models_CoachStat $item
+     * @param CoachStat $item
      * @param \tx_rnbase_util_FormatUtil $formatter der zu verwendente Formatter
      * @param string $confId Pfad der TS-Config des Spiels, z.B. 'listView.match.'
      * @param string $marker Name des Markers für ein Spiel, z.B. MATCH
@@ -82,7 +84,7 @@ class CoachStatsMarker extends \tx_rnbase_util_BaseMarker
      * Bindet den Spieler ein.
      *
      * @param string $template
-     * @param \tx_t3sportstats_models_CoachStat $item
+     * @param CoachStat $item
      * @param \tx_rnbase_util_FormatUtil $formatter
      * @param string $confId
      * @param string $markerPrefix
@@ -111,7 +113,7 @@ class CoachStatsMarker extends \tx_rnbase_util_BaseMarker
      * werden auch vorhandene MatchNotes berücksichtigt, so daß ein Spieler mit gelber
      * Karte diese z.B. neben seinem Namen angezeigt bekommt.
      *
-     * @param \tx_t3sportstats_models_CoachStat $item
+     * @param CoachStat $item
      */
     private function prepareFields($item, $template, $markerPrefix)
     {
@@ -130,7 +132,7 @@ class CoachStatsMarker extends \tx_rnbase_util_BaseMarker
     /**
      * Links vorbereiten.
      *
-     * @param \tx_t3sportstats_models_CoachStat $item
+     * @param CoachStat $item
      * @param string $marker
      * @param array $markerArray
      * @param array $wrappedSubpartArray

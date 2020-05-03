@@ -2,6 +2,8 @@
 
 namespace System25\T3sports\Search;
 
+use System25\T3sports\Model\RefereeStat;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -65,7 +67,7 @@ class SearchRefereeStats extends \tx_rnbase_util_SearchBase
 
     public function getWrapperClass()
     {
-        return 'tx_t3sportstats_models_RefereeStat';
+        return RefereeStat::class;
     }
 
     protected function getJoins($tableAliases)

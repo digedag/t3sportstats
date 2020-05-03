@@ -1,4 +1,6 @@
 <?php
+use System25\T3sports\Utility\StatsConfig;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -76,7 +78,7 @@ class tx_t3sportstats_srv_PlayerStats extends Tx_Rnbase_Service_Base
         if (!$notes || 0 == count($notes)) {
             return;
         }
-        $statTypes = tx_t3sportstats_util_Config::getPlayerStatsSimple();
+        $statTypes = StatsConfig::getPlayerStatsSimple();
         foreach ($notes as $note) {
             foreach ($statTypes as $type => $info) {
                 // Entspricht die Note dem Type in der Info
