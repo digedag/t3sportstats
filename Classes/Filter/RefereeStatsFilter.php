@@ -2,6 +2,8 @@
 
 namespace System25\T3sports\Filter;
 
+use System25\T3sports\Search\StatsSearchBuilder;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -45,7 +47,7 @@ class RefereeStatsFilter extends \tx_rnbase_filter_BaseFilter
         //  	$options['distinct'] = 1;
         // Wir benötigen zuerst die Spalten für WHAT
         $cols = \Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($confId.'columns'));
-        $columns = array();
+        $columns = [];
         foreach ($cols as $col) {
             if ($col) {
                 $columns[] = 'sum('.$col.') AS '.$col;
@@ -55,6 +57,6 @@ class RefereeStatsFilter extends \tx_rnbase_filter_BaseFilter
             $options['what'] .= ','.implode(', ', $columns);
         }
         $scopeArr = \tx_cfcleaguefe_util_ScopeController::handleCurrentScope($parameters, $configurations);
-        \tx_t3sportstats_search_Builder::buildRefereeStatsByScope($fields, $scopeArr);
+        StatsSearchBuilder::buildRefereeStatsByScope($fields, $scopeArr);
     }
 }

@@ -5,6 +5,7 @@ namespace System25\T3sports\View;
 use Sys25\RnBase\Frontend\View\Marker\BaseView;
 use Sys25\RnBase\Frontend\Request\RequestInterface;
 use Sys25\RnBase\Frontend\View\ContextInterface;
+use System25\T3sports\Marker\PlayerStatsMarker;
 
 /***************************************************************
  *  Copyright notice
@@ -56,7 +57,7 @@ class PlayerStats extends BaseView
             // Marker class can be configured
             $markerClass = $configurations->get($request->getConfId().$type.'.markerClass');
             if (!$markerClass) {
-                $markerClass = 'tx_t3sportstats_marker_PlayerStats';
+                $markerClass = PlayerStatsMarker::class;
             }
 
             $subTemplate = \tx_rnbase_util_Templates::getSubpart($template, '###'.strtoupper($type).'###');

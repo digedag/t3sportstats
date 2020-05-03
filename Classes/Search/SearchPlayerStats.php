@@ -1,8 +1,11 @@
 <?php
+
+namespace System25\T3sports\Search;
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2017 Rene Nitzsche
+ *  (c) 2010-2020 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -20,26 +23,25 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
-tx_rnbase::load('tx_rnbase_util_SearchBase');
 
 /**
  * Class to search player stats from database.
  *
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_search_RefereeStats extends tx_rnbase_util_SearchBase
+class SearchPlayerStats extends \tx_rnbase_util_SearchBase
 {
     protected function getTableMappings()
     {
         $tableMapping = [];
-        $tableMapping['REFEREESTAT'] = 'tx_t3sportstats_referees';
-        $tableMapping['REFEREE'] = 'tx_cfcleague_profiles';
+        $tableMapping['PLAYERSTAT'] = 'tx_t3sportstats_players';
+        $tableMapping['PLAYER'] = 'tx_cfcleague_profiles';
         $tableMapping['MATCH'] = 'tx_cfcleague_games';
         $tableMapping['COMPETITION'] = 'tx_cfcleague_competition';
         $tableMapping['CLUB'] = 'tx_cfcleague_club';
         $tableMapping['CLUBOPP'] = 'tx_cfcleague_club';
         // Hook to append other tables
-        tx_rnbase_util_Misc::callHook('t3sportstats', 'search_RefereeStats_getTableMapping_hook', [
+        \tx_rnbase_util_Misc::callHook('t3sportstats', 'search_PlayerStats_getTableMapping_hook', [
             'tableMapping' => &$tableMapping,
         ], $this);
 
@@ -53,40 +55,40 @@ class tx_t3sportstats_search_RefereeStats extends tx_rnbase_util_SearchBase
 
     protected function getBaseTableAlias()
     {
-        return 'REFEREESTAT';
+        return 'PLAYERSTAT';
     }
 
     protected function getBaseTable()
     {
-        return 'tx_t3sportstats_referees';
+        return 'tx_t3sportstats_players';
     }
 
     public function getWrapperClass()
     {
-        return 'tx_t3sportstats_models_RefereeStat';
+        return 'tx_t3sportstats_models_PlayerStat';
     }
 
     protected function getJoins($tableAliases)
     {
         $join = '';
         if (isset($tableAliases['MATCH'])) {
-            $join .= ' JOIN tx_cfcleague_games AS MATCH ON REFEREESTAT.t3match = MATCH.uid ';
+            $join .= ' JOIN tx_cfcleague_games AS MATCH ON PLAYERSTAT.t3match = MATCH.uid ';
         }
-        if (isset($tableAliases['REFEREE'])) {
-            $join .= ' JOIN tx_cfcleague_profiles AS REFEREE ON REFEREESTAT.referee = REFEREE.uid ';
+        if (isset($tableAliases['PLAYER'])) {
+            $join .= ' JOIN tx_cfcleague_profiles AS PLAYER ON PLAYERSTAT.player = PLAYER.uid ';
         }
         if (isset($tableAliases['COMPETITION'])) {
-            $join .= ' JOIN tx_cfcleague_competition AS COMPETITION ON COMPETITION.uid = REFEREESTAT.competition ';
+            $join .= ' JOIN tx_cfcleague_competition AS COMPETITION ON COMPETITION.uid = PLAYERSTAT.competition ';
         }
         if (isset($tableAliases['CLUB'])) {
-            $join .= ' JOIN tx_cfcleague_club AS CLUB ON CLUB.uid = REFEREESTAT.club ';
+            $join .= ' JOIN tx_cfcleague_club AS CLUB ON CLUB.uid = PLAYERSTAT.club ';
         }
         if (isset($tableAliases['CLUBOPP'])) {
-            $join .= ' JOIN tx_cfcleague_club AS CLUBOPP ON CLUBOPP.uid = REFEREESTAT.clubopp ';
+            $join .= ' JOIN tx_cfcleague_club AS CLUBOPP ON CLUBOPP.uid = PLAYERSTAT.clubopp ';
         }
 
         // Hook to append other tables
-        tx_rnbase_util_Misc::callHook('t3sportstats', 'search_RefereeStats_getJoins_hook', [
+        \tx_rnbase_util_Misc::callHook('t3sportstats', 'search_PlayerStats_getJoins_hook', [
             'join' => &$join,
             'tableAliases' => $tableAliases,
         ], $this);

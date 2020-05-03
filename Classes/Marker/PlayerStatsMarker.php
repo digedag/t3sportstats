@@ -1,8 +1,11 @@
 <?php
+
+namespace System25\T3sports\Marker;
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2017 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -21,20 +24,18 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-tx_rnbase::load('tx_rnbase_util_BaseMarker');
-tx_rnbase::load('tx_cfcleague_models_Profile');
 
 /**
  * Diese Klasse ist für die Erstellung von Markerarrays für Spiele verantwortlich.
  */
-class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker
+class PlayerStatsMarker extends \tx_rnbase_util_BaseMarker
 {
     /**
-     * @param $template das HTML-Template
-     * @param tx_t3sportstats_models_PlayerStat $item
-     * @param tx_rnbase_util_FormatUtil $formatter der zu verwendente Formatter
-     * @param $confId Pfad der TS-Config des Spiels, z.B. 'listView.match.'
-     * @param $marker Name des Markers für ein Spiel, z.B. MATCH
+     * @param string $template das HTML-Template
+     * @param \tx_t3sportstats_models_PlayerStat $item
+     * @param \tx_rnbase_util_FormatUtil $formatter der zu verwendente Formatter
+     * @param string $confId Pfad der TS-Config des Spiels, z.B. 'listView.match.'
+     * @param string $marker Name des Markers für ein Spiel, z.B. MATCH
      *
      * @return string das geparste Template
      */
@@ -44,7 +45,7 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker
             return $formatter->getConfigurations()->getLL('item_notFound');
         }
         $this->prepareFields($item, $template, $marker);
-        tx_rnbase_util_Misc::callHook('t3sportstats', 'playerStatsMarker_initRecord', [
+        \tx_rnbase_util_Misc::callHook('t3sportstats', 'playerStatsMarker_initRecord', [
             'item' => $item,
             'template' => &$template,
             'confid' => $confId,
@@ -70,8 +71,8 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker
             $template = $this->addClub($template, $item, $formatter, $confId.'club.', $marker.'_CLUB');
         }
 
-        $template = tx_rnbase_util_Templates::substituteMarkerArrayCached($template, $markerArray, $subpartArray, $wrappedSubpartArray);
-        tx_rnbase_util_Misc::callHook('t3sportstats', 'playerStatsMarker_afterSubst', array(
+        $template = \tx_rnbase_util_Templates::substituteMarkerArrayCached($template, $markerArray, $subpartArray, $wrappedSubpartArray);
+        \tx_rnbase_util_Misc::callHook('t3sportstats', 'playerStatsMarker_afterSubst', array(
             'item' => $item,
             'template' => &$template,
             'confid' => $confId,
@@ -86,8 +87,8 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker
      * Bindet den Spieler ein.
      *
      * @param string $template
-     * @param tx_t3sportstats_models_PlayerStat $item
-     * @param tx_rnbase_util_FormatUtil $formatter
+     * @param \tx_t3sportstats_models_PlayerStat $item
+     * @param \tx_rnbase_util_FormatUtil $formatter
      * @param string $confId
      * @param string $markerPrefix
      *
@@ -98,11 +99,11 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker
         $sub = $item->getPlayerUid();
         if (!$sub) {
             // Kein Item vorhanden. Leere Instanz anlegen und altname setzen
-            $sub = tx_rnbase_util_BaseMarker::getEmptyInstance('tx_cfcleague_models_Profile');
+            $sub = \tx_rnbase_util_BaseMarker::getEmptyInstance('tx_cfcleague_models_Profile');
         } else {
-            $sub = tx_cfcleague_models_Profile::getProfileInstance($sub);
+            $sub = \tx_cfcleague_models_Profile::getProfileInstance($sub);
         }
-        $marker = tx_rnbase::makeInstance('tx_cfcleaguefe_util_ProfileMarker');
+        $marker = \tx_rnbase::makeInstance('tx_cfcleaguefe_util_ProfileMarker');
         $template = $marker->parseTemplate($template, $sub, $formatter, $confId, $markerPrefix);
 
         return $template;
@@ -112,8 +113,8 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker
      * Bindet den Wettbewerb ein.
      *
      * @param string $template
-     * @param tx_t3sportstats_models_PlayerStat $item
-     * @param tx_rnbase_util_FormatUtil $formatter
+     * @param \tx_t3sportstats_models_PlayerStat $item
+     * @param \tx_rnbase_util_FormatUtil $formatter
      * @param string $confId
      * @param string $markerPrefix
      *
@@ -124,12 +125,11 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker
         $sub = $item->getCompetitionUid();
         if (!$sub) {
             // Kein Item vorhanden. Leere Instanz anlegen und altname setzen
-            $sub = tx_rnbase_util_BaseMarker::getEmptyInstance('tx_cfcleague_models_Competition');
+            $sub = \tx_rnbase_util_BaseMarker::getEmptyInstance('tx_cfcleague_models_Competition');
         } else {
-            tx_rnbase::load('tx_cfcleague_models_Competition');
-            $sub = tx_cfcleague_models_Competition::getCompetitionInstance($sub);
+            $sub = \tx_cfcleague_models_Competition::getCompetitionInstance($sub);
         }
-        $marker = tx_rnbase::makeInstance('tx_cfcleaguefe_util_CompetitionMarker');
+        $marker = \tx_rnbase::makeInstance('tx_cfcleaguefe_util_CompetitionMarker');
         $template = $marker->parseTemplate($template, $sub, $formatter, $confId, $markerPrefix);
 
         return $template;
@@ -139,8 +139,8 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker
      * Bindet den Verein ein.
      *
      * @param string $template
-     * @param tx_t3sportstats_models_PlayerStat $item
-     * @param tx_rnbase_util_FormatUtil $formatter
+     * @param \tx_t3sportstats_models_PlayerStat $item
+     * @param \tx_rnbase_util_FormatUtil $formatter
      * @param string $confId
      * @param string $markerPrefix
      *
@@ -151,11 +151,11 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker
         $sub = $item->getClubUid();
         if (!$sub) {
             // Kein Item vorhanden. Leere Instanz anlegen und altname setzen
-            $sub = tx_rnbase_util_BaseMarker::getEmptyInstance('tx_cfcleague_models_Club');
+            $sub = \tx_rnbase_util_BaseMarker::getEmptyInstance('tx_cfcleague_models_Club');
         } else {
-            $sub = tx_rnbase::makeInstance('tx_cfcleague_models_Club', $sub);
+            $sub = \tx_rnbase::makeInstance('tx_cfcleague_models_Club', $sub);
         }
-        $marker = tx_rnbase::makeInstance('tx_cfcleaguefe_util_ClubMarker');
+        $marker = \tx_rnbase::makeInstance('tx_cfcleaguefe_util_ClubMarker');
         $template = $marker->parseTemplate($template, $sub, $formatter, $confId, $markerPrefix);
 
         return $template;
@@ -168,11 +168,11 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker
      * werden auch vorhandene MatchNotes berücksichtigt, so daß ein Spieler mit gelber
      * Karte diese z.B. neben seinem Namen angezeigt bekommt.
      *
-     * @param tx_t3sportstats_models_PlayerStat $item
+     * @param \tx_t3sportstats_models_PlayerStat $item
      */
     private function prepareFields($item, $template, $markerPrefix)
     {
-        $perMatch = array();
+        $perMatch = [];
         foreach ($item->getProperty() as $key => $value) {
             if (self::containsMarker($template, $markerPrefix.'_'.strtoupper($key).'_PER_MATCH')) {
                 $perMatch[$key.'_per_match'] = intval($item->getProperty('played')) ? intval($item->getProperty($key)) / intval($item->getProperty('played')) : 0;
@@ -187,12 +187,12 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker
     /**
      * Links vorbereiten.
      *
-     * @param tx_t3sportstats_models_PlayerStat $item
+     * @param \tx_t3sportstats_models_PlayerStat $item
      * @param string $marker
      * @param array $markerArray
      * @param array $wrappedSubpartArray
      * @param string $confId
-     * @param tx_rnbase_util_FormatUtil $formatter
+     * @param \tx_rnbase_util_FormatUtil $formatter
      */
     private function prepareLinks($item, $marker, &$markerArray, &$subpartArray, &$wrappedSubpartArray, $confId, &$formatter, $template)
     {

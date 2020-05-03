@@ -1,8 +1,11 @@
 <?php
+
+namespace System25\T3sports\Search;
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2017 Rene Nitzsche
+ *  (c) 2010-2020 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -20,14 +23,13 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
-tx_rnbase::load('tx_rnbase_util_SearchBase');
 
 /**
  * Mit dem Builder werden haufig auftretende Suchanfragen zusammengebaut.
  *
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_search_Builder
+class StatsSearchBuilder
 {
     /**
      * Search for player statistics by scope.
@@ -45,7 +47,7 @@ class tx_t3sportstats_search_Builder
         $result = self::setField($fields, 'PLAYERSTAT.AGEGROUP', OP_IN_INT, $scope['GROUP_UIDS']) || $result;
         $result = self::setField($fields, 'PLAYERSTAT.COMPETITION', OP_IN_INT, $scope['COMP_UIDS']) || $result;
         $result = self::setField($fields, 'PLAYERSTAT.CLUB', OP_IN_INT, $scope['CLUB_UIDS']) || $result;
-
+        
         return true;
     }
 
@@ -73,8 +75,7 @@ class tx_t3sportstats_search_Builder
      * Search for referee statistics by scope.
      *
      * @param array $fields
-     * @param string $scope
-     *            Scope Array
+     * @param string $scope Scope Array
      *
      * @return true
      */

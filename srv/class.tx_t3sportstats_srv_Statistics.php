@@ -1,4 +1,8 @@
 <?php
+use System25\T3sports\Search\SearchCoachStats;
+use System25\T3sports\Search\SearchPlayerStats;
+use System25\T3sports\Search\SearchRefereeStats;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -377,7 +381,7 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
     public function searchPlayerStats($fields, $options)
     {
         tx_rnbase::load('tx_rnbase_util_SearchBase');
-        $searcher = tx_rnbase_util_SearchBase::getInstance('tx_t3sportstats_search_PlayerStats');
+        $searcher = tx_rnbase_util_SearchBase::getInstance(SearchPlayerStats::class);
 
         return $searcher->search($fields, $options);
     }
@@ -393,7 +397,7 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
     public function searchCoachStats($fields, $options)
     {
         tx_rnbase::load('tx_rnbase_util_SearchBase');
-        $searcher = tx_rnbase_util_SearchBase::getInstance('tx_t3sportstats_search_CoachStats');
+        $searcher = tx_rnbase_util_SearchBase::getInstance(SearchCoachStats::class);
 
         return $searcher->search($fields, $options);
     }
@@ -409,7 +413,7 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
     public function searchRefereeStats($fields, $options)
     {
         tx_rnbase::load('tx_rnbase_util_SearchBase');
-        $searcher = tx_rnbase_util_SearchBase::getInstance('tx_t3sportstats_search_RefereeStats');
+        $searcher = tx_rnbase_util_SearchBase::getInstance(SearchRefereeStats::class);
 
         return $searcher->search($fields, $options);
     }

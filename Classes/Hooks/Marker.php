@@ -2,6 +2,8 @@
 
 namespace System25\T3sports\Hooks;
 
+use System25\T3sports\Marker\PlayerStatsMarker;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -80,7 +82,7 @@ class Marker
             $items = $this->findData($profile, $config, $confId, $statKey);
             // Markerklasse aus Config holen
             $markerClass = $config->get($confId.$statKey.'.markerClass');
-            $markerClass = $markerClass ? $markerClass : 'tx_t3sportstats_marker_PlayerStats';
+            $markerClass = $markerClass ? $markerClass : PlayerStatsMarker::class;
             $marker = \tx_rnbase::makeInstance($markerClass);
             // Wir sollten nur einen Datensatz haben und können diesen jetzt ausgeben
             $subpartArray['###'.$subpartMarker.'###'] = $marker->parseTemplate($subpart, $items[0], $config->getFormatter(), $confId.$statKey.'.data.', $subpartMarker);

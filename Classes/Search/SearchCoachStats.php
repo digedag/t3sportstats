@@ -1,4 +1,7 @@
 <?php
+
+namespace System25\T3sports\Search;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -20,14 +23,13 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
-tx_rnbase::load('tx_rnbase_util_SearchBase');
 
 /**
  * Class to search player stats from database.
  *
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_search_CoachStats extends tx_rnbase_util_SearchBase
+class SearchCoachStats extends \tx_rnbase_util_SearchBase
 {
     protected function getTableMappings()
     {
@@ -39,7 +41,7 @@ class tx_t3sportstats_search_CoachStats extends tx_rnbase_util_SearchBase
         $tableMapping['CLUB'] = 'tx_cfcleague_club';
         $tableMapping['CLUBOPP'] = 'tx_cfcleague_club';
         // Hook to append other tables
-        tx_rnbase_util_Misc::callHook('t3sportstats', 'search_CoachStats_getTableMapping_hook', array(
+        \tx_rnbase_util_Misc::callHook('t3sportstats', 'search_CoachStats_getTableMapping_hook', array(
             'tableMapping' => &$tableMapping,
         ), $this);
 
@@ -86,7 +88,7 @@ class tx_t3sportstats_search_CoachStats extends tx_rnbase_util_SearchBase
         }
 
         // Hook to append other tables
-        tx_rnbase_util_Misc::callHook('t3sportstats', 'search_CoachStats_getJoins_hook', array(
+        \tx_rnbase_util_Misc::callHook('t3sportstats', 'search_CoachStats_getJoins_hook', array(
             'join' => &$join,
             'tableAliases' => $tableAliases,
         ), $this);

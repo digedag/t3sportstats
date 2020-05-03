@@ -5,6 +5,7 @@ namespace System25\T3sports\View;
 use Sys25\RnBase\Frontend\View\Marker\BaseView;
 use Sys25\RnBase\Frontend\Request\RequestInterface;
 use Sys25\RnBase\Frontend\View\ContextInterface;
+use System25\T3sports\Marker\CoachStatsMarker;
 
 /***************************************************************
  *  Copyright notice
@@ -44,7 +45,7 @@ class CoachStats extends BaseView
         $out = '';
         foreach ($items as $type => $data) {
             $subTemplate = \tx_rnbase_util_Templates::getSubpart($template, '###'.strtoupper($type).'###');
-            $out .= $listBuilder->render($data, $viewData, $subTemplate, 'tx_t3sportstats_marker_CoachStats', $request
+            $out .= $listBuilder->render($data, $viewData, $subTemplate, CoachStatsMarker::class, $request
                 ->getConfId().$type.'.data.', 'DATA', $formatter);
         }
 

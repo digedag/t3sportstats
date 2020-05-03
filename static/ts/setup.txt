@@ -80,7 +80,7 @@ lib.t3sports.statsPlayerFilter {
   filter = System25\T3sports\Filter\PlayerStatsFilter
   options.what = player
   options.groupby = PLAYERSTAT.player
-  markerClass = tx_t3sportstats_marker_PlayerStats
+  markerClass = System25\T3sports\Marker\PlayerStatsMarker
   filterType = player
 }
 
@@ -90,7 +90,7 @@ lib.t3sports.statsCoachFilter {
   options.what = coach
   options.groupby = COACHSTAT.coach
   columns = played,win,draw,loose,cardyellow,cardyr,cardred,goals,goalshome,goalsaway,goalsjoker,changeout
-  markerClass = tx_t3sportstats_marker_CoachStats
+  markerClass = System25\T3sports\Marker\CoachStatsMarker
   filterType = coach
   data.links.played.useKeepVars.add = cfc_league_fe::statstype=defaultCoach
   data.links.goals.useKeepVars.add = cfc_league_fe::statstype=defaultCoach
@@ -107,7 +107,7 @@ lib.t3sports.statsRefereeFilter {
     cardyellowagainst,cardyragainst,cardredagainst,
     goalspenalty,goalspenaltyown,goalspenaltyagainst,penalty,penaltyown,penaltyagainst
   )
-  markerClass = tx_t3sportstats_marker_RefereeStats
+  markerClass = System25\T3sports\Marker\RefereeStatsMarker
   filterType = referee
   data.links.played.useKeepVars.add = cfc_league_fe::statstype=defaultRef
   data.links.goals.useKeepVars.add = cfc_league_fe::statstype=defaultRef

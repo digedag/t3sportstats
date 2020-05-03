@@ -2,6 +2,8 @@
 
 namespace System25\T3sports\Filter;
 
+use System25\T3sports\Search\StatsSearchBuilder;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -55,6 +57,6 @@ class CoachStatsFilter extends \tx_rnbase_filter_BaseFilter
             $options['what'] .= ','.implode(', ', $columns);
         }
         $scopeArr = \tx_cfcleaguefe_util_ScopeController::handleCurrentScope($parameters, $configurations);
-        \tx_t3sportstats_search_Builder::buildCoachStatsByScope($fields, $scopeArr);
+        StatsSearchBuilder::buildCoachStatsByScope($fields, $scopeArr);
     }
 }
