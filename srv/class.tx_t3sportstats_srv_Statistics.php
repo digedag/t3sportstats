@@ -1,4 +1,5 @@
 <?php
+
 use System25\T3sports\Search\SearchCoachStats;
 use System25\T3sports\Search\SearchPlayerStats;
 use System25\T3sports\Search\SearchRefereeStats;
@@ -70,7 +71,7 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
         $memStart = memory_get_usage();
 
         // Über alle Spiele iterieren und die Spieler an die Services geben
-        for ($j = 0, $mc = count($matches); $j < $mc; ++$j ) {
+        for ($j = 0, $mc = count($matches); $j < $mc; ++$j) {
             $matchNotes = tx_cfcleague_util_ServiceRegistry::getMatchService()->retrieveMatchNotes($matches[$j], true);
             $mnProv = tx_t3sportstats_util_MatchNoteProvider::createInstance($matchNotes);
             // handle Hometeam
@@ -110,7 +111,7 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
         tx_rnbase_util_Logger::debug('Player statistics: '.$del.' old records deleted.', 't3sportstats');
 
         $dataBags = $this->getPlayerBags($match, $homeTeam);
-        for ($i = 0, $servicesArrCnt = count($servicesArr); $i < $servicesArrCnt; ++$i ) {
+        for ($i = 0, $servicesArrCnt = count($servicesArr); $i < $servicesArrCnt; ++$i) {
             $service = &$servicesArr[$i];
             foreach ($dataBags as $dataBag) {
                 $service->indexPlayerStats($dataBag, $match, $mnProv, $homeTeam);
@@ -137,7 +138,7 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
         tx_rnbase_util_Logger::debug('Coach statistics: '.$del.' old records deleted.', 't3sportstats');
 
         $dataBags = $this->getCoachBags($match, $homeTeam);
-        for ($i = 0, $servicesArrCnt = count($servicesArr); $i < $servicesArrCnt; ++$i ) {
+        for ($i = 0, $servicesArrCnt = count($servicesArr); $i < $servicesArrCnt; ++$i) {
             $service = &$servicesArr[$i];
             foreach ($dataBags as $dataBag) {
                 $service->indexCoachStats($dataBag, $match, $mnProv, $homeTeam);
@@ -163,7 +164,7 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
         tx_rnbase_util_Logger::debug('Referee statistics: '.$del.' old records deleted.', 't3sportstats');
 
         $dataBags = $this->getRefereeBags($match, $homeTeam);
-        for ($i = 0, $servicesArrCnt = count($servicesArr); $i < $servicesArrCnt; ++$i ) {
+        for ($i = 0, $servicesArrCnt = count($servicesArr); $i < $servicesArrCnt; ++$i) {
             $service = &$servicesArr[$i];
             foreach ($dataBags as $dataBag) {
                 $service->indexRefereeStats($dataBag, $match, $mnProv, $homeTeam);
