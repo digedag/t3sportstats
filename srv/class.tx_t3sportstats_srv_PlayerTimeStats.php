@@ -1,4 +1,5 @@
 <?php
+
 use System25\T3sports\Utility\StatsDataBag;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
 

@@ -82,7 +82,6 @@ tx_rnbase_util_Extensions::addService(
     ]
 );
 
-
 System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('goals', '10,11,12,13');
 System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('assists', '31');
 System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('goalshead', '11');
