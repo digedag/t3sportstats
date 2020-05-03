@@ -47,7 +47,7 @@ class StatsSearchBuilder
         $result = self::setField($fields, 'PLAYERSTAT.AGEGROUP', OP_IN_INT, $scope['GROUP_UIDS']) || $result;
         $result = self::setField($fields, 'PLAYERSTAT.COMPETITION', OP_IN_INT, $scope['COMP_UIDS']) || $result;
         $result = self::setField($fields, 'PLAYERSTAT.CLUB', OP_IN_INT, $scope['CLUB_UIDS']) || $result;
-        
+
         return true;
     }
 
