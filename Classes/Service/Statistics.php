@@ -464,7 +464,7 @@ class Statistics extends AbstractService
             $srvArr = \tx_rnbase_util_Misc::lookupServices($key);
             $this->statsSrvArr[$key] = array();
             foreach ($srvArr as $subType => $srvData) {
-                $this->statsSrvArr[$key][] =  \tx_rnbase_util_Misc::getService($key, $subType);
+                $this->statsSrvArr[$key][] = \tx_rnbase_util_Misc::getService($key, $subType);
             }
         }
 

@@ -122,6 +122,5 @@ System25\T3sports\Utility\StatsConfig::registerPlayerStatsReport('assistlist');
 System25\T3sports\Utility\StatsConfig::registerCoachStatsReport('default');
 System25\T3sports\Utility\StatsConfig::registerRefereeStatsReport('default');
 
-
 // Register a new matchnote type
 tx_cfcleague_util_Misc::registerMatchNote('LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:tx_cfcleague_match_notes.type.goalfreekick', '13');
