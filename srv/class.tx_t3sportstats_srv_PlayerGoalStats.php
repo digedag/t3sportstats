@@ -53,7 +53,6 @@ class tx_t3sportstats_srv_PlayerGoalStats extends Tx_Rnbase_Service_Base
         $homeAwayType = $isHome ? 'goalshome' : 'goalsaway';
         foreach ($notes as $note) {
             if ($this->isType($note->getType(), $goalTypes)) {
-                
                 $dataBag->addType($homeAwayType, 1);
                 if (!$startPlayer) {
                     $dataBag->addType('goalsjoker', 1);

@@ -332,11 +332,11 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
     }
 
     /**
-     * 
      * @param int $uid
      * @param \tx_cfcleague_models_Match $match
-     * @param boolean $home
+     * @param bool $home
      * @param string $profileField
+     *
      * @return object|Exception
      */
     private function createProfileBag($uid, $match, $home, $profileField)
