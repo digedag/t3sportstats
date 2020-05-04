@@ -53,4 +53,3 @@ class tx_t3sportstats_tests_srvStatistics_testcase extends \tx_phpunit_testcase
         $this->assertEquals(8, count($bags), 'Number of databags is wrong.');
     }
 }
-
