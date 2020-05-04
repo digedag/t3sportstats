@@ -4,7 +4,6 @@ namespace System25\T3sports\Tests\Service;
 
 use System25\T3sports\Utility\StatsMatchNoteProvider;
 use System25\T3sports\Tests\StatsFixtureUtil;
-use System25\T3sports\Service\StatsServiceRegistry;
 
 /***************************************************************
 *  Copyright notice
@@ -32,7 +31,7 @@ use System25\T3sports\Service\StatsServiceRegistry;
 class PlayerGoalStatsTest extends \tx_rnbase_tests_BaseTestCase
 {
     private $statsService;
-    
+
     public function setUp()
     {
         $this->statsService = new \tx_t3sportstats_srv_Statistics();
@@ -50,7 +49,7 @@ class PlayerGoalStatsTest extends \tx_rnbase_tests_BaseTestCase
     {
         $matchIdx = 0;
         $matches = StatsFixtureUtil::getMatches();
-        
+
         $match = $matches[$matchIdx];
         $bagHash = [];
 

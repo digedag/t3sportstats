@@ -25,7 +25,6 @@ namespace System25\T3sports\Service;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
 /**
  * Zentrale Klasse für den Zugriff auf verschiedene Services.
  */

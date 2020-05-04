@@ -28,7 +28,7 @@ use System25\T3sports\Tests\StatsFixtureUtil;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class tx_t3sportstats_tests_utilMatchNoteProvider_testcase extends \tx_rnbase_tests_BaseTestCase
+class StatsMatchNoteProviderTest extends \tx_rnbase_tests_BaseTestCase
 {
     /**
      * @group unit
