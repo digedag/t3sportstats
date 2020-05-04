@@ -33,7 +33,7 @@ class StatsServiceRegistry
     /**
      * Liefert den Statistik-Service.
      *
-     * @return \tx_t3sportstats_srv_Statistics
+     * @return Statistics
      */
     public function getStatisticService()
     {

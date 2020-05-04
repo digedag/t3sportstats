@@ -4,6 +4,8 @@ namespace System25\T3sports\Tests\Service;
 
 use System25\T3sports\Utility\StatsMatchNoteProvider;
 use System25\T3sports\Tests\StatsFixtureUtil;
+use System25\T3sports\StatsIndexer\PlayerGoalStats;
+use System25\T3sports\Service\Statistics;
 
 /***************************************************************
 *  Copyright notice
@@ -34,7 +36,7 @@ class PlayerGoalStatsTest extends \tx_rnbase_tests_BaseTestCase
 
     public function setUp()
     {
-        $this->statsService = new \tx_t3sportstats_srv_Statistics();
+        $this->statsService = new Statistics();
         \System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('goals', '10,11,12,13');
         \System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('assists', '31');
         \System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('goalshead', '11');
@@ -107,10 +109,10 @@ class PlayerGoalStatsTest extends \tx_rnbase_tests_BaseTestCase
     }
 
     /**
-     * @return \tx_t3sportstats_srv_PlayerGoalStats
+     * @return PlayerGoalStats
      */
     private static function getService()
     {
-        return \tx_rnbase::makeInstance('tx_t3sportstats_srv_PlayerGoalStats');
+        return \tx_rnbase::makeInstance(PlayerGoalStats::class);
     }
 }

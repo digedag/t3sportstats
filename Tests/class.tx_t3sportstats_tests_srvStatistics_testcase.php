@@ -1,6 +1,8 @@
 <?php
 
 use System25\T3sports\Tests\StatsFixtureUtil;
+use System25\T3sports\Service\StatsServiceRegistry;
+use System25\T3sports\Service\Statistics;
 
 /***************************************************************
 *  Copyright notice
@@ -25,16 +27,16 @@ use System25\T3sports\Tests\StatsFixtureUtil;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class tx_t3sportstats_tests_srvStatistics_testcase extends tx_phpunit_testcase
+class tx_t3sportstats_tests_srvStatistics_testcase extends \tx_phpunit_testcase
 {
     public function test_serviceStatistics()
     {
-        $this->assertTrue(tx_t3sportstats_util_ServiceRegistry::getStatisticService() instanceof tx_t3sportstats_srv_Statistics, 'Service not found!');
+        $this->assertTrue(StatsServiceRegistry::getStatisticService() instanceof Statistics, 'Service not found!');
     }
 
     public function test_lookupPlayerServices()
     {
-        $srv = tx_t3sportstats_util_ServiceRegistry::getStatisticService();
+        $srv = StatsServiceRegistry::getStatisticService();
         $srvArr = $srv->lookupPlayerServices();
         $this->assertTrue(is_array($srvArr), 'Player Services not found!');
         $this->assertTrue(count($srvArr) > 0, 'Player Services not found!');
@@ -43,7 +45,7 @@ class tx_t3sportstats_tests_srvStatistics_testcase extends tx_phpunit_testcase
     public function test_getPlayerBags()
     {
         $matches = StatsFixtureUtil::getMatches();
-        $srv = tx_t3sportstats_util_ServiceRegistry::getStatisticService();
+        $srv = StatsServiceRegistry::getStatisticService();
         $bags = $srv->getPlayerBags($matches[0], true);
         $this->assertEquals(7, count($bags), 'Number of databags is wrong.');
 
@@ -52,6 +54,3 @@ class tx_t3sportstats_tests_srvStatistics_testcase extends tx_phpunit_testcase
     }
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/tests/class.tx_t3sportstats_tests_srv_srvStatistics_testcase.php']) {
-    include_once $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/tests/class.tx_t3sportstats_tests_srv_srvStatistics_testcase.php'];
-}

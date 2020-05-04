@@ -1,13 +1,16 @@
 <?php
 
+namespace System25\T3sports\StatsIndexer;
+
 use System25\T3sports\Utility\StatsConfig;
 use System25\T3sports\Utility\StatsDataBag;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
+use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2018 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,76 +29,57 @@ use System25\T3sports\Utility\StatsMatchNoteProvider;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-tx_rnbase::load('Tx_Rnbase_Service_Base');
-tx_rnbase::load('Tx_Rnbase_Utility_Strings');
 
 /**
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_srv_PlayerStats extends Tx_Rnbase_Service_Base
+class PlayerGoalStats extends AbstractService
 {
     private $types = [];
 
     /**
-     * Update statistics for a player.
+     * Update statistics for a player
+     * goalshome, goalsaway, goalsjoker.
      *
      * @param StatsDataBag $dataBag
-     * @param tx_cfcleague_models_Match $match
+     * @param \tx_cfcleague_models_Match $match
      * @param StatsMatchNoteProvider $mnProv
-     * @param bool $isHome
      */
     public function indexPlayerStats($dataBag, $match, $mnProv, $isHome)
     {
         // Wir betrachten das Spiel für einen bestimmten Spieler
-        $this->indexSimple($dataBag, $mnProv);
-        $this->indexWinLoose($dataBag, $match, $isHome);
-    }
-
-    /**
-     * @param StatsDataBag $dataBag
-     * @param tx_cfcleague_models_Match $match
-     * @param bool $isHome
-     */
-    private function indexWinLoose($dataBag, $match, $isHome)
-    {
-        $toto = $match->getToto();
-        $type = 'draw';
-        if (1 == $toto && $isHome || 2 == $toto && !$isHome) {
-            $type = 'win';
-        } elseif (2 == $toto && $isHome || 1 == $toto && !$isHome) {
-            $type = 'loose';
-        }
-        $dataBag->addType($type, 1);
-    }
-
-    /**
-     * @param StatsDataBag $dataBag
-     * @param StatsMatchNoteProvider $mnProv
-     */
-    private function indexSimple($dataBag, $mnProv)
-    {
         $profId = $dataBag->getParentUid();
-        // Wir benötigen die Events des Spielers
         $notes = $mnProv->getMatchNotes4Profile($profId);
-
-        if (!$notes || 0 == count($notes)) {
-            return;
-        }
+        $startPlayer = $this->isStartPlayer($profId, $match, $isHome);
         $statTypes = StatsConfig::getPlayerStatsSimple();
+        $goalTypes = $statTypes['goals']['types'];
+        $homeAwayType = $isHome ? 'goalshome' : 'goalsaway';
         foreach ($notes as $note) {
-            foreach ($statTypes as $type => $info) {
-                // Entspricht die Note dem Type in der Info
-                if ($this->isType($note->getType(), $info['types'])) {
-                    $dataBag->addType($type, 1);
+            if ($this->isType($note->getType(), $goalTypes)) {
+                $dataBag->addType($homeAwayType, 1);
+                if (!$startPlayer) {
+                    $dataBag->addType('goalsjoker', 1);
                 }
             }
         }
+        // $dataBag->addType('playtime', $time);
+    }
+
+    /**
+     * @param \tx_cfcleague_models_Match $match
+     * @param bool $isHome
+     */
+    private function isStartPlayer($player, $match, $isHome)
+    {
+        $startPlayer = array_flip(\Tx_Rnbase_Utility_Strings::intExplode(',', $isHome ? $match->getProperty('players_home') : $match->getProperty('players_guest')));
+
+        return array_key_exists($player, $startPlayer);
     }
 
     private function isType($type, $typeList)
     {
         if (!array_key_exists($typeList, $this->types)) {
-            $this->types[$typeList] = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',', $typeList));
+            $this->types[$typeList] = array_flip(\Tx_Rnbase_Utility_Strings::intExplode(',', $typeList));
         }
         $types = $this->types[$typeList];
 

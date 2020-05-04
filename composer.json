@@ -43,8 +43,7 @@
 		},
 		"classmap" : [
 			"Deprecations/",
-			"mod/",
-			"srv/"
+			"mod/"
 		]
 	},
 	"autoload-dev": {

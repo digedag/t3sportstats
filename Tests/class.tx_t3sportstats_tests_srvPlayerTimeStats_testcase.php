@@ -2,6 +2,7 @@
 
 use System25\T3sports\Utility\StatsMatchNoteProvider;
 use System25\T3sports\Tests\StatsFixtureUtil;
+use System25\T3sports\StatsIndexer\PlayerTimeStats;
 
 /***************************************************************
 *  Copyright notice
@@ -97,10 +98,10 @@ class tx_t3sportstats_tests_srvPlayerTimeStats_testcase extends tx_phpunit_testc
     }
 
     /**
-     * @return tx_t3sportstats_srv_PlayerTimeStats
+     * @return PlayerTimeStats
      */
     private static function getService()
     {
-        return tx_rnbase::makeInstance('tx_t3sportstats_srv_PlayerTimeStats');
+        return tx_rnbase::makeInstance(PlayerTimeStats::class);
     }
 }

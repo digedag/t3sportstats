@@ -1,12 +1,15 @@
 <?php
 
+namespace System25\T3sports\StatsIndexer;
+
 use System25\T3sports\Utility\StatsDataBag;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
+use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2017 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -25,14 +28,11 @@ use System25\T3sports\Utility\StatsMatchNoteProvider;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-tx_rnbase::load('Tx_Rnbase_Service_Base');
-tx_rnbase::load('Tx_Rnbase_Utility_Strings');
-tx_rnbase::load('tx_cfcleague_util_MatchNote');
 
 /**
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_srv_PlayerTimeStats extends Tx_Rnbase_Service_Base
+class PlayerTimeStats extends AbstractService
 {
     private $types = [];
 
@@ -41,7 +41,7 @@ class tx_t3sportstats_srv_PlayerTimeStats extends Tx_Rnbase_Service_Base
      * playtime, played.
      *
      * @param StatsDataBag $dataBag
-     * @param tx_cfcleague_models_Match $match
+     * @param \tx_cfcleague_models_Match $match
      * @param StatsMatchNoteProvider $mnProv
      */
     public function indexPlayerStats($dataBag, $match, $mnProv, $isHome)
@@ -57,14 +57,14 @@ class tx_t3sportstats_srv_PlayerTimeStats extends Tx_Rnbase_Service_Base
         $time = 0;
 
         foreach ($notes as $note) {
-            if (tx_cfcleague_util_MatchNote::isChangeIn($note)) {
+            if (\tx_cfcleague_util_MatchNote::isChangeIn($note)) {
                 $startMin = $note->getMinute();
                 $isEndPlayer = true;
                 $dataBag->setType('played', 1);
             } elseif (
-                    tx_cfcleague_util_MatchNote::isChangeOut($note) ||
-                    tx_cfcleague_util_MatchNote::isCardYellowRed($note) ||
-                    tx_cfcleague_util_MatchNote::isCardRed($note)) {
+                    \tx_cfcleague_util_MatchNote::isChangeOut($note) ||
+                    \tx_cfcleague_util_MatchNote::isCardYellowRed($note) ||
+                    \tx_cfcleague_util_MatchNote::isCardRed($note)) {
                 $time = $note->getMinute() - $startMin + $time;
                 $isEndPlayer = false;
             }
@@ -77,24 +77,24 @@ class tx_t3sportstats_srv_PlayerTimeStats extends Tx_Rnbase_Service_Base
         $dataBag->addType('playtime', $time);
     }
 
-    protected function retrieveEndTime(tx_cfcleague_models_Match $match)
+    protected function retrieveEndTime(\tx_cfcleague_models_Match $match)
     {
         $sports = $match->getCompetition()->getSportsService();
         $matchInfo = $sports->getMatchInfo();
-        $key = $match->isExtraTime() ? tx_cfcleague_sports_MatchInfo::MATCH_EXTRA_TIME : tx_cfcleague_sports_MatchInfo::MATCH_TIME;
+        $key = $match->isExtraTime() ? \tx_cfcleague_sports_MatchInfo::MATCH_EXTRA_TIME : \tx_cfcleague_sports_MatchInfo::MATCH_TIME;
         $ret = $matchInfo->getInfo($key);
 
         return null == $ret ? 90 : $ret;
     }
 
     /**
-     * @param tx_cfcleague_models_Match $match
+     * @param \tx_cfcleague_models_Match $match
      * @param bool $isHome
      */
     private function isStartPlayer($player, $match, $isHome)
     {
         $startPlayer = array_flip(
-            Tx_Rnbase_Utility_Strings::intExplode(',', $isHome ? $match->getProperty('players_home') : $match->getProperty('players_guest'))
+            \Tx_Rnbase_Utility_Strings::intExplode(',', $isHome ? $match->getProperty('players_home') : $match->getProperty('players_guest'))
         );
 
         return array_key_exists($player, $startPlayer);
@@ -103,7 +103,7 @@ class tx_t3sportstats_srv_PlayerTimeStats extends Tx_Rnbase_Service_Base
     private function isType($type, $typeList)
     {
         if (!array_key_exists($typeList, $this->types)) {
-            $this->types[$typeList] = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',', $typeList));
+            $this->types[$typeList] = array_flip(\Tx_Rnbase_Utility_Strings::intExplode(',', $typeList));
         }
         $types = $this->types[$typeList];
 

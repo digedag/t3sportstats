@@ -2,6 +2,7 @@
 
 use System25\T3sports\Utility\StatsMatchNoteProvider;
 use System25\T3sports\Tests\StatsFixtureUtil;
+use System25\T3sports\StatsIndexer\PlayerStats;
 
 /***************************************************************
 *  Copyright notice
@@ -26,7 +27,7 @@ use System25\T3sports\Tests\StatsFixtureUtil;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class tx_t3sportstats_tests_srvPlayerStats_testcase extends tx_phpunit_testcase
+class tx_t3sportstats_tests_srvPlayerStats_testcase extends \tx_phpunit_testcase
 {
     public function test_indexPlayerStats()
     {
@@ -73,10 +74,10 @@ class tx_t3sportstats_tests_srvPlayerStats_testcase extends tx_phpunit_testcase
     }
 
     /**
-     * @return tx_t3sportstats_srv_PlayerStats
+     * @return PlayerStats
      */
     private static function getService()
     {
-        return tx_rnbase::makeInstance('tx_t3sportstats_srv_PlayerStats');
+        return tx_rnbase::makeInstance(PlayerStats::class);
     }
 }
