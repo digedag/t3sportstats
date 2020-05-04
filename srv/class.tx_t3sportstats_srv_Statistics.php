@@ -258,7 +258,7 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
                 $ids = $match->getProperty('substitutes_'.$type);
             }
         }
-        $bags = array();
+        $bags = [];
         $playerIds = Tx_Rnbase_Utility_Strings::intExplode(',', $ids);
         foreach ($playerIds as $uid) {
             if ($uid <= 0) {
@@ -331,6 +331,14 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base
         return $bags;
     }
 
+    /**
+     * 
+     * @param int $uid
+     * @param \tx_cfcleague_models_Match $match
+     * @param boolean $home
+     * @param string $profileField
+     * @return object|Exception
+     */
     private function createProfileBag($uid, $match, $home, $profileField)
     {
         $bag = tx_rnbase::makeInstance(StatsDataBag::class);

@@ -1,8 +1,11 @@
 <?php
+
+namespace System25\T3sports\Service;
+
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,23 +25,19 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-tx_rnbase::load('tx_rnbase_util_Misc');
 
 /**
  * Zentrale Klasse für den Zugriff auf verschiedene Services.
  */
-class tx_t3sportstats_util_ServiceRegistry
+class StatsServiceRegistry
 {
     /**
      * Liefert den Statistik-Service.
      *
-     * @return tx_t3sportstats_srv_Statistics
+     * @return \tx_t3sportstats_srv_Statistics
      */
-    public static function getStatisticService()
+    public function getStatisticService()
     {
-        return tx_rnbase_util_Misc::getService('t3sportstats', 'statistics');
+        return \tx_rnbase_util_Misc::getService('t3sportstats', 'statistics');
     }
-}
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/util/class.tx_t3sportstats_util_ServiceRegistry.php']) {
-    include_once $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/util/class.tx_t3sportstats_util_ServiceRegistry.php'];
 }

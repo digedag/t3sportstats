@@ -3,6 +3,7 @@
 namespace System25\T3sports\Hooks;
 
 use System25\T3sports\Marker\PlayerStatsMarker;
+use System25\T3sports\Service\StatsServiceRegistry;
 
 /***************************************************************
  *  Copyright notice
@@ -93,7 +94,7 @@ class Marker
 
     private function findData($profile, $configurations, $confId, $type)
     {
-        $srv = \tx_t3sportstats_util_ServiceRegistry::getStatisticService();
+        $srv = (new StatsServiceRegistry())->getStatisticService();
         $confId = $confId.$type.'.';
         $filter = \tx_rnbase_filter_BaseFilter::createFilter(
             new \ArrayObject(),

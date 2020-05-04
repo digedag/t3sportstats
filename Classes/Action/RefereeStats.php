@@ -4,6 +4,7 @@ namespace System25\T3sports\Action;
 
 use Sys25\RnBase\Frontend\Controller\AbstractAction;
 use Sys25\RnBase\Frontend\Request\RequestInterface;
+use System25\T3sports\Service\StatsServiceRegistry;
 
 /***************************************************************
  *  Copyright notice
@@ -69,7 +70,7 @@ class RefereeStats extends AbstractAction
 
     private function findData($parameters, $configurations, $viewData, $type)
     {
-        $srv = \tx_t3sportstats_util_ServiceRegistry::getStatisticService();
+        $srv = (new StatsServiceRegistry())->getStatisticService();
         $confId = $this->getConfId().$type.'.';
         $filter = \tx_rnbase_filter_BaseFilter::createFilter($parameters, $configurations, $viewData, $confId);
 

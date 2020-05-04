@@ -43,11 +43,7 @@
 		},
 		"classmap" : [
 			"Deprecations/",
-			"filter/",
-			"marker/",
 			"mod/",
-			"models/",
-			"search/",
 			"srv/",
 			"util/"
 		]
@@ -69,7 +65,7 @@
     "scripts": {
         "post-autoload-dump": [
             "mkdir -p .Build/Web/typo3conf/ext/",
-            "[ -L .Build/Web/typo3conf/ext/t3sportstats ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/cfc_league_fe"
+            "[ -L .Build/Web/typo3conf/ext/t3sportstats ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/t3sportstats"
         ]
     },
     "extra": {

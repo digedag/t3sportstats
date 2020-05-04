@@ -149,15 +149,15 @@ class StatsConfig
     {
         $column = strtolower($column);
         if (!is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$type]['simpleStats'])) {
-            $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$type]['simpleStats'] = array();
+            $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$type]['simpleStats'] = [];
         }
 
         if (!array_key_exists($column, $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$type]['simpleStats'])) {
-            $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$type]['simpleStats'][$column] = array(
+            $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$type]['simpleStats'][$column] = [
                 'types' => $types,
-            );
+            ];
         } else {
-            $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$type]['simpleStats'][$column] .= ','.$types;
+            $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$type]['simpleStats'][$column]['types'] .= ','.$types;
         }
     }
 

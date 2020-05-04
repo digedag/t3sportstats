@@ -1,6 +1,7 @@
 <?php
 
 use System25\T3sports\Utility\StatsMatchNoteProvider;
+use System25\T3sports\Tests\StatsFixtureUtil;
 
 /***************************************************************
 *  Copyright notice
@@ -30,7 +31,7 @@ class tx_t3sportstats_tests_srvPlayerStats_testcase extends tx_phpunit_testcase
     public function test_indexPlayerStats()
     {
         $matchIdx = 0;
-        $matches = tx_t3sportstats_tests_Util::getMatches();
+        $matches = StatsFixtureUtil::getMatches();
 
         $match = $matches[$matchIdx];
         $srv = tx_t3sportstats_util_ServiceRegistry::getStatisticService();
@@ -43,7 +44,7 @@ class tx_t3sportstats_tests_srvPlayerStats_testcase extends tx_phpunit_testcase
         foreach ($bags as $bag) {
             $bagHash[$bag->getParentUid()] = $bag;
         }
-        $notes = tx_t3sportstats_tests_Util::getMatchNotes($matchIdx);
+        $notes = StatsFixtureUtil::getMatchNotes($matchIdx);
 
         $mnProv = StatsMatchNoteProvider::createInstance($notes);
         $this->getService()->indexPlayerStats($bagHash[100], $match, $mnProv, true);

@@ -1,11 +1,14 @@
 <?php
 
+namespace System25\T3sports\Tests\Utility;
+
 use System25\T3sports\Utility\StatsMatchNoteProvider;
+use System25\T3sports\Tests\StatsFixtureUtil;
 
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008-2010 Rene Nitzsche (rene@system25.de)
+*  (c) 2008-2020 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -25,12 +28,15 @@ use System25\T3sports\Utility\StatsMatchNoteProvider;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class tx_t3sportstats_tests_utilMatchNoteProvider_testcase extends tx_phpunit_testcase
+class tx_t3sportstats_tests_utilMatchNoteProvider_testcase extends \tx_rnbase_tests_BaseTestCase
 {
+    /**
+     * @group unit
+     */
     public function test_getMatchNotes4Profile()
     {
         $matchIdx = 0;
-        $notes = tx_t3sportstats_tests_Util::getMatchNotes($matchIdx);
+        $notes = StatsFixtureUtil::getMatchNotes($matchIdx);
         $mnProv = StatsMatchNoteProvider::createInstance($notes);
         $notes = $mnProv->getMatchNotes4Profile(100);
         $this->assertEquals(3, count($notes), 'Number of notes for player is wrong');

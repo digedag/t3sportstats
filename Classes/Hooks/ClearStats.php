@@ -2,6 +2,8 @@
 
 namespace System25\T3sports\Hooks;
 
+use System25\T3sports\Service\StatsServiceRegistry;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -31,7 +33,7 @@ class ClearStats
 {
     public function clearStats4Comp($params, $parent)
     {
-        $srv = \tx_t3sportstats_util_ServiceRegistry::getStatisticService();
+        $srv = (new StatsServiceRegistry())->getStatisticService();
         /* @var $comp \tx_cfcleague_models_Competition */
         $comp = \tx_rnbase::makeInstance('tx_cfcleague_models_Competition', $params['compUid']);
         if ($comp && $comp->isValid()) {

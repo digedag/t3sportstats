@@ -1,0 +1,9 @@
+### travis builds
+/.Build
+/composer.lock
+/var
+
+### eclipse files
+.settings
+.buildpath
+
