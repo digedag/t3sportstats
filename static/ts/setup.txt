@@ -9,7 +9,7 @@ plugin.tx_t3sportstats.userFunc       = tx_rnbase_controller->main
 plugin.tx_t3sportstats.defaultAction  = System25\T3sports\Action\PlayerStats
 plugin.tx_t3sportstats.qualifier      = cfc_league_fe
 plugin.tx_t3sportstats.templatePath   = EXT:t3sportstats/templates
-plugin.tx_t3sportstats.locallangFilename = EXT:t3sportstats/locallang.xml
+plugin.tx_t3sportstats.locallangFilename = EXT:t3sportstats/Resources/Private/Language/locallang.xml
 
 
 tt_content.list.20.tx_t3sportstats    =< plugin.tx_t3sportstats
