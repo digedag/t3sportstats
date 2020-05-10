@@ -36,6 +36,7 @@ use System25\T3sports\Sports\ServiceLocator;
 class PlayerTimeStats extends AbstractService
 {
     private $types = [];
+
     private $serviceLocator;
 
     public function __construct(ServiceLocator $locator = null)

@@ -35,15 +35,16 @@ use System25\T3sports\Sports\Football;
 class PlayerTimeStatsTest extends \tx_rnbase_tests_BaseTestCase
 {
     private $statsService;
+
     private $serviceLocator;
-    
+
     public function setUp()
     {
         $this->statsService = new Statistics();
         $this->serviceLocator = $this->prophesize(ServiceLocator::class);
         $this->serviceLocator->getSportsService('football')
             ->willReturn(new Football());
-        
+
         \System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('goals', '10,11,12,13');
         \System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('assists', '31');
     }
@@ -65,7 +66,7 @@ class PlayerTimeStatsTest extends \tx_rnbase_tests_BaseTestCase
         $notes = StatsFixtureUtil::getMatchNotes($matchIdx);
 
         $mnProv = StatsMatchNoteProvider::createInstance($notes);
-        
+
         $statsService = $this->getService($this->serviceLocator->reveal());
         $statsService->indexPlayerStats($bagHash[100], $match, $mnProv, true);
 
