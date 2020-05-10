@@ -5,6 +5,7 @@ namespace System25\T3sports\StatsIndexer;
 use System25\T3sports\Utility\StatsDataBag;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
 use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
+use System25\T3sports\Sports\ServiceLocator;
 
 /***************************************************************
  *  Copyright notice
@@ -35,6 +36,12 @@ use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
 class PlayerTimeStats extends AbstractService
 {
     private $types = [];
+    private $serviceLocator;
+
+    public function __construct(ServiceLocator $locator = null)
+    {
+        $this->serviceLocator = $locator ? $locator : new ServiceLocator();
+    }
 
     /**
      * Update statistics for a player
@@ -79,7 +86,7 @@ class PlayerTimeStats extends AbstractService
 
     protected function retrieveEndTime(\tx_cfcleague_models_Match $match)
     {
-        $sports = $match->getCompetition()->getSportsService();
+        $sports = $this->serviceLocator->getSportsService($match->getCompetition()->getSports());
         $matchInfo = $sports->getMatchInfo();
         $key = $match->isExtraTime() ? \tx_cfcleague_sports_MatchInfo::MATCH_EXTRA_TIME : \tx_cfcleague_sports_MatchInfo::MATCH_TIME;
         $ret = $matchInfo->getInfo($key);

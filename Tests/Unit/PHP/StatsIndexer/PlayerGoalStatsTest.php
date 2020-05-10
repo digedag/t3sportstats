@@ -1,6 +1,6 @@
 <?php
 
-namespace System25\T3sports\Tests\Service;
+namespace System25\T3sports\Tests\StatsIndexer;
 
 use System25\T3sports\Utility\StatsMatchNoteProvider;
 use System25\T3sports\Tests\StatsFixtureUtil;

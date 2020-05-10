@@ -1,13 +1,18 @@
 <?php
 
+namespace System25\T3sports\Tests\StatsIndexer;
+
 use System25\T3sports\Utility\StatsMatchNoteProvider;
 use System25\T3sports\Tests\StatsFixtureUtil;
 use System25\T3sports\StatsIndexer\PlayerTimeStats;
+use System25\T3sports\Service\Statistics;
+use System25\T3sports\Sports\ServiceLocator;
+use System25\T3sports\Sports\Football;
 
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008-2010 Rene Nitzsche (rene@system25.de)
+*  (c) 2008-2020 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,43 +32,63 @@ use System25\T3sports\StatsIndexer\PlayerTimeStats;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class tx_t3sportstats_tests_srvPlayerTimeStats_testcase extends tx_phpunit_testcase
+class PlayerTimeStatsTest extends \tx_rnbase_tests_BaseTestCase
 {
+    private $statsService;
+    private $serviceLocator;
+    
+    public function setUp()
+    {
+        $this->statsService = new Statistics();
+        $this->serviceLocator = $this->prophesize(ServiceLocator::class);
+        $this->serviceLocator->getSportsService('football')
+            ->willReturn(new Football());
+        
+        \System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('goals', '10,11,12,13');
+        \System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('assists', '31');
+    }
+
+    /**
+     * @group unit
+     */
     public function test_indexPlayerStatsHome()
     {
         $matchIdx = 0;
         $matches = StatsFixtureUtil::getMatches();
 
         $match = $matches[$matchIdx];
-        $srv = tx_t3sportstats_util_ServiceRegistry::getStatisticService();
-        $bagHash = array();
-        $bags = $srv->getPlayerBags($match, true);
+        $bagHash = [];
+        $bags = $this->statsService->getPlayerBags($match, true);
         foreach ($bags as $bag) {
             $bagHash[$bag->getParentUid()] = $bag;
         }
         $notes = StatsFixtureUtil::getMatchNotes($matchIdx);
 
         $mnProv = StatsMatchNoteProvider::createInstance($notes);
-        $this->getService()->indexPlayerStats($bagHash[100], $match, $mnProv, true);
+        
+        $statsService = $this->getService($this->serviceLocator->reveal());
+        $statsService->indexPlayerStats($bagHash[100], $match, $mnProv, true);
 
         $this->assertEquals(90, $bagHash[100]->getTypeValue('playtime'), 'Playtime is wrong');
 
-        $this->getService()->indexPlayerStats($bagHash[110], $match, $mnProv, true);
+        $statsService->indexPlayerStats($bagHash[110], $match, $mnProv, true);
         $this->assertEquals(42, $bagHash[110]->getTypeValue('playtime'), 'Playtime is wrong');
 
-        $this->getService()->indexPlayerStats($bagHash[102], $match, $mnProv, true);
+        $statsService->indexPlayerStats($bagHash[102], $match, $mnProv, true);
         $this->assertEquals(48, $bagHash[102]->getTypeValue('playtime'), 'Playtime is wrong');
     }
 
+    /**
+     * @group unit
+     */
     public function test_indexPlayerStatsGuest()
     {
         $matchIdx = 0;
         $matches = StatsFixtureUtil::getMatches();
 
         $match = $matches[$matchIdx];
-        $srv = tx_t3sportstats_util_ServiceRegistry::getStatisticService();
-        $bagHash = array();
-        $bags = $srv->getPlayerBags($match, false);
+        $bagHash = [];
+        $bags = $this->statsService->getPlayerBags($match, false);
         foreach ($bags as $bag) {
             $bagHash[$bag->getParentUid()] = $bag;
         }
@@ -71,37 +96,33 @@ class tx_t3sportstats_tests_srvPlayerTimeStats_testcase extends tx_phpunit_testc
 
         $mnProv = StatsMatchNoteProvider::createInstance($notes);
 
-        $this->getService()->indexPlayerStats($bagHash[202], $match, $mnProv, false);
+        $statsService = $this->getService($this->serviceLocator->reveal());
+        $statsService->indexPlayerStats($bagHash[202], $match, $mnProv, false);
         $this->assertEquals(90, $bagHash[202]->getTypeValue('playtime'), 'Playtime is wrong');
         $this->assertEquals(1, $bagHash[202]->getTypeValue('played'), 'Played is wrong');
 
-        $this->getService()->indexPlayerStats($bagHash[204], $match, $mnProv, false);
+        $statsService->indexPlayerStats($bagHash[204], $match, $mnProv, false);
         $this->assertEquals(89, $bagHash[204]->getTypeValue('playtime'), 'Playtime is wrong');
         $this->assertEquals(1, $bagHash[204]->getTypeValue('played'), 'Played is wrong');
 
-        $this->getService()->indexPlayerStats($bagHash[201], $match, $mnProv, false);
+        $statsService->indexPlayerStats($bagHash[201], $match, $mnProv, false);
         $this->assertEquals(65, $bagHash[201]->getTypeValue('playtime'), 'Playtime is wrong');
         $this->assertEquals(1, $bagHash[201]->getTypeValue('played'), 'Played is wrong');
 
-        $this->getService()->indexPlayerStats($bagHash[220], $match, $mnProv, false);
+        $statsService->indexPlayerStats($bagHash[220], $match, $mnProv, false);
         $this->assertEquals(10, $bagHash[220]->getTypeValue('playtime'), 'Playtime is wrong');
         $this->assertEquals(1, $bagHash[220]->getTypeValue('played'), 'Played is wrong');
 
-        $this->getService()->indexPlayerStats($bagHash[200], $match, $mnProv, false);
+        $statsService->indexPlayerStats($bagHash[200], $match, $mnProv, false);
         $this->assertEquals(80, $bagHash[200]->getTypeValue('playtime'), 'Playtime is wrong');
         $this->assertEquals(1, $bagHash[200]->getTypeValue('played'), 'Played is wrong');
-    }
-
-    public function testGetInstance()
-    {
-        $this->assertTrue(is_object(tx_rnbase_util_Misc::getService('t3sportsPlayerStats', 'playtime')), 'Service not registered.');
     }
 
     /**
      * @return PlayerTimeStats
      */
-    private static function getService()
+    private static function getService($arg = null)
     {
-        return tx_rnbase::makeInstance(PlayerTimeStats::class);
+        return \tx_rnbase::makeInstance(PlayerTimeStats::class, $arg);
     }
 }
