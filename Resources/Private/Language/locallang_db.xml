@@ -32,6 +32,8 @@
 			<label index="tx_t3sportstats_tags_name">Name</label>
 			<label index="tx_t3sportstats_tags_label">Label</label>
 
+			<label index="tx_t3sportstats_module_name">Statistics</label>
+
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="plugin.t3sportstats.label">T3sports: Statistiken</label>
@@ -51,6 +53,8 @@
 			<label index="tx_t3sportstats_tags">Tag</label>
 			<label index="tx_t3sportstats_tags_name">Name</label>
 			<label index="tx_t3sportstats_tags_label">Label</label>
+
+			<label index="tx_t3sportstats_module_name">Statistik</label>
 
 		</languageKey>
 	</data>

@@ -1,4 +1,3 @@
-includeLibs.FuncCompetitions = EXT:cfc_league/mod1/tx_cfcleague_modCompetitions.php
 
 ##############################
 # Achtung: im BE können keine Referenzen verwendet werden. Die Werte also immmer kopieren!!				
@@ -8,7 +7,7 @@ includeLibs.FuncCompetitions = EXT:cfc_league/mod1/tx_cfcleague_modCompetitions.
 mod {
 	cfc_league {
 		funct3sportstats {
-			template = EXT:t3sportstats/mod/templates/template.html
+			template = EXT:t3sportstats/Resources/Private/Templates/modTemplate.html
 		}
 	}
 }

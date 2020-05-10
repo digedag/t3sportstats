@@ -1,8 +1,11 @@
 <?php
+
+namespace System25\T3sports\Backend\Controller;
+
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Rene Nitzsche <rene@system25.de>
+*  (c) 2010-2020 Rene Nitzsche <rene@system25.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,23 +25,17 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-tx_rnbase::load('tx_rnbase_mod_ExtendedModFunc');
-
-tx_rnbase::load('tx_rnbase_util_Templates');
-tx_rnbase::load('tx_rnbase_util_BaseMarker');
-tx_rnbase::load('tx_rnbase_util_TYPO3');
-
 /**
  * Module function.
  *
  * @author	Rene Nitzsche <rene@system25.de>
  */
-class tx_t3sportstats_mod_index extends tx_rnbase_mod_ExtendedModFunc
+class StatisticsController extends \tx_rnbase_mod_ExtendedModFunc
 {
     protected function getContent($template, &$configurations, &$formatter, $formTool)
     {
-        $commonStart = tx_rnbase_util_Templates::getSubpart($template, '###COMMON_START###');
-        $commonEnd = tx_rnbase_util_Templates::getSubpart($template, '###COMMON_END###');
+        $commonStart = \tx_rnbase_util_Templates::getSubpart($template, '###COMMON_START###');
+        $commonEnd = \tx_rnbase_util_Templates::getSubpart($template, '###COMMON_END###');
         $tabContent = 'Tst';
 
         $out = $commonStart;
@@ -59,12 +56,12 @@ class tx_t3sportstats_mod_index extends tx_rnbase_mod_ExtendedModFunc
      */
     protected function getSubMenuItems()
     {
-        $menuItems = array();
-        $menuItems[] = tx_rnbase::makeInstance('tx_cfcleague_mod1_handler_ClubStadiums');
-        tx_rnbase_util_Misc::callHook(
+        $menuItems = [];
+        $menuItems[] = \tx_rnbase::makeInstance('tx_cfcleague_mod1_handler_ClubStadiums');
+        \tx_rnbase_util_Misc::callHook(
             'cfc_league',
             'modClub_tabItems',
-            array('tabItems' => &$menuItems),
+            ['tabItems' => &$menuItems],
             $this
         );
 
@@ -75,8 +72,4 @@ class tx_t3sportstats_mod_index extends tx_rnbase_mod_ExtendedModFunc
     {
         return false;
     }
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/mod1/class.tx_t3sportstats_mod_index.php']) {
-    include_once $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/mod1/class.tx_t3sportstats_mod_index.php'];
 }
