@@ -4,7 +4,8 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-tx_rnbase_util_Extensions::addStaticFile($_EXTKEY, 'static/ts/', 'T3sportstats');
+//tx_rnbase_util_Extensions::addStaticFile($_EXTKEY, 'static/ts/', 'T3sportstats');
+tx_rnbase_util_Extensions::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Plugin/', 'T3sportstats');
 
 if (TYPO3_MODE == 'BE') {
     // Einbindung einer PageTSConfig

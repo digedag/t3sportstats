@@ -2,13 +2,13 @@
 
 plugin.tx_t3sportstats {
   # cat=T3sportstats (Templates)/dbstats; type=string;label=HTML Template for database statistics
-  dbstatsTemplate = EXT:t3sportstats/templates/dbstats.html
+  dbstatsTemplate = EXT:t3sportstats/Resources/Private/Templates/dbstats.html
   # cat=T3sportstats (Templates)/refereestats; type=string;label=HTML Template for referee statistics
-  refereestatsTemplate = EXT:t3sportstats/templates/coachstats.html
+  refereestatsTemplate = EXT:t3sportstats/Resources/Private/Templates/coachstats.html
   # cat=T3sportstats (Templates)/coachstats; type=string;label=HTML Template for coach statistics
-  coachstatsTemplate = EXT:t3sportstats/templates/coachstats.html
+  coachstatsTemplate = EXT:t3sportstats/Resources/Private/Templates/coachstats.html
   # cat=T3sportstats (Templates)/playerstats; type=string;label=HTML Template for player statistics
-  playerstatsTemplate = EXT:t3sportstats/templates/playerstats.html
+  playerstatsTemplate = EXT:t3sportstats/Resources/Private/Templates/playerstats.html
 
   # cat=T3sportstats (pages)/statsMatchtablePage; type=int+;label=PID of page for match tables for statistics
   statsmatchtablepage = 0

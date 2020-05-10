@@ -2,6 +2,12 @@
 Changelog
 ----------
 
+v1.0.0 (??.05.2020)
+ * Support for TYPO3 7.6, 8.7 and 9.5 LTS
+ * All classes refactored to PSR-4
+ * Travis-Build and Style-CI added
+ * IMPORTANT: re-add static Typoscript file to your base setup after update
+
 v0.4.1 (20.08.2017)
  * Support for TYPO3 7.6
  * Allow to render competition and club info in stats table of players
