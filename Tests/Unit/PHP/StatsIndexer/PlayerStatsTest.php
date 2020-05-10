@@ -35,13 +35,14 @@ use System25\T3sports\Sports\Football;
 class PlayerStatsTest extends \tx_rnbase_tests_BaseTestCase
 {
     private $statsService;
+
     private $serviceLocator;
-    
+
     public function setUp()
     {
         $this->statsService = new Statistics();
         $this->serviceLocator = $this->prophesize(ServiceLocator::class);
-        
+
         \System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('goals', '10,11,12,13');
         \System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('assists', '31');
         \System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('goalshead', '11');
