@@ -6,6 +6,7 @@ use System25\T3sports\Utility\StatsDataBag;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
 use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
 use System25\T3sports\Sports\ServiceLocator;
+use System25\T3sports\Sports\MatchInfo;
 
 /***************************************************************
  *  Copyright notice
@@ -89,7 +90,7 @@ class PlayerTimeStats extends AbstractService
     {
         $sports = $this->serviceLocator->getSportsService($match->getCompetition()->getSports());
         $matchInfo = $sports->getMatchInfo();
-        $key = $match->isExtraTime() ? \tx_cfcleague_sports_MatchInfo::MATCH_EXTRA_TIME : \tx_cfcleague_sports_MatchInfo::MATCH_TIME;
+        $key = $match->isExtraTime() ? MatchInfo::MATCH_EXTRA_TIME : MatchInfo::MATCH_TIME;
         $ret = $matchInfo->getInfo($key);
 
         return null == $ret ? 90 : $ret;
