@@ -42,8 +42,7 @@
 			"System25\\T3sports\\" : "Classes"
 		},
 		"classmap" : [
-			"Deprecations/",
-			"mod/"
+			"Deprecations/"
 		]
 	},
 	"autoload-dev": {
