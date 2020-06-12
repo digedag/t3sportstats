@@ -25,7 +25,7 @@
 		"digedag/t3sportstats" : "self.version"
 	},
 	"require" : {
-		"typo3/cms-core" : "^7.6 || ^8.7 || ^9.5.17",
+		"typo3/cms-core" : "^7.6 || ^8.7 || ^9.5.17 || ^10.4.3",
 		"digedag/rn-base" : "^1.12",
 		"digedag/cfc-league" : "^1.5.0",
 		"digedag/cfc-league-fe" : "^1.5.0"
