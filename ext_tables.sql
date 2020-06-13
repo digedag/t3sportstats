@@ -42,7 +42,7 @@ CREATE TABLE tx_t3sportstats_tags_mm (
 #
 CREATE TABLE tx_t3sportstats_players (
 	uid int(11) NOT NULL auto_increment,
-	crdate datetime DEFAULT '0000-00-00 00:00:00',
+	crdate datetime DEFAULT NULL,
 
 	player int(11) DEFAULT '0' NOT NULL,
 	t3match int(11) DEFAULT '0' NOT NULL,
@@ -88,7 +88,7 @@ CREATE TABLE tx_t3sportstats_players (
 #
 CREATE TABLE tx_t3sportstats_coachs (
 	uid int(11) NOT NULL auto_increment,
-	crdate datetime DEFAULT '0000-00-00 00:00:00',
+	crdate datetime DEFAULT NULL,
 
 	coach int(11) DEFAULT '0' NOT NULL,
 	t3match int(11) DEFAULT '0' NOT NULL,
@@ -127,7 +127,7 @@ CREATE TABLE tx_t3sportstats_coachs (
 #
 CREATE TABLE tx_t3sportstats_referees (
 	uid int(11) NOT NULL auto_increment,
-	crdate datetime DEFAULT '0000-00-00 00:00:00',
+	crdate datetime DEFAULT NULL,
 
 	referee int(11) DEFAULT '0' NOT NULL,
 	t3match int(11) DEFAULT '0' NOT NULL,
