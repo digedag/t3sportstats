@@ -34,8 +34,8 @@ $EM_CONF[$_EXTKEY] = array(
         'depends' => [
             'typo3' => '7.6.0-10.4.99',
             'rn_base' => '1.12.0-0.0.0',
-            'cfc_league' => '1.5.0-0.0.0',
-            'cfc_league_fe' => '1.5.0-0.0.0',
+            'cfc_league' => '1.5.1-0.0.0',
+            'cfc_league_fe' => '1.5.1-0.0.0',
         ],
         'conflicts' => [],
         'suggests' => [],

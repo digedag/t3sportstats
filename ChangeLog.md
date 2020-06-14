@@ -2,6 +2,9 @@
 Changelog
 ----------
 
+v1.1.0 (14.06.2020)
+ * Support for TYPO3 7.6, 8.7, 9.5 and 10.4 LTS
+
 v1.0.0 (12.06.2020)
  * Support for TYPO3 7.6, 8.7 and 9.5 LTS
  * All classes refactored to PSR-4
