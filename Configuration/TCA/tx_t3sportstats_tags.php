@@ -58,4 +58,8 @@ $tx_t3sportstats_tags = [
     ],
 ];
 
+if (\Sys25\RnBase\Utility\TYPO3::isTYPO104OrHigher()) {
+    unset($tx_t3sportstats_tags['interface']['showRecordFieldList']);
+}
+
 return $tx_t3sportstats_tags;
