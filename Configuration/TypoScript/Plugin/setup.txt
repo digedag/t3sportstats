@@ -127,15 +127,13 @@ plugin.tx_t3sportstats {
     default.options.orderby.PLAYER.LAST_NAME = asc
     scorerlist =< lib.t3sports.statsPlayerFilter
     scorerlist {
-      filter = tx_t3sportstats_filter_PlayerStats
       options.orderby.CUSTOM = goals desc
     	options.having = sum(goals) > 0
       data =< lib.t3sports.statsData
     }
     assistlist =< lib.t3sports.statsPlayerFilter
     assistlist {
-    	filter = tx_t3sportstats_filter_PlayerStats
-    	options.orderby.CUSTOM = assists desc
+      options.orderby.CUSTOM = assists desc
     	options.having = sum(assists) > 0
       data =< lib.t3sports.statsData
     }
