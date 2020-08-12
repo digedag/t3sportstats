@@ -7,7 +7,7 @@ if (!defined('TYPO3_MODE')) {
 if (TYPO3_MODE == 'BE') {
     // Einbindung einer PageTSConfig
     tx_rnbase_util_Extensions::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3sportstats/Configuration/PageTS/modWizards.ts">');
-    tx_rnbase_util_Extensions::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3sportstats/Configuration/PageTS/moduleConfig.txt">');
+    tx_rnbase_util_Extensions::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3sportstats/Configuration/PageTS/moduleConfig.tss">');
 
     ////////////////////////////////
     // Submodul anmelden
