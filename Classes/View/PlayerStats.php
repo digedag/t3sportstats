@@ -68,7 +68,7 @@ class PlayerStats extends BaseView
         return $out;
     }
 
-    protected function highlightPlayer($item)
+    public function highlightPlayer($item)
     {
         if (array_key_exists($item->getProperty('player'), $this->playerIds)) {
             $item->setProperty('hlTeam', 1);
