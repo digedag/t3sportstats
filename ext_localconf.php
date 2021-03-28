@@ -8,8 +8,8 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league']['clearStatistics_hook'][] =
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league']['mergeProfiles_hook'][] = 'System25\T3sports\Hooks\MergeProfiles->mergeProfile';
 
 // Hook for match search
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['search_Match_getTableMapping_hook'][] = 'System25\T3sports\Hooks\Search->getTableMappingMatch';
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['search_Match_getJoins_hook'][] = 'System25\T3sports\Hooks\Search->getJoinsMatch';
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league']['search_Match_getTableMapping_hook'][] = 'System25\T3sports\Hooks\Search->getTableMappingMatch';
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league']['search_Match_getJoins_hook'][] = 'System25\T3sports\Hooks\Search->getJoinsMatch';
 
 // Hook for profile marker
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['profileMarker_afterSubst'][] = 'System25\T3sports\Hooks\Marker->parseProfile';
