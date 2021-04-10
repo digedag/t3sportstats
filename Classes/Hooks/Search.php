@@ -43,13 +43,13 @@ class Search
     public function getJoinsMatch($params, $parent)
     {
         if (isset($params['tableAliases']['PLAYERSTAT'])) {
-            $params['join'][] = new Join('MATCH','tx_t3sportstats_players', 'MATCH.uid = PLAYERSTAT.t3match', 'PLAYERSTAT');
+            $params['join'][] = new Join('MATCH', 'tx_t3sportstats_players', 'MATCH.uid = PLAYERSTAT.t3match', 'PLAYERSTAT');
         }
         if (isset($params['tableAliases']['COACHSTAT'])) {
-            $params['join'][] = new Join('MATCH','tx_t3sportstats_coachs', 'MATCH.uid = COACHSTAT.t3match', 'COACHSTAT');
+            $params['join'][] = new Join('MATCH', 'tx_t3sportstats_coachs', 'MATCH.uid = COACHSTAT.t3match', 'COACHSTAT');
         }
         if (isset($params['tableAliases']['REFEREESTAT'])) {
-            $params['join'][] = new Join('MATCH','tx_t3sportstats_referees', 'MATCH.uid = REFEREESTAT.t3match', 'REFEREESTAT');
+            $params['join'][] = new Join('MATCH', 'tx_t3sportstats_referees', 'MATCH.uid = REFEREESTAT.t3match', 'REFEREESTAT');
         }
     }
 }

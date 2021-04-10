@@ -74,13 +74,13 @@ class PlayerStatsMarker extends \tx_rnbase_util_BaseMarker
         }
 
         $template = \tx_rnbase_util_Templates::substituteMarkerArrayCached($template, $markerArray, $subpartArray, $wrappedSubpartArray);
-        \tx_rnbase_util_Misc::callHook('t3sportstats', 'playerStatsMarker_afterSubst', array(
+        \tx_rnbase_util_Misc::callHook('t3sportstats', 'playerStatsMarker_afterSubst', [
             'item' => $item,
             'template' => &$template,
             'confid' => $confId,
             'marker' => $marker,
             'formatter' => $formatter,
-        ), $this);
+        ], $this);
 
         return $template;
     }
@@ -203,10 +203,10 @@ class PlayerStatsMarker extends \tx_rnbase_util_BaseMarker
         foreach ($linkNames as $linkId) {
             if ($item->getProperty($linkId)) {
                 // Link nur bei Wert größer 0 ausführen, damit keine leere Liste verlinkt wird.
-                $params = array(
+                $params = [
                     'statskey' => $linkId,
                     'player' => $item->getProperty('player'),
-                );
+                ];
                 $this->initLink($markerArray, $subpartArray, $wrappedSubpartArray, $formatter, $confId, $linkId, $marker, $params, $template);
             } else {
                 $linkMarker = $marker.'_'.strtoupper($linkId).'LINK';

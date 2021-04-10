@@ -2,13 +2,13 @@
 
 namespace System25\T3sports\Service;
 
+use Sys25\RnBase\Search\SearchBase;
+use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
 use System25\T3sports\Search\SearchCoachStats;
 use System25\T3sports\Search\SearchPlayerStats;
 use System25\T3sports\Search\SearchRefereeStats;
 use System25\T3sports\Utility\StatsDataBag;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
-use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
-use Sys25\RnBase\Search\SearchBase;
 
 /***************************************************************
  *  Copyright notice
@@ -85,13 +85,13 @@ class Statistics extends AbstractService
         }
         if (\tx_rnbase_util_Logger::isInfoEnabled()) {
             $memEnd = memory_get_usage();
-            \tx_rnbase_util_Logger::info('Player statistics finished.', 't3sportstats', array(
+            \tx_rnbase_util_Logger::info('Player statistics finished.', 't3sportstats', [
                 'Execution Time' => (microtime(true) - $time),
                 'Matches' => count($matches),
                 'Memory Start' => $memStart,
                 'Memory End' => $memEnd,
                 'Memory Consumed' => ($memEnd - $memStart),
-            ));
+            ]);
         }
     }
 
@@ -288,7 +288,7 @@ class Statistics extends AbstractService
     {
         $type = $home ? 'home' : 'guest';
         $uid = $match->getProperty('coach_'.$type);
-        $bags = array();
+        $bags = [];
         if ($uid <= 0) {
             return $bags; // skip dummy records
         }
@@ -390,6 +390,7 @@ class Statistics extends AbstractService
     public function searchPlayerStats($fields, $options)
     {
         $searcher = SearchBase::getInstance(SearchPlayerStats::class);
+
         return $searcher->search($fields, $options);
     }
 

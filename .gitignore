@@ -2,6 +2,7 @@
 /.Build
 /composer.lock
 /var
+.php_cs.cache
 
 ### eclipse files
 .settings

@@ -2,9 +2,9 @@
 
 namespace System25\T3sports\Search;
 
-use System25\T3sports\Model\RefereeStat;
-use Sys25\RnBase\Search\SearchBase;
 use Sys25\RnBase\Database\Query\Join;
+use Sys25\RnBase\Search\SearchBase;
+use System25\T3sports\Model\RefereeStat;
 
 /***************************************************************
  *  Copyright notice
@@ -76,19 +76,19 @@ class SearchRefereeStats extends SearchBase
     {
         $join = [];
         if (isset($tableAliases['MATCH'])) {
-            $join[] = new Join('REFEREESTAT','tx_cfcleague_games', 'MATCH.uid = REFEREESTAT.t3match', 'MATCH');
+            $join[] = new Join('REFEREESTAT', 'tx_cfcleague_games', 'MATCH.uid = REFEREESTAT.t3match', 'MATCH');
         }
         if (isset($tableAliases['REFEREE'])) {
-            $join[] = new Join('REFEREESTAT','tx_cfcleague_profiles', 'REFEREE.uid = REFEREESTAT.referee', 'REFEREE');
+            $join[] = new Join('REFEREESTAT', 'tx_cfcleague_profiles', 'REFEREE.uid = REFEREESTAT.referee', 'REFEREE');
         }
         if (isset($tableAliases['COMPETITION'])) {
-            $join[] = new Join('REFEREESTAT','tx_cfcleague_competition', 'COMPETITION.uid = REFEREESTAT.competition', 'COMPETITION');
+            $join[] = new Join('REFEREESTAT', 'tx_cfcleague_competition', 'COMPETITION.uid = REFEREESTAT.competition', 'COMPETITION');
         }
         if (isset($tableAliases['CLUB'])) {
-            $join[] = new Join('REFEREESTAT','tx_cfcleague_club', 'CLUB.uid = REFEREESTAT.club', 'CLUB');
+            $join[] = new Join('REFEREESTAT', 'tx_cfcleague_club', 'CLUB.uid = REFEREESTAT.club', 'CLUB');
         }
         if (isset($tableAliases['CLUBOPP'])) {
-            $join[] = new Join('REFEREESTAT','tx_cfcleague_club', 'CLUBOPP.uid = REFEREESTAT.clubopp', 'CLUBOPP');
+            $join[] = new Join('REFEREESTAT', 'tx_cfcleague_club', 'CLUBOPP.uid = REFEREESTAT.clubopp', 'CLUBOPP');
         }
 
         // Hook to append other tables

@@ -84,13 +84,13 @@ class CoachStats extends AbstractAction
             $options['debug'] = 1;
         }
 
-        self::handlePageBrowser($configurations, $confId.'data.pagebrowser', $viewData, $fields, $options, array(
+        self::handlePageBrowser($configurations, $confId.'data.pagebrowser', $viewData, $fields, $options, [
             'searchcallback' => [
                 $srv,
                 'searchCoachStats',
             ],
             'pbid' => $type.'ps',
-        ));
+        ]);
 
         $items = $srv->searchCoachStats($fields, $options);
 
@@ -108,7 +108,7 @@ class CoachStats extends AbstractAction
      * @param array $fields
      * @param array $options
      */
-    private static function handlePageBrowser($configurations, $confid, &$viewdata, &$fields, &$options, $cfg = array())
+    private static function handlePageBrowser($configurations, $confid, &$viewdata, &$fields, &$options, $cfg = [])
     {
         $confid .= '.';
         if (is_array($configurations->get($confid))) {

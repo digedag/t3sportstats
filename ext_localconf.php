@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('TYPO3_MODE')) {
-    die('Access denied.');
+    exit('Access denied.');
 }
 
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league']['clearStatistics_hook'][] = 'System25\T3sports\Hooks\ClearStats->clearStats4Comp';
@@ -19,8 +19,8 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['filterMatch_setfields']
 
 tx_rnbase_util_Extensions::addService(
     $_EXTKEY,
-    't3sportstats' /* sv type */,
-    'tx_t3sportstats_srv_Statistics' /* sv key */,
+    't3sportstats' /* sv type */ ,
+    'tx_t3sportstats_srv_Statistics' /* sv key */ ,
     [
         'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_statistics_title', 'description' => 'Statistical data about T3sports', 'subtype' => 'statistics',
         'available' => true, 'priority' => 50, 'quality' => 50,
@@ -31,8 +31,8 @@ tx_rnbase_util_Extensions::addService(
 
 tx_rnbase_util_Extensions::addService(
     $_EXTKEY,
-    't3sportsPlayerStats' /* sv type */,
-    'PlayerStats' /* sv key */,
+    't3sportsPlayerStats' /* sv type */ ,
+    'PlayerStats' /* sv key */ ,
     [
         'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_playerstats_title', 'description' => 'Statistical data about players', 'subtype' => 'base',
         'available' => true, 'priority' => 50, 'quality' => 50,
@@ -43,8 +43,8 @@ tx_rnbase_util_Extensions::addService(
 
 tx_rnbase_util_Extensions::addService(
     $_EXTKEY,
-    't3sportsPlayerStats' /* sv type */,
-    'PlayerTimeStats' /* sv key */,
+    't3sportsPlayerStats' /* sv type */ ,
+    'PlayerTimeStats' /* sv key */ ,
     [
         'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_playertimestats_title', 'description' => 'Statistical data about players', 'subtype' => 'playtime',
         'available' => true, 'priority' => 50, 'quality' => 50,
@@ -55,8 +55,8 @@ tx_rnbase_util_Extensions::addService(
 
 tx_rnbase_util_Extensions::addService(
     $_EXTKEY,
-    't3sportsPlayerStats' /* sv type */,
-    'PlayerGoalStats' /* sv key */,
+    't3sportsPlayerStats' /* sv type */ ,
+    'PlayerGoalStats' /* sv key */ ,
     [
         'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_playertimestats_title', 'description' => 'Statistical data about players', 'subtype' => 'goals',
         'available' => true, 'priority' => 50, 'quality' => 50,
@@ -67,8 +67,8 @@ tx_rnbase_util_Extensions::addService(
 
 tx_rnbase_util_Extensions::addService(
     $_EXTKEY,
-    't3sportsCoachStats' /* sv type */,
-    'CoachStats' /* sv key */,
+    't3sportsCoachStats' /* sv type */ ,
+    'CoachStats' /* sv key */ ,
     [
         'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_playerstats_title', 'description' => 'Statistical data about coaches', 'subtype' => 'base',
         'available' => true, 'priority' => 50, 'quality' => 50,
@@ -79,8 +79,8 @@ tx_rnbase_util_Extensions::addService(
 
 tx_rnbase_util_Extensions::addService(
     $_EXTKEY,
-    't3sportsRefereeStats' /* sv type */,
-    'RefereeStats' /* sv key */,
+    't3sportsRefereeStats' /* sv type */ ,
+    'RefereeStats' /* sv key */ ,
     [
         'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_playerstats_title', 'description' => 'Statistical data about referees', 'subtype' => 'base',
         'available' => true, 'priority' => 50, 'quality' => 50,

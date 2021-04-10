@@ -2,9 +2,9 @@
 
 namespace System25\T3sports\Search;
 
-use System25\T3sports\Model\CoachStat;
 use Sys25\RnBase\Database\Query\Join;
 use Sys25\RnBase\Search\SearchBase;
+use System25\T3sports\Model\CoachStat;
 
 /***************************************************************
  *  Copyright notice
@@ -45,9 +45,9 @@ class SearchCoachStats extends SearchBase
         $tableMapping['CLUB'] = 'tx_cfcleague_club';
         $tableMapping['CLUBOPP'] = 'tx_cfcleague_club';
         // Hook to append other tables
-        \tx_rnbase_util_Misc::callHook('t3sportstats', 'search_CoachStats_getTableMapping_hook', array(
+        \tx_rnbase_util_Misc::callHook('t3sportstats', 'search_CoachStats_getTableMapping_hook', [
             'tableMapping' => &$tableMapping,
-        ), $this);
+        ], $this);
 
         return $tableMapping;
     }
@@ -76,26 +76,26 @@ class SearchCoachStats extends SearchBase
     {
         $join = [];
         if (isset($tableAliases['MATCH'])) {
-            $join[] = new Join('COACHSTAT','tx_cfcleague_games', 'MATCH.uid = COACHSTAT.t3match', 'MATCH');
+            $join[] = new Join('COACHSTAT', 'tx_cfcleague_games', 'MATCH.uid = COACHSTAT.t3match', 'MATCH');
         }
         if (isset($tableAliases['COACH'])) {
-            $join[] = new Join('COACHSTAT','tx_cfcleague_profiles', 'COACH.uid = COACHSTAT.coach', 'COACH');
+            $join[] = new Join('COACHSTAT', 'tx_cfcleague_profiles', 'COACH.uid = COACHSTAT.coach', 'COACH');
         }
         if (isset($tableAliases['COMPETITION'])) {
-            $join[] = new Join('COACHSTAT','tx_cfcleague_competition', 'COMPETITION.uid = COACHSTAT.competition', 'COMPETITION');
+            $join[] = new Join('COACHSTAT', 'tx_cfcleague_competition', 'COMPETITION.uid = COACHSTAT.competition', 'COMPETITION');
         }
         if (isset($tableAliases['CLUB'])) {
-            $join[] = new Join('COACHSTAT','tx_cfcleague_club', 'CLUB.uid = COACHSTAT.club', 'CLUB');
+            $join[] = new Join('COACHSTAT', 'tx_cfcleague_club', 'CLUB.uid = COACHSTAT.club', 'CLUB');
         }
         if (isset($tableAliases['CLUBOPP'])) {
-            $join[] = new Join('COACHSTAT','tx_cfcleague_club', 'CLUBOPP.uid = COACHSTAT.clubopp', 'CLUBOPP');
+            $join[] = new Join('COACHSTAT', 'tx_cfcleague_club', 'CLUBOPP.uid = COACHSTAT.clubopp', 'CLUBOPP');
         }
 
         // Hook to append other tables
-        \tx_rnbase_util_Misc::callHook('t3sportstats', 'search_CoachStats_getJoins_hook', array(
+        \tx_rnbase_util_Misc::callHook('t3sportstats', 'search_CoachStats_getJoins_hook', [
             'join' => &$join,
             'tableAliases' => $tableAliases,
-        ), $this);
+        ], $this);
 
         return $join;
     }

@@ -84,13 +84,13 @@ class RefereeStats extends AbstractAction
             $options['debug'] = 1;
         }
 
-        self::handlePageBrowser($configurations, $confId.'data.pagebrowser', $viewData, $fields, $options, array(
+        self::handlePageBrowser($configurations, $confId.'data.pagebrowser', $viewData, $fields, $options, [
             'searchcallback' => [
                 $srv,
                 'searchRefereeStats',
             ],
             'pbid' => $type.'ps',
-        ));
+        ]);
 
         $items = $srv->searchRefereeStats($fields, $options);
 
@@ -108,7 +108,7 @@ class RefereeStats extends AbstractAction
      * @param array $fields
      * @param array $options
      */
-    private static function handlePageBrowser(&$configurations, $confid, &$viewdata, &$fields, &$options, $cfg = array())
+    private static function handlePageBrowser(&$configurations, $confid, &$viewdata, &$fields, &$options, $cfg = [])
     {
         $confid .= '.';
         if (is_array($configurations->get($confid))) {

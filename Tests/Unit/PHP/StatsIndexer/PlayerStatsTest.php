@@ -2,12 +2,12 @@
 
 namespace System25\T3sports\Tests\StatsIndexer;
 
-use System25\T3sports\Utility\StatsMatchNoteProvider;
-use System25\T3sports\Tests\StatsFixtureUtil;
-use System25\T3sports\StatsIndexer\PlayerStats;
 use System25\T3sports\Service\Statistics;
-use System25\T3sports\Sports\ServiceLocator;
 use System25\T3sports\Sports\Football;
+use System25\T3sports\Sports\ServiceLocator;
+use System25\T3sports\StatsIndexer\PlayerStats;
+use System25\T3sports\Tests\StatsFixtureUtil;
+use System25\T3sports\Utility\StatsMatchNoteProvider;
 
 /***************************************************************
 *  Copyright notice

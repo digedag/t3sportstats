@@ -2,9 +2,9 @@
 
 namespace System25\T3sports\View;
 
-use Sys25\RnBase\Frontend\View\Marker\BaseView;
 use Sys25\RnBase\Frontend\Request\RequestInterface;
 use Sys25\RnBase\Frontend\View\ContextInterface;
+use Sys25\RnBase\Frontend\View\Marker\BaseView;
 
 /***************************************************************
  *  Copyright notice
@@ -43,7 +43,7 @@ class DBStats extends BaseView
         $viewData = $request->getViewContext();
         $items = &$viewData->offsetGet('items');
 
-        $subpartArr = array();
+        $subpartArr = [];
         foreach ($items as $table => $data) {
             $tableMarker = '###'.strtoupper($table).'###';
             $subpart = \tx_rnbase_util_Templates::getSubpart($template, $tableMarker);
@@ -52,7 +52,7 @@ class DBStats extends BaseView
                 ->getConfId().$table.'.', 0, strtoupper($table).'_');
             $subpartArr[$tableMarker] = \tx_rnbase_util_Templates::substituteMarkerArrayCached($subpart, $markerArr);
         }
-        $out = \tx_rnbase_util_Templates::substituteMarkerArrayCached($template, array(), $subpartArr);
+        $out = \tx_rnbase_util_Templates::substituteMarkerArrayCached($template, [], $subpartArr);
 
         return $out;
     }

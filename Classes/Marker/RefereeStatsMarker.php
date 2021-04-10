@@ -47,13 +47,13 @@ class RefereeStatsMarker extends \tx_rnbase_util_BaseMarker
             return $formatter->getConfigurations()->getLL('item_notFound');
         }
         $this->prepareFields($item, $template, $marker);
-        \tx_rnbase_util_Misc::callHook('t3sportstats', 'refereeStatsMarker_initRecord', array(
+        \tx_rnbase_util_Misc::callHook('t3sportstats', 'refereeStatsMarker_initRecord', [
             'item' => $item,
             'template' => &$template,
             'confid' => $confId,
             'marker' => $marker,
             'formatter' => $formatter,
-        ), $this);
+        ], $this);
 
         // Das Markerarray wird gefüllt
         $ignore = self::findUnusedCols($item->getProperty(), $template, $marker);
