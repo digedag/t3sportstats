@@ -8,11 +8,12 @@ use System25\T3sports\Search\SearchRefereeStats;
 use System25\T3sports\Utility\StatsDataBag;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
 use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
+use Sys25\RnBase\Search\SearchBase;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2021 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -388,8 +389,7 @@ class Statistics extends AbstractService
      */
     public function searchPlayerStats($fields, $options)
     {
-        $searcher = \tx_rnbase_util_SearchBase::getInstance(SearchPlayerStats::class);
-
+        $searcher = SearchBase::getInstance(SearchPlayerStats::class);
         return $searcher->search($fields, $options);
     }
 
@@ -462,7 +462,7 @@ class Statistics extends AbstractService
     {
         if (!array_key_exists($key, $this->statsSrvArr)) {
             $srvArr = \tx_rnbase_util_Misc::lookupServices($key);
-            $this->statsSrvArr[$key] = array();
+            $this->statsSrvArr[$key] = [];
             foreach ($srvArr as $subType => $srvData) {
                 $this->statsSrvArr[$key][] = \tx_rnbase_util_Misc::getService($key, $subType);
             }

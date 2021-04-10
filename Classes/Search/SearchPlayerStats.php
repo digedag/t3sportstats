@@ -3,11 +3,13 @@
 namespace System25\T3sports\Search;
 
 use System25\T3sports\Model\PlayerStat;
+use Sys25\RnBase\Search\SearchBase;
+use Sys25\RnBase\Database\Query\Join;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2020 Rene Nitzsche
+ *  (c) 2010-2021 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -31,7 +33,7 @@ use System25\T3sports\Model\PlayerStat;
  *
  * @author Rene Nitzsche
  */
-class SearchPlayerStats extends \tx_rnbase_util_SearchBase
+class SearchPlayerStats extends SearchBase
 {
     protected function getTableMappings()
     {
@@ -72,21 +74,22 @@ class SearchPlayerStats extends \tx_rnbase_util_SearchBase
 
     protected function getJoins($tableAliases)
     {
-        $join = '';
+        $join = [];
+
         if (isset($tableAliases['MATCH'])) {
-            $join .= ' JOIN tx_cfcleague_games AS MATCH ON PLAYERSTAT.t3match = MATCH.uid ';
+            $join[] = new Join('PLAYERSTAT','tx_cfcleague_games', 'MATCH.uid = PLAYERSTAT.t3match', 'MATCH');
         }
         if (isset($tableAliases['PLAYER'])) {
-            $join .= ' JOIN tx_cfcleague_profiles AS PLAYER ON PLAYERSTAT.player = PLAYER.uid ';
+            $join[] = new Join('PLAYERSTAT','tx_cfcleague_profiles', 'PLAYER.uid = PLAYERSTAT.player', 'PLAYER');
         }
         if (isset($tableAliases['COMPETITION'])) {
-            $join .= ' JOIN tx_cfcleague_competition AS COMPETITION ON COMPETITION.uid = PLAYERSTAT.competition ';
+            $join[] = new Join('PLAYERSTAT','tx_cfcleague_competition', 'COMPETITION.uid = PLAYERSTAT.competition', 'COMPETITION');
         }
         if (isset($tableAliases['CLUB'])) {
-            $join .= ' JOIN tx_cfcleague_club AS CLUB ON CLUB.uid = PLAYERSTAT.club ';
+            $join[] = new Join('PLAYERSTAT','tx_cfcleague_club', 'CLUB.uid = PLAYERSTAT.club', 'CLUB');
         }
         if (isset($tableAliases['CLUBOPP'])) {
-            $join .= ' JOIN tx_cfcleague_club AS CLUBOPP ON CLUBOPP.uid = PLAYERSTAT.clubopp ';
+            $join[] = new Join('PLAYERSTAT','tx_cfcleague_club', 'CLUBOPP.uid = PLAYERSTAT.clubopp', 'CLUBOPP');
         }
 
         // Hook to append other tables

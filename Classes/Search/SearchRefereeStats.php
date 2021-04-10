@@ -3,11 +3,13 @@
 namespace System25\T3sports\Search;
 
 use System25\T3sports\Model\RefereeStat;
+use Sys25\RnBase\Search\SearchBase;
+use Sys25\RnBase\Database\Query\Join;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2020 Rene Nitzsche
+ *  (c) 2010-2021 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -31,7 +33,7 @@ use System25\T3sports\Model\RefereeStat;
  *
  * @author Rene Nitzsche
  */
-class SearchRefereeStats extends \tx_rnbase_util_SearchBase
+class SearchRefereeStats extends SearchBase
 {
     protected function getTableMappings()
     {
@@ -72,21 +74,21 @@ class SearchRefereeStats extends \tx_rnbase_util_SearchBase
 
     protected function getJoins($tableAliases)
     {
-        $join = '';
+        $join = [];
         if (isset($tableAliases['MATCH'])) {
-            $join .= ' JOIN tx_cfcleague_games AS MATCH ON REFEREESTAT.t3match = MATCH.uid ';
+            $join[] = new Join('REFEREESTAT','tx_cfcleague_games', 'MATCH.uid = REFEREESTAT.t3match', 'MATCH');
         }
         if (isset($tableAliases['REFEREE'])) {
-            $join .= ' JOIN tx_cfcleague_profiles AS REFEREE ON REFEREESTAT.referee = REFEREE.uid ';
+            $join[] = new Join('REFEREESTAT','tx_cfcleague_profiles', 'REFEREE.uid = REFEREESTAT.referee', 'REFEREE');
         }
         if (isset($tableAliases['COMPETITION'])) {
-            $join .= ' JOIN tx_cfcleague_competition AS COMPETITION ON COMPETITION.uid = REFEREESTAT.competition ';
+            $join[] = new Join('REFEREESTAT','tx_cfcleague_competition', 'COMPETITION.uid = REFEREESTAT.competition', 'COMPETITION');
         }
         if (isset($tableAliases['CLUB'])) {
-            $join .= ' JOIN tx_cfcleague_club AS CLUB ON CLUB.uid = REFEREESTAT.club ';
+            $join[] = new Join('REFEREESTAT','tx_cfcleague_club', 'CLUB.uid = REFEREESTAT.club', 'CLUB');
         }
         if (isset($tableAliases['CLUBOPP'])) {
-            $join .= ' JOIN tx_cfcleague_club AS CLUBOPP ON CLUBOPP.uid = REFEREESTAT.clubopp ';
+            $join[] = new Join('REFEREESTAT','tx_cfcleague_club', 'CLUBOPP.uid = REFEREESTAT.clubopp', 'CLUBOPP');
         }
 
         // Hook to append other tables
