@@ -2,10 +2,12 @@
 
 namespace System25\T3sports\Hooks;
 
+use Sys25\RnBase\Database\Query\Join;
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2020 Rene Nitzsche
+ *  (c) 2010-2021 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -41,13 +43,13 @@ class Search
     public function getJoinsMatch($params, $parent)
     {
         if (isset($params['tableAliases']['PLAYERSTAT'])) {
-            $params['join'] .= ' JOIN tx_t3sportstats_players ON tx_cfcleague_games.uid = tx_t3sportstats_players.t3match ';
+            $params['join'][] = new Join('MATCH', 'tx_t3sportstats_players', 'MATCH.uid = PLAYERSTAT.t3match', 'PLAYERSTAT');
         }
         if (isset($params['tableAliases']['COACHSTAT'])) {
-            $params['join'] .= ' JOIN tx_t3sportstats_coachs ON tx_cfcleague_games.uid = tx_t3sportstats_coachs.t3match ';
+            $params['join'][] = new Join('MATCH', 'tx_t3sportstats_coachs', 'MATCH.uid = COACHSTAT.t3match', 'COACHSTAT');
         }
         if (isset($params['tableAliases']['REFEREESTAT'])) {
-            $params['join'] .= ' JOIN tx_t3sportstats_referees ON tx_cfcleague_games.uid = tx_t3sportstats_referees.t3match ';
+            $params['join'][] = new Join('MATCH', 'tx_t3sportstats_referees', 'MATCH.uid = REFEREESTAT.t3match', 'REFEREESTAT');
         }
     }
 }

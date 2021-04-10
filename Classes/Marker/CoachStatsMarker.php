@@ -47,13 +47,13 @@ class CoachStatsMarker extends \tx_rnbase_util_BaseMarker
             return $formatter->getConfigurations()->getLL('item_notFound');
         }
         $this->prepareFields($item, $template, $marker);
-        \tx_rnbase_util_Misc::callHook('t3sportstats', 'coachStatsMarker_initRecord', array(
+        \tx_rnbase_util_Misc::callHook('t3sportstats', 'coachStatsMarker_initRecord', [
             'item' => &$item,
             'template' => &$template,
             'confid' => $confId,
             'marker' => $marker,
             'formatter' => $formatter,
-        ), $this);
+        ], $this);
 
         // Das Markerarray wird gefüllt
         $ignore = self::findUnusedCols($item->getProperties(), $template, $marker);
@@ -69,13 +69,13 @@ class CoachStatsMarker extends \tx_rnbase_util_BaseMarker
         }
 
         $template = \tx_rnbase_util_Templates::substituteMarkerArrayCached($template, $markerArray, $subpartArray, $wrappedSubpartArray);
-        \tx_rnbase_util_Misc::callHook('t3sportstats', 'coachStatsMarker_afterSubst', array(
+        \tx_rnbase_util_Misc::callHook('t3sportstats', 'coachStatsMarker_afterSubst', [
             'item' => &$item,
             'template' => &$template,
             'confid' => $confId,
             'marker' => $marker,
             'formatter' => $formatter,
-        ), $this);
+        ], $this);
 
         return $template;
     }
@@ -117,7 +117,7 @@ class CoachStatsMarker extends \tx_rnbase_util_BaseMarker
      */
     private function prepareFields($item, $template, $markerPrefix)
     {
-        $perMatch = array();
+        $perMatch = [];
         foreach ($item->getProperty() as $key => $value) {
             if (self::containsMarker($template, $markerPrefix.'_'.strtoupper($key).'_PER_MATCH')) {
                 $perMatch[$key.'_per_match'] = intval($item->getProperty('played')) ? intval($item->getProperty($key)) / intval($item->getProperty('played')) : 0;

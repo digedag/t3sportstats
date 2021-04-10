@@ -1,8 +1,8 @@
 <?php
 
-use System25\T3sports\Tests\StatsFixtureUtil;
-use System25\T3sports\Service\StatsServiceRegistry;
 use System25\T3sports\Service\Statistics;
+use System25\T3sports\Service\StatsServiceRegistry;
+use System25\T3sports\Tests\StatsFixtureUtil;
 
 /***************************************************************
 *  Copyright notice

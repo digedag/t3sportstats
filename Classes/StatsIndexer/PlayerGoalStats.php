@@ -2,10 +2,10 @@
 
 namespace System25\T3sports\StatsIndexer;
 
+use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
 use System25\T3sports\Utility\StatsConfig;
 use System25\T3sports\Utility\StatsDataBag;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
-use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
 
 /***************************************************************
  *  Copyright notice

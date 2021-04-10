@@ -26,7 +26,7 @@
 	},
 	"require" : {
 		"typo3/cms-core" : "^7.6 || ^8.7 || ^9.5.17 || ^10.4.3",
-		"digedag/rn-base" : "^1.12",
+		"digedag/rn-base" : "^1.13",
 		"digedag/cfc-league" : "^1.5.1",
 		"digedag/cfc-league-fe" : "^1.5.1"
 	},

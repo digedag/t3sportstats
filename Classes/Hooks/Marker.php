@@ -89,7 +89,7 @@ class Marker
             $subpartArray['###'.$subpartMarker.'###'] = $marker->parseTemplate($subpart, $items[0], $config->getFormatter(), $confId.$statKey.'.data.', $subpartMarker);
         }
 
-        $params['template'] = \tx_rnbase_util_Templates::substituteMarkerArrayCached($template, array(), $subpartArray);
+        $params['template'] = \tx_rnbase_util_Templates::substituteMarkerArrayCached($template, [], $subpartArray);
     }
 
     private function findData($profile, $configurations, $confId, $type)

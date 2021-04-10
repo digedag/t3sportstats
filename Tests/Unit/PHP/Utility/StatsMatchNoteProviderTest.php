@@ -2,8 +2,8 @@
 
 namespace System25\T3sports\Tests\Utility;
 
-use System25\T3sports\Utility\StatsMatchNoteProvider;
 use System25\T3sports\Tests\StatsFixtureUtil;
+use System25\T3sports\Utility\StatsMatchNoteProvider;
 
 /***************************************************************
 *  Copyright notice
@@ -33,7 +33,7 @@ class StatsMatchNoteProviderTest extends \tx_rnbase_tests_BaseTestCase
     /**
      * @group unit
      */
-    public function test_getMatchNotes4Profile()
+    public function testGetMatchNotes4Profile()
     {
         $matchIdx = 0;
         $notes = StatsFixtureUtil::getMatchNotes($matchIdx);

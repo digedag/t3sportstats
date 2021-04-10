@@ -29,7 +29,7 @@ class StatsFixtureUtil
 {
     public static function createCompetition($uid, $saison, $agegroup)
     {
-        return new \tx_cfcleague_models_Competition(array('uid' => $uid, 'saison' => $saison, 'agegroup' => $agegroup));
+        return new \tx_cfcleague_models_Competition(['uid' => $uid, 'saison' => $saison, 'agegroup' => $agegroup]);
     }
 
     public static function getMatches()

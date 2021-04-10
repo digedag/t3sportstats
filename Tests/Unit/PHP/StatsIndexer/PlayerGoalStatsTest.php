@@ -2,10 +2,10 @@
 
 namespace System25\T3sports\Tests\StatsIndexer;
 
-use System25\T3sports\Utility\StatsMatchNoteProvider;
-use System25\T3sports\Tests\StatsFixtureUtil;
-use System25\T3sports\StatsIndexer\PlayerGoalStats;
 use System25\T3sports\Service\Statistics;
+use System25\T3sports\StatsIndexer\PlayerGoalStats;
+use System25\T3sports\Tests\StatsFixtureUtil;
+use System25\T3sports\Utility\StatsMatchNoteProvider;
 
 /***************************************************************
 *  Copyright notice
@@ -47,7 +47,7 @@ class PlayerGoalStatsTest extends \tx_rnbase_tests_BaseTestCase
     /**
      * @group unit
      */
-    public function test_indexPlayerStatsHome()
+    public function testIndexPlayerStatsHome()
     {
         $matchIdx = 0;
         $matches = StatsFixtureUtil::getMatches();
@@ -82,7 +82,7 @@ class PlayerGoalStatsTest extends \tx_rnbase_tests_BaseTestCase
     /**
      * @group unit
      */
-    public function test_indexPlayerStatsGuest()
+    public function testIndexPlayerStatsGuest()
     {
         $matchIdx = 0;
         $matches = StatsFixtureUtil::getMatches();

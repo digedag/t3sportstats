@@ -2,17 +2,18 @@
 
 namespace System25\T3sports\Service;
 
+use Sys25\RnBase\Search\SearchBase;
+use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
 use System25\T3sports\Search\SearchCoachStats;
 use System25\T3sports\Search\SearchPlayerStats;
 use System25\T3sports\Search\SearchRefereeStats;
 use System25\T3sports\Utility\StatsDataBag;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
-use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2021 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -84,13 +85,13 @@ class Statistics extends AbstractService
         }
         if (\tx_rnbase_util_Logger::isInfoEnabled()) {
             $memEnd = memory_get_usage();
-            \tx_rnbase_util_Logger::info('Player statistics finished.', 't3sportstats', array(
+            \tx_rnbase_util_Logger::info('Player statistics finished.', 't3sportstats', [
                 'Execution Time' => (microtime(true) - $time),
                 'Matches' => count($matches),
                 'Memory Start' => $memStart,
                 'Memory End' => $memEnd,
                 'Memory Consumed' => ($memEnd - $memStart),
-            ));
+            ]);
         }
     }
 
@@ -287,7 +288,7 @@ class Statistics extends AbstractService
     {
         $type = $home ? 'home' : 'guest';
         $uid = $match->getProperty('coach_'.$type);
-        $bags = array();
+        $bags = [];
         if ($uid <= 0) {
             return $bags; // skip dummy records
         }
@@ -388,7 +389,7 @@ class Statistics extends AbstractService
      */
     public function searchPlayerStats($fields, $options)
     {
-        $searcher = \tx_rnbase_util_SearchBase::getInstance(SearchPlayerStats::class);
+        $searcher = SearchBase::getInstance(SearchPlayerStats::class);
 
         return $searcher->search($fields, $options);
     }
@@ -462,7 +463,7 @@ class Statistics extends AbstractService
     {
         if (!array_key_exists($key, $this->statsSrvArr)) {
             $srvArr = \tx_rnbase_util_Misc::lookupServices($key);
-            $this->statsSrvArr[$key] = array();
+            $this->statsSrvArr[$key] = [];
             foreach ($srvArr as $subType => $srvData) {
                 $this->statsSrvArr[$key][] = \tx_rnbase_util_Misc::getService($key, $subType);
             }
