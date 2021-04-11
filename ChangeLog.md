@@ -2,6 +2,9 @@
 Changelog
 ----------
 
+v1.2.0 (11.04.2021)
+ * Support new querybuilder API. Update hooks on search classes.
+
 v1.1.0 (14.06.2020)
  * Support for TYPO3 7.6, 8.7, 9.5 and 10.4 LTS
 
