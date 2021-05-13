@@ -2,6 +2,9 @@
 Changelog
 ----------
 
+v1.2.1 (13.05.2021)
+ * Matchtable hook used for cfc_league and cfc_league_fe
+
 v1.2.0 (11.04.2021)
  * Support new querybuilder API. Update hooks on search classes.
 
