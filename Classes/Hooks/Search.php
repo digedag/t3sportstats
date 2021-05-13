@@ -33,14 +33,14 @@ use Sys25\RnBase\Database\Query\Join;
  */
 class Search
 {
-    public function getTableMappingMatch($params, $parent)
+    public function getTableMappingMatch(&$params, $parent)
     {
         $params['tableMapping']['PLAYERSTAT'] = 'tx_t3sportstats_players';
         $params['tableMapping']['COACHSTAT'] = 'tx_t3sportstats_coachs';
         $params['tableMapping']['REFEREESTAT'] = 'tx_t3sportstats_referees';
     }
 
-    public function getJoinsMatch($params, $parent)
+    public function getJoinsMatch(&$params, $parent)
     {
         if (isset($params['tableAliases']['PLAYERSTAT'])) {
             $params['join'][] = new Join('MATCH', 'tx_t3sportstats_players', 'MATCH.uid = PLAYERSTAT.t3match', 'PLAYERSTAT');
