@@ -21,8 +21,7 @@
 		"issues" : "https://github.com/digedag/t3sportstats/issues"
 	},
 	"replace" : {
-		"typo3-ter/t3sportstats" : "self.version",
-		"digedag/t3sportstats" : "self.version"
+		"typo3-ter/t3sportstats" : "self.version"
 	},
 	"require" : {
 		"typo3/cms-core" : "^7.6 || ^8.7 || ^9.5.17 || ^10.4.3",
