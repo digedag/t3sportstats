@@ -2,13 +2,20 @@
 
 namespace System25\T3sports\Hooks;
 
+use Sys25\RnBase\Configuration\ConfigurationInterface;
+use Sys25\RnBase\Frontend\Filter\BaseFilter;
+use Sys25\RnBase\Frontend\Marker\Templates;
+use Sys25\RnBase\Frontend\Request\Request;
+use System25\T3sports\Frontend\Marker\ProfileMarker;
 use System25\T3sports\Marker\PlayerStatsMarker;
+use System25\T3sports\Model\Profile;
 use System25\T3sports\Service\StatsServiceRegistry;
+use tx_rnbase;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2008-2020 Rene Nitzsche
+ *  (c) 2008-2022 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -56,7 +63,7 @@ class Marker
      * Extend profileMarker for statistical data about profile.
      *
      * @param array $params
-     * @param \tx_cfcleaguefe_util_ProfileMarker $parent
+     * @param ProfileMarker $parent
      */
     public function parseProfile($params, $parent)
     {
@@ -76,7 +83,7 @@ class Marker
             // Die Daten holen
             $subpartMarker = $markerPrefix.'_STATS_'.strtoupper($statKey);
 
-            $subpart = \tx_rnbase_util_Templates::getSubpart($template, '###'.$subpartMarker.'###');
+            $subpart = Templates::getSubpart($template, '###'.$subpartMarker.'###');
             if (!$subpart) {
                 continue;
             }
@@ -84,22 +91,34 @@ class Marker
             // Markerklasse aus Config holen
             $markerClass = $config->get($confId.$statKey.'.markerClass');
             $markerClass = $markerClass ? $markerClass : PlayerStatsMarker::class;
-            $marker = \tx_rnbase::makeInstance($markerClass);
+            $marker = tx_rnbase::makeInstance($markerClass);
             // Wir sollten nur einen Datensatz haben und können diesen jetzt ausgeben
             $subpartArray['###'.$subpartMarker.'###'] = $marker->parseTemplate($subpart, $items[0], $config->getFormatter(), $confId.$statKey.'.data.', $subpartMarker);
         }
 
-        $params['template'] = \tx_rnbase_util_Templates::substituteMarkerArrayCached($template, [], $subpartArray);
+        $params['template'] = Templates::substituteMarkerArrayCached($template, [], $subpartArray);
     }
 
-    private function findData($profile, $configurations, $confId, $type)
+    /**
+     * @param Profile $profile
+     * @param unknown $configurations
+     * @param unknown $confId
+     * @param unknown $type
+     *
+     * @throws \Exception
+     *
+     * @return unknown
+     */
+    private function findData(Profile $profile, ConfigurationInterface $configurations, $confId, $type)
     {
         $srv = (new StatsServiceRegistry())->getStatisticService();
+        $request = new Request($configurations->getParameters(), $configurations, $confId);
         $confId = $confId.$type.'.';
-        $filter = \tx_rnbase_filter_BaseFilter::createFilter(
-            new \ArrayObject(),
-            $configurations,
-            new \ArrayObject(),
+        $filter = BaseFilter::createFilter(
+            $request,
+//             new \ArrayObject(),
+//             $configurations,
+//             new \ArrayObject(),
             $confId
         );
 

@@ -2,14 +2,17 @@
 
 namespace System25\T3sports\Action;
 
+use Sys25\RnBase\Configuration\ConfigurationInterface;
 use Sys25\RnBase\Frontend\Controller\AbstractAction;
+use Sys25\RnBase\Frontend\Filter\BaseFilter;
 use Sys25\RnBase\Frontend\Request\RequestInterface;
+use Sys25\RnBase\Utility\Strings;
 use System25\T3sports\Service\StatsServiceRegistry;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2022 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -46,7 +49,7 @@ class RefereeStats extends AbstractAction
         $viewData = $request->getViewContext();
 
         // Zuerst die Art der Statistik ermitteln
-        $types = \Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($this->getConfId().'statisticTypes'), 1);
+        $types = Strings::trimExplode(',', $configurations->get($this->getConfId().'statisticTypes'), 1);
         if (!count($types)) {
             // Abbruch kein Typ angegeben
             throw new \Exception('No statistics type configured in: '.$this->getConfId().'statisticTypes');
@@ -54,7 +57,7 @@ class RefereeStats extends AbstractAction
 
         $statsData = [];
         foreach ($types as $type) {
-            $statsData[$type] = $this->findData($parameters, $configurations, $viewData, $type);
+            $statsData[$type] = $this->findData($request, $viewData, $type);
         }
         $viewData->offsetSet('items', $statsData);
         $teamId = $configurations->get($this->getConfId().'highlightTeam');
@@ -68,23 +71,23 @@ class RefereeStats extends AbstractAction
         return null;
     }
 
-    private function findData($parameters, $configurations, $viewData, $type)
+    private function findData(RequestInterface $request, $viewData, $type)
     {
         $srv = (new StatsServiceRegistry())->getStatisticService();
         $confId = $this->getConfId().$type.'.';
-        $filter = \tx_rnbase_filter_BaseFilter::createFilter($parameters, $configurations, $viewData, $confId);
+        $filter = BaseFilter::createFilter($request, $confId);
 
         $fields = [];
         $options = [
             'enablefieldsoff' => 1,
         ];
         $filter->init($fields, $options);
-        $debug = $configurations->get($this->getConfId().'options.debug');
+        $debug = $request->getConfigurations()->get($this->getConfId().'options.debug');
         if ($debug) {
             $options['debug'] = 1;
         }
 
-        self::handlePageBrowser($configurations, $confId.'data.pagebrowser', $viewData, $fields, $options, [
+        self::handlePageBrowser($request->getConfigurations(), $confId.'data.pagebrowser', $viewData, $fields, $options, [
             'searchcallback' => [
                 $srv,
                 'searchRefereeStats',
@@ -108,7 +111,7 @@ class RefereeStats extends AbstractAction
      * @param array $fields
      * @param array $options
      */
-    private static function handlePageBrowser(&$configurations, $confid, &$viewdata, &$fields, &$options, $cfg = [])
+    private static function handlePageBrowser(ConfigurationInterface $configurations, $confid, $viewdata, &$fields, &$options, $cfg = [])
     {
         $confid .= '.';
         if (is_array($configurations->get($confid))) {

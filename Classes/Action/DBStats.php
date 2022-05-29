@@ -2,13 +2,15 @@
 
 namespace System25\T3sports\Action;
 
+use Sys25\RnBase\Database\Connection;
 use Sys25\RnBase\Frontend\Controller\AbstractAction;
 use Sys25\RnBase\Frontend\Request\RequestInterface;
+use Sys25\RnBase\Utility\Strings;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2017 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2022 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -45,7 +47,7 @@ class DBStats extends AbstractAction
         $viewData = $request->getViewContext();
 
         // Zuerst die Art der Statistik ermitteln
-        $tables = \Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($this->getConfId().'tables'), 1);
+        $tables = Strings::trimExplode(',', $configurations->get($this->getConfId().'tables'), 1);
         if (!count($tables)) {
             // Abbruch kein Typ angegeben
             throw new \Exception('No database table configured in: '.$this->getConfId().'tables');
@@ -69,7 +71,7 @@ class DBStats extends AbstractAction
             $options['debug'] = 1;
         }
 
-        $res = \Tx_Rnbase_Database_Connection::getInstance()->doSelect('count(*) AS cnt', $table, $options);
+        $res = Connection::getInstance()->doSelect('count(*) AS cnt', $table, $options);
 
         $items['size'] = $res[0]['cnt'];
 

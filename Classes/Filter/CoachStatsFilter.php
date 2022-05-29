@@ -2,12 +2,15 @@
 
 namespace System25\T3sports\Filter;
 
+use Sys25\RnBase\Frontend\Filter\BaseFilter;
+use Sys25\RnBase\Utility\Strings;
 use System25\T3sports\Search\StatsSearchBuilder;
+use System25\T3sports\Utility\ScopeController;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2020 Rene Nitzsche
+ *  (c) 2010-2022 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -31,7 +34,7 @@ use System25\T3sports\Search\StatsSearchBuilder;
  *
  * @author Rene Nitzsche
  */
-class CoachStatsFilter extends \tx_rnbase_filter_BaseFilter
+class CoachStatsFilter extends BaseFilter
 {
     /**
      * Abgeleitete Filter können diese Methode überschreiben und zusätzliche Filter setzen.
@@ -42,11 +45,15 @@ class CoachStatsFilter extends \tx_rnbase_filter_BaseFilter
      * @param \tx_rnbase_configurations $configurations
      * @param string $confId
      */
-    protected function initFilter(&$fields, &$options, &$parameters, &$configurations, $confId)
+    protected function initFilter(&$fields, &$options)
     {
+        $parameters = $this->getParameters();
+        $configurations = $this->getConfigurations();
+        $confId = $this->getConfId();
+
         // $options['distinct'] = 1;
         // Wir benötigen zuerst die Spalten für WHAT
-        $cols = \Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($confId.'columns'));
+        $cols = Strings::trimExplode(',', $configurations->get($confId.'columns'));
         $columns = [];
         foreach ($cols as $col) {
             if ($col) {
@@ -56,7 +63,7 @@ class CoachStatsFilter extends \tx_rnbase_filter_BaseFilter
         if (count($columns)) {
             $options['what'] .= ','.implode(', ', $columns);
         }
-        $scopeArr = \tx_cfcleaguefe_util_ScopeController::handleCurrentScope($parameters, $configurations);
+        $scopeArr = ScopeController::handleCurrentScope($parameters, $configurations);
         StatsSearchBuilder::buildCoachStatsByScope($fields, $scopeArr);
     }
 }
