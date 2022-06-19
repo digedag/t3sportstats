@@ -2,12 +2,22 @@
 
 namespace System25\T3sports\Marker;
 
+use Sys25\RnBase\Frontend\Marker\BaseMarker;
+use Sys25\RnBase\Frontend\Marker\Templates;
+use Sys25\RnBase\Utility\Misc;
+use System25\T3sports\Frontend\Marker\ClubMarker;
+use System25\T3sports\Frontend\Marker\CompetitionMarker;
+use System25\T3sports\Frontend\Marker\ProfileMarker;
+use System25\T3sports\Model\Club;
+use System25\T3sports\Model\Competition;
 use System25\T3sports\Model\PlayerStat;
+use System25\T3sports\Model\Profile;
+use tx_rnbase;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2022 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -30,7 +40,7 @@ use System25\T3sports\Model\PlayerStat;
 /**
  * Diese Klasse ist für die Erstellung von Markerarrays für Spiele verantwortlich.
  */
-class PlayerStatsMarker extends \tx_rnbase_util_BaseMarker
+class PlayerStatsMarker extends BaseMarker
 {
     /**
      * @param string $template das HTML-Template
@@ -47,7 +57,7 @@ class PlayerStatsMarker extends \tx_rnbase_util_BaseMarker
             return $formatter->getConfigurations()->getLL('item_notFound');
         }
         $this->prepareFields($item, $template, $marker);
-        \tx_rnbase_util_Misc::callHook('t3sportstats', 'playerStatsMarker_initRecord', [
+        Misc::callHook('t3sportstats', 'playerStatsMarker_initRecord', [
             'item' => $item,
             'template' => &$template,
             'confid' => $confId,
@@ -73,8 +83,8 @@ class PlayerStatsMarker extends \tx_rnbase_util_BaseMarker
             $template = $this->addClub($template, $item, $formatter, $confId.'club.', $marker.'_CLUB');
         }
 
-        $template = \tx_rnbase_util_Templates::substituteMarkerArrayCached($template, $markerArray, $subpartArray, $wrappedSubpartArray);
-        \tx_rnbase_util_Misc::callHook('t3sportstats', 'playerStatsMarker_afterSubst', [
+        $template = Templates::substituteMarkerArrayCached($template, $markerArray, $subpartArray, $wrappedSubpartArray);
+        Misc::callHook('t3sportstats', 'playerStatsMarker_afterSubst', [
             'item' => $item,
             'template' => &$template,
             'confid' => $confId,
@@ -101,11 +111,11 @@ class PlayerStatsMarker extends \tx_rnbase_util_BaseMarker
         $sub = $item->getPlayerUid();
         if (!$sub) {
             // Kein Item vorhanden. Leere Instanz anlegen und altname setzen
-            $sub = \tx_rnbase_util_BaseMarker::getEmptyInstance('tx_cfcleague_models_Profile');
+            $sub = BaseMarker::getEmptyInstance(Profile::class);
         } else {
-            $sub = \tx_cfcleague_models_Profile::getProfileInstance($sub);
+            $sub = Profile::getProfileInstance($sub);
         }
-        $marker = \tx_rnbase::makeInstance('tx_cfcleaguefe_util_ProfileMarker');
+        $marker = tx_rnbase::makeInstance(ProfileMarker::class);
         $template = $marker->parseTemplate($template, $sub, $formatter, $confId, $markerPrefix);
 
         return $template;
@@ -127,11 +137,11 @@ class PlayerStatsMarker extends \tx_rnbase_util_BaseMarker
         $sub = $item->getCompetitionUid();
         if (!$sub) {
             // Kein Item vorhanden. Leere Instanz anlegen und altname setzen
-            $sub = \tx_rnbase_util_BaseMarker::getEmptyInstance('tx_cfcleague_models_Competition');
+            $sub = BaseMarker::getEmptyInstance(Competition::class);
         } else {
-            $sub = \tx_cfcleague_models_Competition::getCompetitionInstance($sub);
+            $sub = Competition::getCompetitionInstance($sub);
         }
-        $marker = \tx_rnbase::makeInstance('tx_cfcleaguefe_util_CompetitionMarker');
+        $marker = tx_rnbase::makeInstance(CompetitionMarker::class);
         $template = $marker->parseTemplate($template, $sub, $formatter, $confId, $markerPrefix);
 
         return $template;
@@ -153,11 +163,11 @@ class PlayerStatsMarker extends \tx_rnbase_util_BaseMarker
         $sub = $item->getClubUid();
         if (!$sub) {
             // Kein Item vorhanden. Leere Instanz anlegen und altname setzen
-            $sub = \tx_rnbase_util_BaseMarker::getEmptyInstance('tx_cfcleague_models_Club');
+            $sub = BaseMarker::getEmptyInstance(Club::class);
         } else {
-            $sub = \tx_rnbase::makeInstance('tx_cfcleague_models_Club', $sub);
+            $sub = tx_rnbase::makeInstance(Club::class, $sub);
         }
-        $marker = \tx_rnbase::makeInstance('tx_cfcleaguefe_util_ClubMarker');
+        $marker = tx_rnbase::makeInstance(ClubMarker::class);
         $template = $marker->parseTemplate($template, $sub, $formatter, $confId, $markerPrefix);
 
         return $template;

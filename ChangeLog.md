@@ -2,6 +2,10 @@
 Changelog
 ----------
 
+v1.3.0 (19.06.2022)
+ * Modification for T3sports 1.8.x
+ * Update plugin classes
+
 v1.2.1 (13.05.2021)
  * Matchtable hook used for cfc_league and cfc_league_fe
 

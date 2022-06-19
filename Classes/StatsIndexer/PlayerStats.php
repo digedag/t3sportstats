@@ -3,6 +3,8 @@
 namespace System25\T3sports\StatsIndexer;
 
 use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
+use Sys25\RnBase\Utility\Strings;
+use System25\T3sports\Model\Match;
 use System25\T3sports\Utility\StatsConfig;
 use System25\T3sports\Utility\StatsDataBag;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
@@ -10,7 +12,7 @@ use System25\T3sports\Utility\StatsMatchNoteProvider;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2022 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -41,7 +43,7 @@ class PlayerStats extends AbstractService
      * Update statistics for a player.
      *
      * @param StatsDataBag $dataBag
-     * @param \tx_cfcleague_models_Match $match
+     * @param Match $match
      * @param StatsMatchNoteProvider $mnProv
      * @param bool $isHome
      */
@@ -54,7 +56,7 @@ class PlayerStats extends AbstractService
 
     /**
      * @param StatsDataBag $dataBag
-     * @param \tx_cfcleague_models_Match $match
+     * @param Match $match
      * @param bool $isHome
      */
     private function indexWinLoose($dataBag, $match, $isHome)
@@ -96,7 +98,7 @@ class PlayerStats extends AbstractService
     private function isType($type, $typeList)
     {
         if (!array_key_exists($typeList, $this->types)) {
-            $this->types[$typeList] = array_flip(\Tx_Rnbase_Utility_Strings::intExplode(',', $typeList));
+            $this->types[$typeList] = array_flip(Strings::intExplode(',', $typeList));
         }
         $types = $this->types[$typeList];
 

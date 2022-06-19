@@ -4,12 +4,13 @@ namespace System25\T3sports\Search;
 
 use Sys25\RnBase\Database\Query\Join;
 use Sys25\RnBase\Search\SearchBase;
+use Sys25\RnBase\Utility\Misc;
 use System25\T3sports\Model\RefereeStat;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2021 Rene Nitzsche
+ *  (c) 2010-2022 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -45,7 +46,7 @@ class SearchRefereeStats extends SearchBase
         $tableMapping['CLUB'] = 'tx_cfcleague_club';
         $tableMapping['CLUBOPP'] = 'tx_cfcleague_club';
         // Hook to append other tables
-        \tx_rnbase_util_Misc::callHook('t3sportstats', 'search_RefereeStats_getTableMapping_hook', [
+        Misc::callHook('t3sportstats', 'search_RefereeStats_getTableMapping_hook', [
             'tableMapping' => &$tableMapping,
         ], $this);
 
@@ -92,7 +93,7 @@ class SearchRefereeStats extends SearchBase
         }
 
         // Hook to append other tables
-        \tx_rnbase_util_Misc::callHook('t3sportstats', 'search_RefereeStats_getJoins_hook', [
+        Misc::callHook('t3sportstats', 'search_RefereeStats_getJoins_hook', [
             'join' => &$join,
             'tableAliases' => $tableAliases,
         ], $this);

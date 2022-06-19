@@ -2,10 +2,12 @@
 
 namespace System25\T3sports\Utility;
 
+use System25\T3sports\Model\MatchNote;
+
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2022 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -76,7 +78,7 @@ class StatsMatchNoteProvider
     }
 
     /**
-     * @return array[\tx_cfcleague_models_MatchNote]
+     * @return MatchNote[]
      */
     public function getMatchNotes()
     {
@@ -84,7 +86,7 @@ class StatsMatchNoteProvider
     }
 
     /**
-     * @return array[\tx_cfcleague_models_MatchNote]
+     * @return MatchNote[]
      */
     public function getMatchNotesHome()
     {
@@ -92,7 +94,7 @@ class StatsMatchNoteProvider
     }
 
     /**
-     * @return array[\tx_cfcleague_models_MatchNote]
+     * @return MatchNote[]
      */
     public function getMatchNotesGuest()
     {
@@ -104,7 +106,7 @@ class StatsMatchNoteProvider
      *
      * @param int $profileUid
      *
-     * @return array[\tx_cfcleague_models_MatchNote]
+     * @return MatchNote[]
      */
     public function getMatchNotes4Profile($profileUid)
     {

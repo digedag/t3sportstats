@@ -3,15 +3,18 @@
 namespace System25\T3sports\StatsIndexer;
 
 use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
+use Sys25\RnBase\Utility\Strings;
+use System25\T3sports\Model\Match;
 use System25\T3sports\Sports\MatchInfo;
 use System25\T3sports\Sports\ServiceLocator;
+use System25\T3sports\Utility\MatchNotes;
 use System25\T3sports\Utility\StatsDataBag;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2022 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -50,7 +53,7 @@ class PlayerTimeStats extends AbstractService
      * playtime, played.
      *
      * @param StatsDataBag $dataBag
-     * @param \tx_cfcleague_models_Match $match
+     * @param Match $match
      * @param StatsMatchNoteProvider $mnProv
      */
     public function indexPlayerStats($dataBag, $match, $mnProv, $isHome)
@@ -66,14 +69,14 @@ class PlayerTimeStats extends AbstractService
         $time = 0;
 
         foreach ($notes as $note) {
-            if (\tx_cfcleague_util_MatchNote::isChangeIn($note)) {
+            if (MatchNotes::isChangeIn($note)) {
                 $startMin = $note->getMinute();
                 $isEndPlayer = true;
                 $dataBag->setType('played', 1);
             } elseif (
-                    \tx_cfcleague_util_MatchNote::isChangeOut($note) ||
-                    \tx_cfcleague_util_MatchNote::isCardYellowRed($note) ||
-                    \tx_cfcleague_util_MatchNote::isCardRed($note)) {
+                MatchNotes::isChangeOut($note) ||
+                MatchNotes::isCardYellowRed($note) ||
+                MatchNotes::isCardRed($note)) {
                 $time = $note->getMinute() - $startMin + $time;
                 $isEndPlayer = false;
             }
@@ -86,7 +89,7 @@ class PlayerTimeStats extends AbstractService
         $dataBag->addType('playtime', $time);
     }
 
-    protected function retrieveEndTime(\tx_cfcleague_models_Match $match)
+    protected function retrieveEndTime(Match $match)
     {
         $sports = $this->serviceLocator->getSportsService($match->getCompetition()->getSports());
         $matchInfo = $sports->getMatchInfo();
@@ -97,13 +100,13 @@ class PlayerTimeStats extends AbstractService
     }
 
     /**
-     * @param \tx_cfcleague_models_Match $match
+     * @param Match $match
      * @param bool $isHome
      */
     private function isStartPlayer($player, $match, $isHome)
     {
         $startPlayer = array_flip(
-            \Tx_Rnbase_Utility_Strings::intExplode(',', $isHome ? $match->getProperty('players_home') : $match->getProperty('players_guest'))
+            Strings::intExplode(',', $isHome ? $match->getProperty('players_home') : $match->getProperty('players_guest'))
         );
 
         return array_key_exists($player, $startPlayer);
@@ -112,7 +115,7 @@ class PlayerTimeStats extends AbstractService
     private function isType($type, $typeList)
     {
         if (!array_key_exists($typeList, $this->types)) {
-            $this->types[$typeList] = array_flip(\Tx_Rnbase_Utility_Strings::intExplode(',', $typeList));
+            $this->types[$typeList] = array_flip(Strings::intExplode(',', $typeList));
         }
         $types = $this->types[$typeList];
 

@@ -9,6 +9,7 @@ use Sys25\RnBase\Frontend\Request\RequestInterface;
 use Sys25\RnBase\Utility\Misc;
 use Sys25\RnBase\Utility\PageBrowser;
 use Sys25\RnBase\Utility\Strings;
+use System25\T3sports\Model\Team;
 use System25\T3sports\Service\StatsServiceRegistry;
 use tx_rnbase;
 
@@ -61,7 +62,7 @@ class PlayerStats extends AbstractAction
         $viewData->offsetSet('items', $statsData);
         $teamId = $configurations->get($this->getConfId().'highlightTeam');
         if ($teamId) {
-            $team = \tx_rnbase::makeInstance('tx_cfcleague_models_Team', $teamId);
+            $team = tx_rnbase::makeInstance(Team::class, $teamId);
             if (is_object($team) && $team->isValid()) {
                 $viewData->offsetSet('team', $team);
             }

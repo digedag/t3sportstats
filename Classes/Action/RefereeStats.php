@@ -7,7 +7,9 @@ use Sys25\RnBase\Frontend\Controller\AbstractAction;
 use Sys25\RnBase\Frontend\Filter\BaseFilter;
 use Sys25\RnBase\Frontend\Request\RequestInterface;
 use Sys25\RnBase\Utility\Strings;
+use System25\T3sports\Model\Team;
 use System25\T3sports\Service\StatsServiceRegistry;
+use tx_rnbase;
 
 /***************************************************************
  *  Copyright notice
@@ -62,7 +64,7 @@ class RefereeStats extends AbstractAction
         $viewData->offsetSet('items', $statsData);
         $teamId = $configurations->get($this->getConfId().'highlightTeam');
         if ($teamId) {
-            $team = \tx_cfcleague_models_Team::getInstance($teamId);
+            $team = Team::getInstance($teamId);
             if (is_object($team) && $team->isValid()) {
                 $viewData->offsetSet('team', $team);
             }
@@ -133,7 +135,7 @@ class RefereeStats extends AbstractAction
             }
             // PageBrowser initialisieren
             $pbId = $cfg['pbid'] ? $cfg['pbid'] : 'pb';
-            $pageBrowser = \tx_rnbase::makeInstance('tx_rnbase_util_PageBrowser', $pbId);
+            $pageBrowser = tx_rnbase::makeInstance('tx_rnbase_util_PageBrowser', $pbId);
             $pageSize = $configurations->getInt($confid.'limit');
 
             $pageBrowser->setState($configurations->getParameters(), $listSize, $pageSize);

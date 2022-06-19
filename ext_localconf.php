@@ -19,7 +19,7 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['profileMarker_afterSubs
 // Hook for match filter
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['filterMatch_setfields'][] = 'System25\T3sports\Hooks\Filter->handleMatchFilter';
 
-tx_rnbase_util_Extensions::addService(
+Sys25\RnBase\Utility\Extensions::addService(
     $_EXTKEY,
     't3sportstats' /* sv type */ ,
     'tx_t3sportstats_srv_Statistics' /* sv key */ ,
@@ -31,7 +31,7 @@ tx_rnbase_util_Extensions::addService(
     ]
 );
 
-tx_rnbase_util_Extensions::addService(
+Sys25\RnBase\Utility\Extensions::addService(
     $_EXTKEY,
     't3sportsPlayerStats' /* sv type */ ,
     'PlayerStats' /* sv key */ ,
@@ -43,7 +43,7 @@ tx_rnbase_util_Extensions::addService(
     ]
 );
 
-tx_rnbase_util_Extensions::addService(
+Sys25\RnBase\Utility\Extensions::addService(
     $_EXTKEY,
     't3sportsPlayerStats' /* sv type */ ,
     'PlayerTimeStats' /* sv key */ ,
@@ -55,7 +55,7 @@ tx_rnbase_util_Extensions::addService(
     ]
 );
 
-tx_rnbase_util_Extensions::addService(
+Sys25\RnBase\Utility\Extensions::addService(
     $_EXTKEY,
     't3sportsPlayerStats' /* sv type */ ,
     'PlayerGoalStats' /* sv key */ ,
@@ -67,7 +67,7 @@ tx_rnbase_util_Extensions::addService(
     ]
 );
 
-tx_rnbase_util_Extensions::addService(
+Sys25\RnBase\Utility\Extensions::addService(
     $_EXTKEY,
     't3sportsCoachStats' /* sv type */ ,
     'CoachStats' /* sv key */ ,
@@ -79,7 +79,7 @@ tx_rnbase_util_Extensions::addService(
     ]
 );
 
-tx_rnbase_util_Extensions::addService(
+Sys25\RnBase\Utility\Extensions::addService(
     $_EXTKEY,
     't3sportsRefereeStats' /* sv type */ ,
     'RefereeStats' /* sv key */ ,
@@ -125,4 +125,4 @@ System25\T3sports\Utility\StatsConfig::registerCoachStatsReport('default');
 System25\T3sports\Utility\StatsConfig::registerRefereeStatsReport('default');
 
 // Register a new matchnote type
-tx_cfcleague_util_Misc::registerMatchNote('LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:tx_cfcleague_match_notes.type.goalfreekick', '13');
+Sys25\RnBase\Utility\Misc::registerMatchNote('LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:tx_cfcleague_match_notes.type.goalfreekick', '13');
