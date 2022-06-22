@@ -2,6 +2,9 @@
 Changelog
 ----------
 
+v1.3.1 (22.06.2022)
+ * Fix PHP error in ext_localconf.php
+
 v1.3.0 (19.06.2022)
  * Modification for T3sports 1.8.x
  * Update plugin classes
