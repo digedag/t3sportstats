@@ -27,12 +27,12 @@ $columns = [
 $table = [
     'columns' => &$columns,
 ];
-Tx_Rnbase_Utility_TcaTool::configureWizards($table, [
+\Sys25\RnBase\Backend\Utility\TcaTool::configureWizards($table, [
     'tags' => [
         'suggest' => true,
         'targettable' => 'tx_t3sportstats_tags',
     ],
 ]);
 
-tx_rnbase_util_Extensions::addTCAcolumns('tx_cfcleague_competition', $columns, 1);
-tx_rnbase_util_Extensions::addToAllTCAtypes('tx_cfcleague_competition', 'tags', '', 'after:point_system');
+\Sys25\RnBase\Utility\Extensions::addTCAcolumns('tx_cfcleague_competition', $columns, 1);
+\Sys25\RnBase\Utility\Extensions::addToAllTCAtypes('tx_cfcleague_competition', 'tags', '', 'after:point_system');
