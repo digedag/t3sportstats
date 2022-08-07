@@ -336,8 +336,8 @@ class Statistics extends AbstractService
                 continue; // skip dummy records
             }
             $bag = $this->createProfileBag($uid, $match, $home, 'referee');
-            $bag->setType('assist', ($refereeUid == $uid ? 0 : 1));
-            $bag->setType('mainref', ($refereeUid == $uid ? 1 : 0));
+            $bag->setType('assist', $refereeUid == $uid ? 0 : 1);
+            $bag->setType('mainref', $refereeUid == $uid ? 1 : 0);
             $bags[] = $bag;
         }
 
