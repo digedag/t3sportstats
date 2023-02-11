@@ -5,7 +5,7 @@ namespace System25\T3sports\Utility;
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -31,6 +31,7 @@ namespace System25\T3sports\Utility;
 class StatsDataBag
 {
     private $data = [];
+    private $parent;
 
     public function setParentUid($uid)
     {
@@ -65,8 +66,8 @@ class StatsDataBag
     public function __toString()
     {
         $out = "\n\nData:\n";
-        while (list($key, $val) = each($this->data)) {
-            $out .= $key.' = '.$val."\n";
+        foreach($this->data as $key => $val) {
+            $out .= sprintf("%s = %s\n", $key, $val);
         }
         reset($this->data);
 
