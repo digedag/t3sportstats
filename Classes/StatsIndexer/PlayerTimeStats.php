@@ -4,7 +4,7 @@ namespace System25\T3sports\StatsIndexer;
 
 use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
 use Sys25\RnBase\Utility\Strings;
-use System25\T3sports\Model\Match;
+use System25\T3sports\Model\Fixture;
 use System25\T3sports\Sports\MatchInfo;
 use System25\T3sports\Sports\ServiceLocator;
 use System25\T3sports\Utility\MatchNotes;
@@ -14,7 +14,7 @@ use System25\T3sports\Utility\StatsMatchNoteProvider;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2022 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -53,7 +53,7 @@ class PlayerTimeStats extends AbstractService
      * playtime, played.
      *
      * @param StatsDataBag $dataBag
-     * @param Match $match
+     * @param Fixture $match
      * @param StatsMatchNoteProvider $mnProv
      */
     public function indexPlayerStats($dataBag, $match, $mnProv, $isHome)
@@ -89,7 +89,7 @@ class PlayerTimeStats extends AbstractService
         $dataBag->addType('playtime', $time);
     }
 
-    protected function retrieveEndTime(Match $match)
+    protected function retrieveEndTime(Fixture $match)
     {
         $sports = $this->serviceLocator->getSportsService($match->getCompetition()->getSports());
         $matchInfo = $sports->getMatchInfo();
@@ -100,7 +100,7 @@ class PlayerTimeStats extends AbstractService
     }
 
     /**
-     * @param Match $match
+     * @param Fixture $match
      * @param bool $isHome
      */
     private function isStartPlayer($player, $match, $isHome)
