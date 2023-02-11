@@ -10,7 +10,7 @@ use Sys25\RnBase\Utility\Logger;
 use Sys25\RnBase\Utility\Misc;
 use Sys25\RnBase\Utility\Strings;
 use System25\T3sports\Model\Competition;
-use System25\T3sports\Model\Match;
+use System25\T3sports\Model\Fixture;
 use System25\T3sports\Search\SearchCoachStats;
 use System25\T3sports\Search\SearchPlayerStats;
 use System25\T3sports\Search\SearchRefereeStats;
@@ -107,7 +107,7 @@ class Statistics extends AbstractService
     /**
      * Indizierung der Daten und Speicherung in der DB.
      *
-     * @param Match $match
+     * @param Fixture $match
      * @param StatsMatchNoteProvider $mnProv
      * @param bool $homeTeam
      */
@@ -134,7 +134,7 @@ class Statistics extends AbstractService
     /**
      * Indizierung der Daten und Speicherung in der DB.
      *
-     * @param Match $match
+     * @param Fixture $match
      * @param StatsMatchNoteProvider $mnProv
      * @param bool $homeTeam
      */
@@ -161,7 +161,7 @@ class Statistics extends AbstractService
     /**
      * Indizierung der Schiedsrichter-Daten und Speicherung in der DB.
      *
-     * @param Match $match
+     * @param Fixture $match
      * @param StatsMatchNoteProvider $mnProv
      * @param bool $homeTeam
      */
@@ -187,7 +187,7 @@ class Statistics extends AbstractService
     /**
      * Delete all player data in database for a match.
      *
-     * @param Match $match
+     * @param Fixture $match
      */
     private function clearPlayerData($match, $isHome)
     {
@@ -199,7 +199,7 @@ class Statistics extends AbstractService
     /**
      * Delete all coach data in database for a match.
      *
-     * @param Match $match
+     * @param Fixture $match
      */
     private function clearCoachData($match, $isHome)
     {
@@ -211,7 +211,7 @@ class Statistics extends AbstractService
     /**
      * Delete all referee data in database for a match.
      *
-     * @param Match $match
+     * @param Fixture $match
      */
     private function clearRefereeData($match, $isHome)
     {
@@ -253,7 +253,7 @@ class Statistics extends AbstractService
     /**
      * Liefert die DataBags für die Spieler eines beteiligten Teams.
      *
-     * @param Match $match
+     * @param Fixture $match
      * @param bool $home
      *            true, wenn das Heimteam geholt werden soll
      *
@@ -287,7 +287,7 @@ class Statistics extends AbstractService
     /**
      * Liefert die DataBags für die Trainer eines beteiligten Teams.
      *
-     * @param Match $match
+     * @param Fixture $match
      * @param bool $home
      *            true, wenn das Heimteam geholt werden soll
      *
@@ -310,7 +310,7 @@ class Statistics extends AbstractService
     /**
      * Liefert die DataBags für den Schiedsrichter eines Spiels.
      *
-     * @param Match $match
+     * @param Fixture $match
      * @param bool $home
      *            true, wenn das Heimteam geholt werden soll
      *
@@ -346,7 +346,7 @@ class Statistics extends AbstractService
 
     /**
      * @param int $uid
-     * @param Match $match
+     * @param Fixture $match
      * @param bool $home
      * @param string $profileField
      *

@@ -4,7 +4,7 @@ namespace System25\T3sports\StatsIndexer;
 
 use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
 use Sys25\RnBase\Utility\Strings;
-use System25\T3sports\Model\Match;
+use System25\T3sports\Model\Fixture;
 use System25\T3sports\Utility\StatsConfig;
 use System25\T3sports\Utility\StatsDataBag;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
@@ -12,7 +12,7 @@ use System25\T3sports\Utility\StatsMatchNoteProvider;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2022 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -43,7 +43,7 @@ class CoachStats extends AbstractService
      * Update statistics for a coach.
      *
      * @param StatsDataBag $dataBag
-     * @param Match $match
+     * @param Fixture $match
      * @param StatsMatchNoteProvider $mnProv
      * @param bool $isHome
      */
@@ -58,7 +58,7 @@ class CoachStats extends AbstractService
 
     /**
      * @param StatsDataBag $dataBag
-     * @param Match $match
+     * @param Fixture $match
      * @param bool $isHome
      * @param StatsMatchNoteProvider $mnProv
      */
@@ -81,7 +81,7 @@ class CoachStats extends AbstractService
 
     /**
      * @param StatsDataBag $dataBag
-     * @param Match $match
+     * @param Fixture $match
      * @param bool $isHome
      */
     private function indexGoals($dataBag, $match, $isHome)
@@ -97,7 +97,7 @@ class CoachStats extends AbstractService
 
     /**
      * @param StatsDataBag $dataBag
-     * @param Match $match
+     * @param Fixture $match
      * @param bool $isHome
      */
     private function indexWinLoose($dataBag, $match, $isHome)
@@ -149,7 +149,7 @@ class CoachStats extends AbstractService
     /**
      * @param int $player
      *            profile uid
-     * @param Match $match
+     * @param Fixture $match
      * @param bool $isHome
      */
     private function isStartPlayer($player, $match, $isHome)
