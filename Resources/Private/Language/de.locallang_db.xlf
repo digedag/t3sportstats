@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages" data="2023-02-11T21-59-00" product-name="zsb">
+        <header/>
+        <body>
+            <trans-unit id="plugin.t3sportstats.label" xml:space="preserve">
+                <source>T3sports: Statistics</source>
+                <target>T3sports: Statistiken</target>
+            </trans-unit>
+            <trans-unit id="plugin.t3sportstats.description" xml:space="preserve">
+                <source>Shows extensive statistics of players, trainers and referees</source>
+                <target>Zeigt umfangreiche Statistiken von Spielern, Trainern and Schiedsrichtern</target>
+            </trans-unit>
+            <trans-unit id="plugin.t3sportstats.flexform.tab.common" xml:space="preserve">
+                <source>Common</source>
+                <target/>
+            </trans-unit>
+            <trans-unit id="plugin.t3sportstats.flexform.tab.TSSetup" xml:space="preserve">
+                <source>TS-Setup</source>
+                <target/>
+            </trans-unit>
+            <trans-unit id="plugin.t3sportstats.flexform.tssetup" xml:space="preserve">
+                <source>plugin.tx_t3sportstats.</source>
+                <target/>
+            </trans-unit>
+            <trans-unit id="plugin.t3sportstats.flexform.action" xml:space="preserve">
+                <source>View</source>
+                <target/>
+            </trans-unit>
+            <trans-unit id="plugin.t3sportstats.flexform.reporttype" xml:space="preserve">
+                <source>Report Type</source>
+                <target>Auswertung</target>
+            </trans-unit>
+            <trans-unit id="plugin.t3sportstats.flexform.highlightteam" xml:space="preserve">
+                <source>Highlight team players</source>
+                <target>Team Spieler hervorheben</target>
+            </trans-unit>
+            <trans-unit id="plugin.t3sportstats.flexform.action.playerstats" xml:space="preserve">
+                <source>Player statistics</source>
+                <target>Spielerstatistik</target>
+            </trans-unit>
+            <trans-unit id="plugin.t3sportstats.flexform.action.coachstats" xml:space="preserve">
+                <source>Coach statistics</source>
+                <target>Trainerstatistik</target>
+            </trans-unit>
+            <trans-unit id="plugin.t3sportstats.flexform.action.refereestats" xml:space="preserve">
+                <source>Referee statistics</source>
+                <target>Schiedsrichterstatistik</target>
+            </trans-unit>
+            <trans-unit id="plugin.t3sportstats.flexform.action.dbstats" xml:space="preserve">
+                <source>Database statistics</source>
+                <target>Datenbankstatistik</target>
+            </trans-unit>
+            <trans-unit id="service_t3sports_statistics_title" xml:space="preserve">
+                <source>Statistics service</source>
+                <target>Statistik Service</target>
+            </trans-unit>
+            <trans-unit id="tx_cfcleague_match_notes.type.goalfreekick" xml:space="preserve">
+                <source>Free kick goal</source>
+                <target>Freistoßtor</target>
+            </trans-unit>
+            <trans-unit id="plugin.t3sportstats.common.template" xml:space="preserve">
+                <source>Html-Template</source>
+                <target/>
+            </trans-unit>
+            <trans-unit id="plugin.t3sportstats.common.sqldebug" xml:space="preserve">
+                <source>Debug SQL</source>
+                <target/>
+            </trans-unit>
+            <trans-unit id="tx_t3sportstats_tags" xml:space="preserve">
+                <source>Tag</source>
+                <target>Tag</target>
+            </trans-unit>
+            <trans-unit id="tx_t3sportstats_tags_name" xml:space="preserve">
+                <source>Name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="tx_t3sportstats_tags_label" xml:space="preserve">
+                <source>Label</source>
+                <target>Label</target>
+            </trans-unit>
+            <trans-unit id="tx_t3sportstats_module_name" xml:space="preserve">
+                <source>Statistics</source>
+                <target>Statistik</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

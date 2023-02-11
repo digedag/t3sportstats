@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" data="2023-02-11T21-59-59" product-name="zsb">
+		<header/>
+		<body>
+			<trans-unit id="error" xml:space="preserve">
+				<source>Error</source>
+			</trans-unit>
+			<trans-unit id="label_matches" xml:space="preserve">
+				<source>Matches</source>
+			</trans-unit>
+			<trans-unit id="label_change" xml:space="preserve">
+				<source>Change</source>
+			</trans-unit>
+			<trans-unit id="label_changes" xml:space="preserve">
+				<source>Changes</source>
+			</trans-unit>
+			<trans-unit id="label_cards" xml:space="preserve">
+				<source>Cards</source>
+			</trans-unit>
+			<trans-unit id="label_profiles" xml:space="preserve">
+				<source>Profiles</source>
+			</trans-unit>
+			<trans-unit id="label_teams" xml:space="preserve">
+				<source>Teams</source>
+			</trans-unit>
+			<trans-unit id="label_clubs" xml:space="preserve">
+				<source>Clubs</source>
+			</trans-unit>
+			<trans-unit id="label_matchnotes" xml:space="preserve">
+				<source>Match notes</source>
+			</trans-unit>
+			<trans-unit id="label_player" xml:space="preserve">
+				<source>Player</source>
+			</trans-unit>
+			<trans-unit id="label_coach" xml:space="preserve">
+				<source>Coach</source>
+			</trans-unit>
+			<trans-unit id="label_referee" xml:space="preserve">
+				<source>Referee</source>
+			</trans-unit>
+			<trans-unit id="label_ref" xml:space="preserve">
+				<source>REF</source>
+			</trans-unit>
+			<trans-unit id="label_assistref" xml:space="preserve">
+				<source>Assist</source>
+			</trans-unit>
+			<trans-unit id="label_assref" xml:space="preserve">
+				<source>RA</source>
+			</trans-unit>
+			<trans-unit id="label_matchcount" xml:space="preserve">
+				<source>Count</source>
+			</trans-unit>
+			<trans-unit id="label_minutes" xml:space="preserve">
+				<source>Minutes</source>
+			</trans-unit>
+			<trans-unit id="label_cardyellow" xml:space="preserve">
+				<source>Y</source>
+			</trans-unit>
+			<trans-unit id="label_cardyr" xml:space="preserve">
+				<source>Y/R</source>
+			</trans-unit>
+			<trans-unit id="label_cardred" xml:space="preserve">
+				<source>R</source>
+			</trans-unit>
+			<trans-unit id="label_changein" xml:space="preserve">
+				<source>In</source>
+			</trans-unit>
+			<trans-unit id="label_changeout" xml:space="preserve">
+				<source>Out</source>
+			</trans-unit>
+			<trans-unit id="label_assists" xml:space="preserve">
+				<source>Assists</source>
+			</trans-unit>
+			<trans-unit id="label_goals" xml:space="preserve">
+				<source>Goals</source>
+			</trans-unit>
+			<trans-unit id="label_goalsown" xml:space="preserve">
+				<source>Own</source>
+			</trans-unit>
+			<trans-unit id="label_goalshome" xml:space="preserve">
+				<source>Goals Home</source>
+			</trans-unit>
+			<trans-unit id="label_goalsaway" xml:space="preserve">
+				<source>Goals Away</source>
+			</trans-unit>
+			<trans-unit id="label_total" xml:space="preserve">
+				<source>Total</source>
+			</trans-unit>
+			<trans-unit id="label_wins" xml:space="preserve">
+				<source>Wins</source>
+			</trans-unit>
+			<trans-unit id="label_draw" xml:space="preserve">
+				<source>Draw</source>
+			</trans-unit>
+			<trans-unit id="label_home" xml:space="preserve">
+				<source>Home</source>
+			</trans-unit>
+			<trans-unit id="label_away" xml:space="preserve">
+				<source>Away</source>
+			</trans-unit>
+			<trans-unit id="label_joker" xml:space="preserve">
+				<source>Joker</source>
+			</trans-unit>
+			<trans-unit id="label_head" xml:space="preserve">
+				<source>Head</source>
+			</trans-unit>
+			<trans-unit id="label_freekick" xml:space="preserve">
+				<source>Freekick</source>
+			</trans-unit>
+			<trans-unit id="label_penalty" xml:space="preserve">
+				<source>Penalty</source>
+			</trans-unit>
+			<trans-unit id="label_minutes_per_goal" xml:space="preserve">
+				<source>Minutes per goal</source>
+			</trans-unit>
+			<trans-unit id="label_per_match" xml:space="preserve">
+				<source>per match</source>
+			</trans-unit>
+			<trans-unit id="label_headline_scorerlist" xml:space="preserve">
+				<source>Best scorer</source>
+			</trans-unit>
+			<trans-unit id="label_headline_assistlist" xml:space="preserve">
+				<source>Best assists</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
