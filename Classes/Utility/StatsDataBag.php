@@ -66,7 +66,7 @@ class StatsDataBag
     public function __toString()
     {
         $out = "\n\nData:\n";
-        foreach($this->data as $key => $val) {
+        foreach ($this->data as $key => $val) {
             $out .= sprintf("%s = %s\n", $key, $val);
         }
         reset($this->data);
