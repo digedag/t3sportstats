@@ -5,7 +5,7 @@
         <sDEF>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.flexform.tab.common</sheetTitle>
+                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.tab.common</sheetTitle>
                 </TCEforms>
 
                 <type>array</type>
@@ -13,29 +13,29 @@
                     <action> <!-- Bezeichner ist frei wählbar -->
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.flexform.action</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.action</label>
                             <config>
                                 <type>select</type>
                                 <renderType>selectMultipleSideBySide</renderType>
                                 <items type="array">
                                     <numIndex index="0" type="array">
-                                        <numIndex index="0">LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xml:plugin.competition.flexform.action.CompetitionSelection</numIndex>
+                                        <numIndex index="0">LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xlf:plugin.competition.flexform.action.CompetitionSelection</numIndex>
                                         <numIndex index="1">tx_cfcleaguefe_actions_CompetitionSelection</numIndex>
                                     </numIndex>
                                     <numIndex index="10" type="array">
-                                        <numIndex index="0">LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.flexform.action.playerstats</numIndex>
+                                        <numIndex index="0">LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.action.playerstats</numIndex>
                                         <numIndex index="1">tx_t3sportstats_actions_PlayerStats</numIndex>
                                     </numIndex>
                                     <numIndex index="20" type="array">
-                                        <numIndex index="0">LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.flexform.action.coachstats</numIndex>
+                                        <numIndex index="0">LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.action.coachstats</numIndex>
                                         <numIndex index="1">tx_t3sportstats_actions_CoachStats</numIndex>
                                     </numIndex>
                                     <numIndex index="30" type="array">
-                                        <numIndex index="0">LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.flexform.action.refereestats</numIndex>
+                                        <numIndex index="0">LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.action.refereestats</numIndex>
                                         <numIndex index="1">tx_t3sportstats_actions_RefereeStats</numIndex>
                                     </numIndex>
                                     <numIndex index="500" type="array">
-                                        <numIndex index="0">LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.flexform.action.dbstats</numIndex>
+                                        <numIndex index="0">LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.action.dbstats</numIndex>
                                         <numIndex index="1">tx_t3sportstats_actions_DBStats</numIndex>
                                     </numIndex>
 
@@ -50,7 +50,7 @@
                     <saisonSelection> <!-- Bezeichner ist frei wählbar -->
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xml:plugin.competition.flexform.saison</label>
+                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xlf:plugin.competition.flexform.saison</label>
                             <config>
                                 <type>select</type>
                                 <renderType>selectMultipleSideBySide</renderType>
@@ -64,7 +64,7 @@
                     </saisonSelection>
                     <saisonSelectionInput>
                         <TCEforms>
-                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xml:plugin.competition.flexform.saisonInput</label>
+                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xlf:plugin.competition.flexform.saisonInput</label>
                             <config>
                                 <type>check</type>
                             </config>
@@ -74,7 +74,7 @@
                     <groupSelection> <!-- Bezeichner ist frei wählbar -->
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xml:plugin.competition.flexform.group</label>
+                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xlf:plugin.competition.flexform.group</label>
                             <config>
                                 <type>select</type>
                                 <renderType>selectMultipleSideBySide</renderType>
@@ -87,7 +87,7 @@
                     </groupSelection>
                     <groupSelectionInput>
                         <TCEforms>
-                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xml:plugin.competition.flexform.groupInput</label>
+                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xlf:plugin.competition.flexform.groupInput</label>
                             <config>
                                 <type>check</type>
                             </config>
@@ -97,7 +97,7 @@
                     <competitionSelection> <!-- Bezeichner ist frei wählbar -->
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xml:plugin.competition.flexform.competition</label>
+                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xlf:plugin.competition.flexform.competition</label>
                             <config>
                                 <type>group</type>
                                 <internal_type>db</internal_type>
@@ -110,7 +110,7 @@
                     </competitionSelection>
                     <competitionSelectionInput>
                         <TCEforms>
-                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xml:plugin.competition.flexform.competitionInput</label>
+                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xlf:plugin.competition.flexform.competitionInput</label>
                             <config>
                                 <type>check</type>
                             </config>
@@ -119,25 +119,25 @@
                     <scope.competition.type>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xml:plugin.competition.flexform.competitionType</label>
+                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xlf:plugin.competition.flexform.competitionType</label>
                             <config>
                                 <type>select</type>
                                 <renderType>selectMultipleSideBySide</renderType>
                                 <items type="array">
                                     <numIndex index="0" type="array">
-                                        <numIndex index="0">LLL:EXT:cfc_league/Resources/Private/Language/locallang_db.xml:tx_cfcleague_competition.type_league</numIndex>
+                                        <numIndex index="0">LLL:EXT:cfc_league/Resources/Private/Language/locallang_db.xlf:tx_cfcleague_competition.type_league</numIndex>
                                         <numIndex index="1">1</numIndex>
                                     </numIndex>
                                     <numIndex index="1" type="array">
-                                        <numIndex index="0">LLL:EXT:cfc_league/Resources/Private/Language/locallang_db.xml:tx_cfcleague_competition.type_ko</numIndex>
+                                        <numIndex index="0">LLL:EXT:cfc_league/Resources/Private/Language/locallang_db.xlf:tx_cfcleague_competition.type_ko</numIndex>
                                         <numIndex index="1">2</numIndex>
                                     </numIndex>
                                     <numIndex index="2" type="array">
-                                        <numIndex index="0">LLL:EXT:cfc_league/Resources/Private/Language/locallang_db.xml:tx_cfcleague_competition.type_other</numIndex>
+                                        <numIndex index="0">LLL:EXT:cfc_league/Resources/Private/Language/locallang_db.xlf:tx_cfcleague_competition.type_other</numIndex>
                                         <numIndex index="1">0</numIndex>
                                     </numIndex>
                                     <!-- numIndex index="3" type="array">
-                                      <numIndex index="0">LLL:EXT:cfc_league/Resources/Private/Language/locallang_db.xml:tx_cfcleague_competition.type_combined</numIndex>
+                                      <numIndex index="0">LLL:EXT:cfc_league/Resources/Private/Language/locallang_db.xlf:tx_cfcleague_competition.type_combined</numIndex>
                                       <numIndex index="1">100</numIndex>
                                     </numIndex-->
                                 </items>
@@ -150,21 +150,21 @@
                     <scope.competition.obligation>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xml:plugin.competition.flexform.competitionObligation</label>
+                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xlf:plugin.competition.flexform.competitionObligation</label>
                             <config>
                                 <type>select</type>
                                 <renderType>selectSingle</renderType>
                                 <items type="array">
                                     <numIndex index="0" type="array">
-                                        <numIndex index="0">LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xml:plugin.competition.flexform.competitionObligation.All</numIndex>
+                                        <numIndex index="0">LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xlf:plugin.competition.flexform.competitionObligation.All</numIndex>
                                         <numIndex index="1">0</numIndex>
                                     </numIndex>
                                     <numIndex index="1" type="array">
-                                        <numIndex index="0">LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xml:plugin.competition.flexform.competitionObligation.Obligate</numIndex>
+                                        <numIndex index="0">LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xlf:plugin.competition.flexform.competitionObligation.Obligate</numIndex>
                                         <numIndex index="1">1</numIndex>
                                     </numIndex>
                                     <numIndex index="2" type="array">
-                                        <numIndex index="0">LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xml:plugin.competition.flexform.competitionObligation.Free</numIndex>
+                                        <numIndex index="0">LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xlf:plugin.competition.flexform.competitionObligation.Free</numIndex>
                                         <numIndex index="1">2</numIndex>
                                     </numIndex>
                                 </items>
@@ -177,7 +177,7 @@
                     <clubSelection>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xml:plugin.competition.flexform.club</label>
+                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xlf:plugin.competition.flexform.club</label>
                             <config>
 								<type>select</type>
                                 <renderType>selectMultipleSideBySide</renderType>
@@ -192,7 +192,7 @@
                     </clubSelection>
                     <clubSelectionInput>
                         <TCEforms>
-                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xml:plugin.competition.flexform.clubInput</label>
+                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xlf:plugin.competition.flexform.clubInput</label>
                             <config>
                                 <type>check</type>
                             </config>
@@ -201,7 +201,7 @@
                     <scopeTemplate>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xml:plugin.competition.flexform.scopeTemplate</label>
+                            <label>LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xlf:plugin.competition.flexform.scopeTemplate</label>
                             <config>
                                 <type>input</type>
                                 <size>24</size>
@@ -236,7 +236,7 @@
         <s_playerstats>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.flexform.action.playerstats</sheetTitle>
+                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.action.playerstats</sheetTitle>
                 </TCEforms>
 
                 <type>array</type>
@@ -244,7 +244,7 @@
                     <playerstats.statisticTypes>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.flexform.reporttype</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.reporttype</label>
                             <config>
                                 <type>select</type>
                                 <renderType>selectMultipleSideBySide</renderType>
@@ -260,7 +260,7 @@
                     <playerstats.highlightTeam>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.flexform.highlightteam</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.highlightteam</label>
                             <config>
                                 <type>group</type>
                                 <internal_type>db</internal_type>
@@ -273,7 +273,7 @@
                     <playerstats.options.debug>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.common.sqldebug</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.common.sqldebug</label>
                             <config>
                                 <type>check</type>
                             </config>
@@ -283,7 +283,7 @@
                     <playerstatsTemplate>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.common.template</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.common.template</label>
                             <config>
                                 <type>input</type>
                                 <size>24</size>
@@ -319,7 +319,7 @@
         <s_coachstats>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.flexform.action.coachstats</sheetTitle>
+                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.action.coachstats</sheetTitle>
                 </TCEforms>
 
                 <type>array</type>
@@ -327,7 +327,7 @@
                     <coachstats.statisticTypes>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.flexform.reporttype</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.reporttype</label>
                             <config>
                                 <type>select</type>
                                 <renderType>selectMultipleSideBySide</renderType>
@@ -343,7 +343,7 @@
                     <coachstats.options.debug>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.common.sqldebug</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.common.sqldebug</label>
                             <config>
                                 <type>check</type>
                             </config>
@@ -353,7 +353,7 @@
                     <coachstatsTemplate>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.common.template</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.common.template</label>
                             <config>
                                 <type>input</type>
                                 <size>24</size>
@@ -389,7 +389,7 @@
         <s_refereestats>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.flexform.action.refereestats</sheetTitle>
+                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.action.refereestats</sheetTitle>
                 </TCEforms>
 
                 <type>array</type>
@@ -397,7 +397,7 @@
                     <refereestats.statisticTypes>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.flexform.reporttype</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.reporttype</label>
                             <config>
                                 <type>select</type>
                                 <renderType>selectMultipleSideBySide</renderType>
@@ -413,7 +413,7 @@
                     <refereestats.options.debug>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.common.sqldebug</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.common.sqldebug</label>
                             <config>
                                 <type>check</type>
                             </config>
@@ -423,7 +423,7 @@
                     <refereestatsTemplate>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.common.template</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.common.template</label>
                             <config>
                                 <type>input</type>
                                 <size>24</size>
@@ -460,14 +460,14 @@
         <s_tssetup>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.flexform.tab.TSSetup</sheetTitle>
+                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.tab.TSSetup</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
                     <flexformTS>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.flexform.tssetup</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.tssetup</label>
                             <config>
                                 <type>text</type>
                                 <cols>80</cols>

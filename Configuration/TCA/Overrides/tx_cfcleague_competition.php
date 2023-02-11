@@ -7,7 +7,7 @@ if (!defined('TYPO3_MODE')) {
 $columns = [
     'tags' => [
         'exclude' => 1,
-        'label' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:tx_t3sportstats_tags',
+        'label' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_tags',
         'config' => [
             'type' => 'group',
             'internal_type' => 'db',

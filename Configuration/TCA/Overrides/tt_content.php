@@ -22,7 +22,7 @@ call_user_func(function () {
 
     \Sys25\RnBase\Utility\Extensions::addPlugin(
         [
-            'LLL:EXT:'.$extKey.'/Resources/Private/Language/locallang_db.xml:plugin.t3sportstats.label',
+            'LLL:EXT:'.$extKey.'/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.label',
             'tx_t3sportstats',
         ],
         'list_type',

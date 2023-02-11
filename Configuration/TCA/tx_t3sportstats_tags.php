@@ -6,7 +6,7 @@ if (!defined('TYPO3_MODE')) {
 
 $tx_t3sportstats_tags = [
     'ctrl' => [
-        'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:tx_t3sportstats_tags',
+        'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_tags',
         'label' => 'name',
         'searchFields' => 'uid,name,label',
         'tstamp' => 'tstamp',
@@ -27,7 +27,7 @@ $tx_t3sportstats_tags = [
     'columns' => [
         'name' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:tx_t3sportstats_tags_name',
+            'label' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_tags_name',
             'config' => [
                 'type' => 'input',
                 'size' => '30',
@@ -37,7 +37,7 @@ $tx_t3sportstats_tags = [
         ],
         'label' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xml:tx_t3sportstats_tags_label',
+            'label' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_tags_label',
             'config' => [
                 'type' => 'input',
                 'size' => '30',
