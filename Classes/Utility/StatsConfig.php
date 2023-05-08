@@ -1,11 +1,12 @@
 <?php
 
 namespace System25\T3sports\Utility;
+use Sys25\RnBase\Utility\Strings;
 
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -34,8 +35,8 @@ class StatsConfig
      */
     public static function lookupPlayerStatsReport($config)
     {
-        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['reports']) {
-            $types = \Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['reports']);
+        if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['reports'])) {
+            $types = Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['reports']);
             foreach ($types as $type) {
                 $config['items'][] = [$type, $type];
             }
@@ -51,7 +52,7 @@ class StatsConfig
      */
     public static function lookupCoachStatsReport($config)
     {
-        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports']) {
+        if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports'])) {
             $types = \Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports']);
             foreach ($types as $type) {
                 $config['items'][] = [$type, $type];
@@ -68,7 +69,7 @@ class StatsConfig
      */
     public static function lookupRefereeStatsReport($config)
     {
-        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports']) {
+        if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports'])) {
             $types = \Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports']);
             foreach ($types as $type) {
                 $config['items'][] = [$type, $type];
@@ -96,7 +97,7 @@ class StatsConfig
     private static function registerStatsReport($baseType, $statsType)
     {
         $current = [];
-        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports']) {
+        if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports'])) {
             $current = array_flip(\Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports']));
         }
         if (!array_key_exists($statsType, $current)) {
@@ -148,7 +149,7 @@ class StatsConfig
     private static function registerStatsSimple($type, $column, $types)
     {
         $column = strtolower($column);
-        if (!is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$type]['simpleStats'])) {
+        if (!isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$type]['simpleStats'])) {
             $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$type]['simpleStats'] = [];
         }
 
@@ -168,7 +169,7 @@ class StatsConfig
      */
     public static function getPlayerStatsSimple()
     {
-        return $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['simpleStats'];
+        return $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['simpleStats'] ?? [];
     }
 
     /**
@@ -178,7 +179,7 @@ class StatsConfig
      */
     public static function getCoachStatsSimple()
     {
-        return $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['simpleStats'];
+        return $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['simpleStats'] ?? [];
     }
 
     /**
@@ -188,6 +189,6 @@ class StatsConfig
      */
     public static function getRefereeStatsSimple()
     {
-        return $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['simpleStats'];
+        return $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['simpleStats'] ?? [];
     }
 }
