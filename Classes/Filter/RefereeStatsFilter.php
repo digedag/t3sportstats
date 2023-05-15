@@ -3,6 +3,7 @@
 namespace System25\T3sports\Filter;
 
 use Sys25\RnBase\Frontend\Filter\BaseFilter;
+use Sys25\RnBase\Frontend\Request\RequestInterface;
 use Sys25\RnBase\Utility\Strings;
 use System25\T3sports\Search\StatsSearchBuilder;
 use System25\T3sports\Utility\ScopeController;
@@ -39,13 +40,13 @@ class RefereeStatsFilter extends BaseFilter
     /**
      * Abgeleitete Filter können diese Methode überschreiben und zusätzliche Filter setzen.
      *
-     * @param array $fields
-     * @param array $options
-     * @param \tx_rnbase_IParameters $parameters
-     * @param \tx_rnbase_configurations $configurations
-     * @param string $confId
+     * @param array            $fields
+     * @param array            $options
+     * @param RequestInterface $request
+     *
+     * @return bool
      */
-    protected function initFilter(&$fields, &$options)
+    protected function initFilter(&$fields, &$options, RequestInterface $request)
     {
         $parameters = $this->getParameters();
         $configurations = $this->getConfigurations();
