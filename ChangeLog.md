@@ -2,6 +2,9 @@
 Changelog
 ----------
 
+v1.5.0 (??.07.2023)
+ * Add support for TYPO3 12.4 LTS
+
 v1.4.0 (21.07.2023)
  * Add support for TYPO3 11.5 LTS and PHP 8.x
  * Fix PHP warning
