@@ -2,6 +2,10 @@
 Changelog
 ----------
 
+v1.4.0 (21.07.2023)
+ * Add support for TYPO3 11.5 LTS and PHP 8.x
+ * Fix PHP warning
+
 v1.3.1 (22.06.2022)
  * Fix PHP error in ext_localconf.php
 
