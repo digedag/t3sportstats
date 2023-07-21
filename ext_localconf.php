@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('TYPO3_MODE')) {
+if (!(defined('TYPO3') || defined('TYPO3_MODE'))) {
     exit('Access denied.');
 }
 
@@ -19,77 +19,77 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['profileMarker_afterSubs
 // Hook for match filter
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['filterMatch_setfields'][] = 'System25\T3sports\Hooks\Filter->handleMatchFilter';
 
-Sys25\RnBase\Utility\Extensions::addService(
-    $_EXTKEY,
-    't3sportstats' /* sv type */ ,
-    'tx_t3sportstats_srv_Statistics' /* sv key */ ,
-    [
-        'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_statistics_title', 'description' => 'Statistical data about T3sports', 'subtype' => 'statistics',
-        'available' => true, 'priority' => 50, 'quality' => 50,
-        'os' => '', 'exec' => '',
-        'className' => System25\T3sports\Service\Statistics::class,
-    ]
-);
+// Sys25\RnBase\Utility\Extensions::addService(
+//     $_EXTKEY,
+//     't3sportstats' /* sv type */ ,
+//     'tx_t3sportstats_srv_Statistics' /* sv key */ ,
+//     [
+//         'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_statistics_title', 'description' => 'Statistical data about T3sports', 'subtype' => 'statistics',
+//         'available' => true, 'priority' => 50, 'quality' => 50,
+//         'os' => '', 'exec' => '',
+//         'className' => System25\T3sports\Service\Statistics::class,
+//     ]
+// );
 
-Sys25\RnBase\Utility\Extensions::addService(
-    $_EXTKEY,
-    't3sportsPlayerStats' /* sv type */ ,
-    'PlayerStats' /* sv key */ ,
-    [
-        'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_playerstats_title', 'description' => 'Statistical data about players', 'subtype' => 'base',
-        'available' => true, 'priority' => 50, 'quality' => 50,
-        'os' => '', 'exec' => '',
-        'className' => System25\T3sports\StatsIndexer\PlayerStats::class,
-    ]
-);
+// Sys25\RnBase\Utility\Extensions::addService(
+//     $_EXTKEY,
+//     't3sportsPlayerStats' /* sv type */ ,
+//     'PlayerStats' /* sv key */ ,
+//     [
+//         'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_playerstats_title', 'description' => 'Statistical data about players', 'subtype' => 'base',
+//         'available' => true, 'priority' => 50, 'quality' => 50,
+//         'os' => '', 'exec' => '',
+//         'className' => System25\T3sports\StatsIndexer\PlayerStats::class,
+//     ]
+// );
 
-Sys25\RnBase\Utility\Extensions::addService(
-    $_EXTKEY,
-    't3sportsPlayerStats' /* sv type */ ,
-    'PlayerTimeStats' /* sv key */ ,
-    [
-        'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_playertimestats_title', 'description' => 'Statistical data about players', 'subtype' => 'playtime',
-        'available' => true, 'priority' => 50, 'quality' => 50,
-        'os' => '', 'exec' => '',
-        'className' => System25\T3sports\StatsIndexer\PlayerTimeStats::class,
-    ]
-);
+// Sys25\RnBase\Utility\Extensions::addService(
+//     $_EXTKEY,
+//     't3sportsPlayerStats' /* sv type */ ,
+//     'PlayerTimeStats' /* sv key */ ,
+//     [
+//         'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_playertimestats_title', 'description' => 'Statistical data about players', 'subtype' => 'playtime',
+//         'available' => true, 'priority' => 50, 'quality' => 50,
+//         'os' => '', 'exec' => '',
+//         'className' => System25\T3sports\StatsIndexer\PlayerTimeStats::class,
+//     ]
+// );
 
-Sys25\RnBase\Utility\Extensions::addService(
-    $_EXTKEY,
-    't3sportsPlayerStats' /* sv type */ ,
-    'PlayerGoalStats' /* sv key */ ,
-    [
-        'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_playertimestats_title', 'description' => 'Statistical data about players', 'subtype' => 'goals',
-        'available' => true, 'priority' => 50, 'quality' => 50,
-        'os' => '', 'exec' => '',
-        'className' => System25\T3sports\StatsIndexer\PlayerGoalStats::class,
-    ]
-);
+// Sys25\RnBase\Utility\Extensions::addService(
+//     $_EXTKEY,
+//     't3sportsPlayerStats' /* sv type */ ,
+//     'PlayerGoalStats' /* sv key */ ,
+//     [
+//         'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_playertimestats_title', 'description' => 'Statistical data about players', 'subtype' => 'goals',
+//         'available' => true, 'priority' => 50, 'quality' => 50,
+//         'os' => '', 'exec' => '',
+//         'className' => System25\T3sports\StatsIndexer\PlayerGoalStats::class,
+//     ]
+// );
 
-Sys25\RnBase\Utility\Extensions::addService(
-    $_EXTKEY,
-    't3sportsCoachStats' /* sv type */ ,
-    'CoachStats' /* sv key */ ,
-    [
-        'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_playerstats_title', 'description' => 'Statistical data about coaches', 'subtype' => 'base',
-        'available' => true, 'priority' => 50, 'quality' => 50,
-        'os' => '', 'exec' => '',
-        'className' => System25\T3sports\StatsIndexer\CoachStats::class,
-    ]
-);
+// Sys25\RnBase\Utility\Extensions::addService(
+//     $_EXTKEY,
+//     't3sportsCoachStats' /* sv type */ ,
+//     'CoachStats' /* sv key */ ,
+//     [
+//         'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_playerstats_title', 'description' => 'Statistical data about coaches', 'subtype' => 'base',
+//         'available' => true, 'priority' => 50, 'quality' => 50,
+//         'os' => '', 'exec' => '',
+//         'className' => System25\T3sports\StatsIndexer\CoachStats::class,
+//     ]
+// );
 
-Sys25\RnBase\Utility\Extensions::addService(
-    $_EXTKEY,
-    't3sportsRefereeStats' /* sv type */ ,
-    'RefereeStats' /* sv key */ ,
-    [
-        'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_playerstats_title', 'description' => 'Statistical data about referees', 'subtype' => 'base',
-        'available' => true, 'priority' => 50, 'quality' => 50,
-        'os' => '', 'exec' => '',
-        'className' => System25\T3sports\StatsIndexer\RefereeStats::class,
-    ]
-);
+// Sys25\RnBase\Utility\Extensions::addService(
+//     $_EXTKEY,
+//     't3sportsRefereeStats' /* sv type */ ,
+//     'RefereeStats' /* sv key */ ,
+//     [
+//         'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_playerstats_title', 'description' => 'Statistical data about referees', 'subtype' => 'base',
+//         'available' => true, 'priority' => 50, 'quality' => 50,
+//         'os' => '', 'exec' => '',
+//         'className' => System25\T3sports\StatsIndexer\RefereeStats::class,
+//     ]
+// );
 
 System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('goals', '10,11,12,13');
 System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('assists', '31');
@@ -126,3 +126,12 @@ System25\T3sports\Utility\StatsConfig::registerRefereeStatsReport('default');
 
 // Register a new matchnote type
 System25\T3sports\Utility\Misc::registerMatchNote('LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:tx_cfcleague_match_notes.type.goalfreekick', '13');
+
+if (\Sys25\RnBase\Utility\Environment::isBackend()) {
+    // Einbindung einer PageTSConfig
+    // since T3 12 pagets is loaded by convention
+    if (!\Sys25\RnBase\Utility\TYPO3::isTYPO121OrHigher()) {
+        \Sys25\RnBase\Utility\Extensions::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3sportstats/Configuration/PageTS/modWizards.tsconfig">');
+        \Sys25\RnBase\Utility\Extensions::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3sportstats/Configuration/PageTS/moduleConfig.tsconfig">');
+    }
+}
