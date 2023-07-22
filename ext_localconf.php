@@ -21,18 +21,6 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['filterMatch_setfields']
 
 // Sys25\RnBase\Utility\Extensions::addService(
 //     $_EXTKEY,
-//     't3sportstats' /* sv type */ ,
-//     'tx_t3sportstats_srv_Statistics' /* sv key */ ,
-//     [
-//         'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db:service_t3sports_statistics_title', 'description' => 'Statistical data about T3sports', 'subtype' => 'statistics',
-//         'available' => true, 'priority' => 50, 'quality' => 50,
-//         'os' => '', 'exec' => '',
-//         'className' => System25\T3sports\Service\Statistics::class,
-//     ]
-// );
-
-// Sys25\RnBase\Utility\Extensions::addService(
-//     $_EXTKEY,
 //     't3sportsPlayerStats' /* sv type */ ,
 //     'PlayerStats' /* sv key */ ,
 //     [

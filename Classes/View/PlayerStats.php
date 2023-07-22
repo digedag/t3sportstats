@@ -10,7 +10,7 @@ use System25\T3sports\Marker\PlayerStatsMarker;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -43,8 +43,8 @@ class PlayerStats extends BaseView
         $viewData = $request->getViewContext();
         $items = &$viewData->offsetGet('items');
         $listBuilder = \tx_rnbase::makeInstance('tx_rnbase_util_ListBuilder');
-        $team = $viewData->offsetGet('team');
-        if ($team) {
+        if ($viewData->offsetExists('team')) {
+            $team = $viewData->offsetGet('team');
             $this->playerIds = array_flip(\Tx_Rnbase_Utility_Strings::intExplode(',', $team->getProperty('players')));
             $listBuilder->addVisitor([
                 $this,

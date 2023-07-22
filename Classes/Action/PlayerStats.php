@@ -16,7 +16,7 @@ use tx_rnbase;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2022 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -124,7 +124,7 @@ class PlayerStats extends AbstractAction
         $confid .= '.';
         if (is_array($configurations->get($confid))) {
             // Die Gesamtzahl der Items ist entweder im Limit gesetzt oder muss ermittelt werden
-            $listSize = intval($options['limit']);
+            $listSize = (int) ($options['limit'] ?? 0);
             if (!$listSize) {
                 // Mit Pagebrowser benötigen wir zwei Zugriffe, um die Gesamtanzahl der Items zu ermitteln
                 $options['count'] = 1;

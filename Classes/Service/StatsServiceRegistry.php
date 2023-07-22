@@ -5,7 +5,7 @@ namespace System25\T3sports\Service;
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -28,8 +28,16 @@ namespace System25\T3sports\Service;
 /**
  * Zentrale Klasse für den Zugriff auf verschiedene Services.
  */
-class StatsServiceRegistry
+class StatsServiceRegistry implements \TYPO3\CMS\Core\SingletonInterface
 {
+    private $statisticsService;
+
+    public function __construct(
+        Statistics $statisticsService = null
+    ) {
+        $this->statisticsService = $statisticsService ?: new Statistics();
+    }
+
     /**
      * Liefert den Statistik-Service.
      *
@@ -37,6 +45,6 @@ class StatsServiceRegistry
      */
     public function getStatisticService()
     {
-        return \tx_rnbase_util_Misc::getService('t3sportstats', 'statistics');
+        return $this->statisticsService;
     }
 }
