@@ -45,7 +45,7 @@ class StatsDataBag
 
     public function addType($type, $value)
     {
-        $this->data[$type] = intval($this->data[$type]) + $value;
+        $this->data[$type] = intval($this->data[$type] ?? 0) + $value;
     }
 
     public function setType($type, $value)

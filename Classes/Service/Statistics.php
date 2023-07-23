@@ -4,16 +4,16 @@ namespace System25\T3sports\Service;
 
 use Sys25\RnBase\Database\Connection;
 use Sys25\RnBase\Search\SearchBase;
-use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
 use Sys25\RnBase\Utility\Dates;
 use Sys25\RnBase\Utility\Logger;
-use Sys25\RnBase\Utility\Misc;
 use Sys25\RnBase\Utility\Strings;
 use System25\T3sports\Model\Competition;
 use System25\T3sports\Model\Fixture;
+use System25\T3sports\Model\Team;
 use System25\T3sports\Search\SearchCoachStats;
 use System25\T3sports\Search\SearchPlayerStats;
 use System25\T3sports\Search\SearchRefereeStats;
+use System25\T3sports\StatsIndexer\PlayerStatsInterface;
 use System25\T3sports\Utility\ServiceRegistry;
 use System25\T3sports\Utility\StatsDataBag;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
@@ -47,29 +47,35 @@ use tx_rnbase;
  *
  * @author Rene Nitzsche
  */
-class Statistics extends AbstractService
+class Statistics
 {
-    private $statsSrvArr = [];
+    private $matchService;
+    private $indexerProvider;
+
+    public function __construct(MatchService $matchService = null, StatsIndexerProvider $indexerProvider = null)
+    {
+        $this->matchService = $matchService ?: ServiceRegistry::getMatchService();
+        $this->indexerProvider = $indexerProvider ?: StatsIndexerProvider::getInstance();
+    }
 
     /**
      * Update statistics for a competition.
      *
      * @param Competition $competition
      */
-    public function indexPlayerStatsByCompetition($competition)
+    public function indexPlayerStatsByCompetition(Competition $competition)
     {
         // Der Service lädt alle DatenServices für Spielerdaten
         // Danach lädt er die Spiele eines Wettbewerbs
         // Für jedes Spiel werden die Events geladen
         // Anschließend bekommt jeder Service das Spiel, den Spieler und die Events übergeben
         // In ein Datenarray legt er die relevanten Daten für den Spieler
-        $mSrv = ServiceRegistry::getMatchService();
-        $builder = $mSrv->getMatchTableBuilder();
+        $builder = $this->matchService->getMatchTableBuilder();
         $builder->setCompetitions($competition->getUid());
         $builder->setStatus(2);
         $fields = $options = [];
         $builder->getFields($fields, $options);
-        $matches = $mSrv->search($fields, $options);
+        $matches = $this->matchService->search($fields, $options);
         $this->indexStatsByMatches($matches);
     }
 
@@ -111,7 +117,7 @@ class Statistics extends AbstractService
      * @param StatsMatchNoteProvider $mnProv
      * @param bool $homeTeam
      */
-    private function indexPlayerData($match, $mnProv, $homeTeam)
+    private function indexPlayerData(Fixture $match, $mnProv, $homeTeam)
     {
         // Services laden
         $servicesArr = $this->lookupPlayerServices();
@@ -138,7 +144,7 @@ class Statistics extends AbstractService
      * @param StatsMatchNoteProvider $mnProv
      * @param bool $homeTeam
      */
-    private function indexCoachData($match, $mnProv, $homeTeam)
+    private function indexCoachData(Fixture $match, $mnProv, $homeTeam)
     {
         // Services laden
         $servicesArr = $this->lookupCoachServices();
@@ -165,7 +171,7 @@ class Statistics extends AbstractService
      * @param StatsMatchNoteProvider $mnProv
      * @param bool $homeTeam
      */
-    private function indexRefereeData($match, $mnProv, $homeTeam)
+    private function indexRefereeData(Fixture $match, $mnProv, $homeTeam)
     {
         // Services laden
         $servicesArr = $this->lookupRefereeServices();
@@ -189,7 +195,7 @@ class Statistics extends AbstractService
      *
      * @param Fixture $match
      */
-    private function clearPlayerData($match, $isHome)
+    private function clearPlayerData(Fixture $match, $isHome)
     {
         $where = 't3match = '.$match->getUid().' AND ishome='.($isHome ? 1 : 0);
 
@@ -201,7 +207,7 @@ class Statistics extends AbstractService
      *
      * @param Fixture $match
      */
-    private function clearCoachData($match, $isHome)
+    private function clearCoachData(Fixture $match, $isHome)
     {
         $where = 't3match = '.$match->getUid().' AND ishome='.($isHome ? 1 : 0);
 
@@ -213,7 +219,7 @@ class Statistics extends AbstractService
      *
      * @param Fixture $match
      */
-    private function clearRefereeData($match, $isHome)
+    private function clearRefereeData(Fixture $match, $isHome)
     {
         $where = 't3match = '.$match->getUid().' AND ishome='.($isHome ? 1 : 0);
 
@@ -254,10 +260,9 @@ class Statistics extends AbstractService
      * Liefert die DataBags für die Spieler eines beteiligten Teams.
      *
      * @param Fixture $match
-     * @param bool $home
-     *            true, wenn das Heimteam geholt werden soll
+     * @param bool $home true, wenn das Heimteam geholt werden soll
      *
-     * @return array[StatsDataBag]
+     * @return StatsDataBag[]
      */
     public function getPlayerBags($match, $home)
     {
@@ -288,10 +293,9 @@ class Statistics extends AbstractService
      * Liefert die DataBags für die Trainer eines beteiligten Teams.
      *
      * @param Fixture $match
-     * @param bool $home
-     *            true, wenn das Heimteam geholt werden soll
+     * @param bool $home true, wenn das Heimteam geholt werden soll
      *
-     * @return array[StatsDataBag]
+     * @return StatsDataBag[]
      */
     public function getCoachBags($match, $home)
     {
@@ -311,12 +315,11 @@ class Statistics extends AbstractService
      * Liefert die DataBags für den Schiedsrichter eines Spiels.
      *
      * @param Fixture $match
-     * @param bool $home
-     *            true, wenn das Heimteam geholt werden soll
+     * @param bool $home true, wenn das Heimteam geholt werden soll
      *
-     * @return array[StatsDataBag]
+     * @return StatsDataBag[]]
      */
-    public function getRefereeBags($match, $home)
+    public function getRefereeBags(Fixture $match, $home)
     {
         $refereeUid = $match->getProperty('referee');
         $ids = $match->getProperty('referee');
@@ -350,10 +353,13 @@ class Statistics extends AbstractService
      * @param bool $home
      * @param string $profileField
      *
-     * @return object|\Exception
+     * @return StatsDataBag
+     *
+     * @throws \Exception
      */
     private function createProfileBag($uid, $match, $home, $profileField)
     {
+        /** @var StatsDataBag $bag */
         $bag = tx_rnbase::makeInstance(StatsDataBag::class);
         $bag->setParentUid($uid);
         // Hier noch die allgemeinen Daten rein!
@@ -378,7 +384,7 @@ class Statistics extends AbstractService
         return $bag;
     }
 
-    private function getGroupUid($team, $competition)
+    private function getGroupUid(Team $team, Competition $competition)
     {
         $groupUid = $team->getGroupUid();
         if (!$groupUid) {
@@ -440,7 +446,7 @@ class Statistics extends AbstractService
      */
     public function lookupPlayerServices()
     {
-        return $this->lookupStatsServices('t3sportsPlayerStats');
+        return $this->lookupStatsServices(PlayerStatsInterface::INDEXER_TYPE);
     }
 
     /**
@@ -470,14 +476,8 @@ class Statistics extends AbstractService
      */
     private function lookupStatsServices($key)
     {
-        if (!array_key_exists($key, $this->statsSrvArr)) {
-            $srvArr = Misc::lookupServices($key);
-            $this->statsSrvArr[$key] = [];
-            foreach ($srvArr as $subType => $srvData) {
-                $this->statsSrvArr[$key][] = Misc::getService($key, $subType);
-            }
-        }
+        $indexer = $this->indexerProvider->getStatsIndexerByType($key);
 
-        return $this->statsSrvArr[$key];
+        return $indexer;
     }
 }

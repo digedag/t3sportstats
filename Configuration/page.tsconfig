@@ -1,0 +1,2 @@
+@import 'EXT:t3sportstats/Configuration/PageTS/modWizards.tsconfig'
+@import 'EXT:t3sportstats/Configuration/PageTS/moduleConfig.tsconfig'

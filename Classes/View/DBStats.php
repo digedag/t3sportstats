@@ -2,6 +2,7 @@
 
 namespace System25\T3sports\View;
 
+use Sys25\RnBase\Frontend\Marker\Templates;
 use Sys25\RnBase\Frontend\Request\RequestInterface;
 use Sys25\RnBase\Frontend\View\ContextInterface;
 use Sys25\RnBase\Frontend\View\Marker\BaseView;
@@ -9,7 +10,7 @@ use Sys25\RnBase\Frontend\View\Marker\BaseView;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -46,13 +47,13 @@ class DBStats extends BaseView
         $subpartArr = [];
         foreach ($items as $table => $data) {
             $tableMarker = '###'.strtoupper($table).'###';
-            $subpart = \tx_rnbase_util_Templates::getSubpart($template, $tableMarker);
+            $subpart = Templates::getSubpart($template, $tableMarker);
             // Jetzt die Tabelle rein
             $markerArr = $formatter->getItemMarkerArrayWrapped($data, $request
                 ->getConfId().$table.'.', 0, strtoupper($table).'_');
-            $subpartArr[$tableMarker] = \tx_rnbase_util_Templates::substituteMarkerArrayCached($subpart, $markerArr);
+            $subpartArr[$tableMarker] = Templates::substituteMarkerArrayCached($subpart, $markerArr);
         }
-        $out = \tx_rnbase_util_Templates::substituteMarkerArrayCached($template, [], $subpartArr);
+        $out = Templates::substituteMarkerArrayCached($template, [], $subpartArr);
 
         return $out;
     }

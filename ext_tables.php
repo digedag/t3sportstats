@@ -1,14 +1,10 @@
 <?php
 
-if (!defined('TYPO3_MODE')) {
+if (!(defined('TYPO3') || defined('TYPO3_MODE'))) {
     exit('Access denied.');
 }
 
-if (TYPO3_MODE == 'BE') {
-    // Einbindung einer PageTSConfig
-    \Sys25\RnBase\Utility\Extensions::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3sportstats/Configuration/PageTS/modWizards.ts">');
-    \Sys25\RnBase\Utility\Extensions::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3sportstats/Configuration/PageTS/moduleConfig.tss">');
-
+if (\Sys25\RnBase\Utility\Environment::isBackend()) {
     ////////////////////////////////
     // Submodul anmelden
     ////////////////////////////////

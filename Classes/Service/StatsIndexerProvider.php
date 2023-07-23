@@ -2,6 +2,8 @@
 
 namespace System25\T3sports\Service;
 
+use System25\T3sports\StatsIndexer\StatsInterface;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -28,23 +30,45 @@ namespace System25\T3sports\Service;
 /**
  * Zentrale Klasse für den Zugriff auf verschiedene Services.
  */
-class StatsServiceRegistry implements \TYPO3\CMS\Core\SingletonInterface
+class StatsIndexerProvider implements \TYPO3\CMS\Core\SingletonInterface
 {
-    private $statisticsService;
+    private $statsIndexer = [];
 
-    public function __construct(
-        Statistics $statisticsService = null
-    ) {
-        $this->statisticsService = $statisticsService ?: new Statistics();
+    /**
+     * Used by T3 versions without DI.
+     *
+     * @var StatsIndexerProvider
+     */
+    private static $instance = null;
+
+    public function addStatsIndexer(StatsInterface $indexer)
+    {
+        $type = $indexer->getIndexerType();
+        if (!isset($this->statsIndexer[$type])) {
+            $this->statsIndexer[$type] = [];
+        }
+        $this->statsIndexer[$type][] = $indexer;
     }
 
     /**
-     * Liefert den Statistik-Service.
-     *
-     * @return Statistics
+     * @return StatsInterface[]
      */
-    public function getStatisticService()
+    public function getStatsIndexerByType(string $type)
     {
-        return $this->statisticsService;
+        return $this->statsIndexer[$type] ?? [];
+    }
+
+    /**
+     * Only used by T3 versions prior to 10.x.
+     *
+     * @return StatsIndexerProvider
+     */
+    public static function getInstance()
+    {
+        if (null === self::$instance) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
     }
 }

@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  System25\T3sports\:
+    resource: '../Classes/*'
+    exclude: ['../Classes/Domain/Model/*']
+
+  # public, damit das Autowiring beim Hook-Aufruf klappt. Gibt es ein Tag für Hooks?
+  System25\T3sports\Hooks\ClearStats:
+      public: true
