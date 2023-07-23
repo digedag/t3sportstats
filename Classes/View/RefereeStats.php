@@ -2,15 +2,18 @@
 
 namespace System25\T3sports\View;
 
+use Sys25\RnBase\Frontend\Marker\ListBuilder;
+use Sys25\RnBase\Frontend\Marker\Templates;
 use Sys25\RnBase\Frontend\Request\RequestInterface;
 use Sys25\RnBase\Frontend\View\ContextInterface;
 use Sys25\RnBase\Frontend\View\Marker\BaseView;
 use System25\T3sports\Marker\RefereeStatsMarker;
+use tx_rnbase;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -40,11 +43,11 @@ class RefereeStats extends BaseView
         $viewData = $request->getViewContext();
 
         $items = &$viewData->offsetGet('items');
-        $listBuilder = \tx_rnbase::makeInstance('tx_rnbase_util_ListBuilder');
+        $listBuilder = tx_rnbase::makeInstance(ListBuilder::class);
 
         $out = '';
         foreach ($items as $type => $data) {
-            $subTemplate = \tx_rnbase_util_Templates::getSubpart($template, '###'.strtoupper($type).'###');
+            $subTemplate = Templates::getSubpart($template, '###'.strtoupper($type).'###');
             $out .= $listBuilder->render($data, $viewData, $subTemplate, RefereeStatsMarker::class, $request
                 ->getConfId().$type.'.data.', 'DATA', $formatter);
         }

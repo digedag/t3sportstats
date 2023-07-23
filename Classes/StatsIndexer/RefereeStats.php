@@ -2,7 +2,6 @@
 
 namespace System25\T3sports\StatsIndexer;
 
-use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
 use Sys25\RnBase\Utility\Strings;
 use System25\T3sports\Model\Fixture;
 use System25\T3sports\Utility\StatsConfig;
@@ -39,9 +38,14 @@ use System25\T3sports\Utility\StatsMatchNoteProvider;
  *
  * @author Rene Nitzsche
  */
-class RefereeStats extends AbstractService
+class RefereeStats implements RefereeStatsInterface
 {
     private $types = [];
+
+    public function getIndexerType()
+    {
+        return self::INDEXER_TYPE;
+    }
 
     /**
      * Update statistics for a referee.
@@ -51,7 +55,7 @@ class RefereeStats extends AbstractService
      * @param StatsMatchNoteProvider $mnProv
      * @param bool $isHome
      */
-    public function indexRefereeStats($dataBag, $match, $mnProv, $isHome)
+    public function indexRefereeStats(StatsDataBag $dataBag, Fixture $match, StatsMatchNoteProvider $mnProv, bool $isHome)
     {
         // Wir betrachten das Spiel für einen bestimmten SR
         if (!$this->isAssist($dataBag)) {

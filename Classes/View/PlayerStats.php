@@ -2,10 +2,14 @@
 
 namespace System25\T3sports\View;
 
+use Sys25\RnBase\Frontend\Marker\ListBuilder;
+use Sys25\RnBase\Frontend\Marker\Templates;
 use Sys25\RnBase\Frontend\Request\RequestInterface;
 use Sys25\RnBase\Frontend\View\ContextInterface;
 use Sys25\RnBase\Frontend\View\Marker\BaseView;
+use Sys25\RnBase\Utility\Strings;
 use System25\T3sports\Marker\PlayerStatsMarker;
+use tx_rnbase;
 
 /***************************************************************
  *  Copyright notice
@@ -42,10 +46,10 @@ class PlayerStats extends BaseView
         $configurations = $request->getConfigurations();
         $viewData = $request->getViewContext();
         $items = &$viewData->offsetGet('items');
-        $listBuilder = \tx_rnbase::makeInstance('tx_rnbase_util_ListBuilder');
+        $listBuilder = tx_rnbase::makeInstance(ListBuilder::class);
         if ($viewData->offsetExists('team')) {
             $team = $viewData->offsetGet('team');
-            $this->playerIds = array_flip(\Tx_Rnbase_Utility_Strings::intExplode(',', $team->getProperty('players')));
+            $this->playerIds = array_flip(Strings::intExplode(',', $team->getProperty('players')));
             $listBuilder->addVisitor([
                 $this,
                 'highlightPlayer',
@@ -60,7 +64,7 @@ class PlayerStats extends BaseView
                 $markerClass = PlayerStatsMarker::class;
             }
 
-            $subTemplate = \tx_rnbase_util_Templates::getSubpart($template, '###'.strtoupper($type).'###');
+            $subTemplate = Templates::getSubpart($template, '###'.strtoupper($type).'###');
             $out .= $listBuilder->render($data, $viewData, $subTemplate, $markerClass, $request
                 ->getConfId().$type.'.data.', 'DATA', $formatter);
         }

@@ -9,13 +9,13 @@ use Sys25\RnBase\Frontend\Request\Request;
 use System25\T3sports\Frontend\Marker\ProfileMarker;
 use System25\T3sports\Marker\PlayerStatsMarker;
 use System25\T3sports\Model\Profile;
-use System25\T3sports\Service\StatsServiceRegistry;
+use System25\T3sports\Service\Statistics;
 use tx_rnbase;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2008-2022 Rene Nitzsche
+ *  (c) 2008-2023 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -59,6 +59,13 @@ class Marker
         ],
     ];
 
+    private $statsSrv;
+
+    public function __construct(Statistics $statisticsService = null)
+    {
+        $this->statsSrv = $statisticsService ?: new Statistics();
+    }
+
     /**
      * Extend profileMarker for statistical data about profile.
      *
@@ -93,7 +100,7 @@ class Marker
             $markerClass = $markerClass ? $markerClass : PlayerStatsMarker::class;
             $marker = tx_rnbase::makeInstance($markerClass);
             // Wir sollten nur einen Datensatz haben und können diesen jetzt ausgeben
-            $subpartArray['###'.$subpartMarker.'###'] = $marker->parseTemplate($subpart, $items[0], $config->getFormatter(), $confId.$statKey.'.data.', $subpartMarker);
+            $subpartArray['###'.$subpartMarker.'###'] = $marker->parseTemplate($subpart, $items[0] ?? null, $config->getFormatter(), $confId.$statKey.'.data.', $subpartMarker);
         }
 
         $params['template'] = Templates::substituteMarkerArrayCached($template, [], $subpartArray);
@@ -101,17 +108,16 @@ class Marker
 
     /**
      * @param Profile $profile
-     * @param unknown $configurations
-     * @param unknown $confId
-     * @param unknown $type
+     * @param ConfigurationInterface $configurations
+     * @param string $confId
+     * @param string $type
      *
      * @throws \Exception
      *
-     * @return unknown
+     * @return array
      */
     private function findData(Profile $profile, ConfigurationInterface $configurations, $confId, $type)
     {
-        $srv = (new StatsServiceRegistry())->getStatisticService();
         $request = new Request($configurations->getParameters(), $configurations, $confId);
         $confId = $confId.$type.'.';
         $filter = BaseFilter::createFilter(
@@ -136,7 +142,7 @@ class Marker
         $filter->init($fields, $options);
 
         $searchMethod = self::$filterData[$filterType]['search'];
-        $items = $srv->$searchMethod($fields, $options);
+        $items = $this->statsSrv->$searchMethod($fields, $options);
 
         return $items;
     }

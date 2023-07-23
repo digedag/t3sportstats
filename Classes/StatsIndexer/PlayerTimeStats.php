@@ -2,7 +2,6 @@
 
 namespace System25\T3sports\StatsIndexer;
 
-use Sys25\RnBase\Typo3Wrapper\Service\AbstractService;
 use Sys25\RnBase\Utility\Strings;
 use System25\T3sports\Model\Fixture;
 use System25\T3sports\Sports\MatchInfo;
@@ -37,7 +36,7 @@ use System25\T3sports\Utility\StatsMatchNoteProvider;
 /**
  * @author Rene Nitzsche
  */
-class PlayerTimeStats extends AbstractService
+class PlayerTimeStats implements PlayerStatsInterface
 {
     private $types = [];
 
@@ -48,6 +47,11 @@ class PlayerTimeStats extends AbstractService
         $this->serviceLocator = $locator ? $locator : new ServiceLocator();
     }
 
+    public function getIndexerType()
+    {
+        return self::INDEXER_TYPE;
+    }
+
     /**
      * Update statistics for a player
      * playtime, played.
@@ -56,7 +60,7 @@ class PlayerTimeStats extends AbstractService
      * @param Fixture $match
      * @param StatsMatchNoteProvider $mnProv
      */
-    public function indexPlayerStats($dataBag, $match, $mnProv, $isHome)
+    public function indexPlayerStats(StatsDataBag $dataBag, Fixture $match, StatsMatchNoteProvider $mnProv, bool $isHome)
     {
         // Wir betrachten das Spiel für einen bestimmten Spieler
         $profId = $dataBag->getParentUid();

@@ -7,7 +7,7 @@ vorbereitet. Bei den Spielern gibt es zusätzliche Reports für Torschützen und
 Weitere Reports kann man leicht selber integrieren. Dazu muss man sich zunächst eine eigene 
 Extension erstellen und in TYPO3 registrieren.
 
-Der eigene Report benötigt zunächst einen eindeutigen eigenen Identifier. Für die 
+Der eigene Report benötigt nun einen eindeutigen eigenen Identifier. Für die 
 Torschützenliste wird die ID `scorerlist` verwendet. In der Datei ext_localconf.php wird diese
 ID registriert:
 

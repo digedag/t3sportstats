@@ -114,7 +114,7 @@ class PlayerStats extends AbstractAction
      *
      * @param string $confid
      *            Die Confid des PageBrowsers. z.B. myview.org.pagebrowser ohne Punkt!
-     * @param \tx_rnbase_configurations $configurations
+     * @param ConfigurationInterface $configurations
      * @param \ArrayObject $viewdata
      * @param array $fields
      * @param array $options
