@@ -18,7 +18,7 @@ class StatsIndexerPass implements CompilerPassInterface
 
         $definition = $container->findDefinition(StatsIndexerProvider::class);
 
-        // find all service IDs with the t3sports.stats.player tag
+        // find all service IDs with the t3sports.stats.indexer tag
         $taggedServices = $container->findTaggedServiceIds('t3sports.stats.indexer');
 
         foreach ($taggedServices as $id => $tags) {
