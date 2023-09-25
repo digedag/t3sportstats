@@ -13,7 +13,9 @@ use System25\T3sports\Model\Team;
 use System25\T3sports\Search\SearchCoachStats;
 use System25\T3sports\Search\SearchPlayerStats;
 use System25\T3sports\Search\SearchRefereeStats;
+use System25\T3sports\StatsIndexer\CoachStatsInterface;
 use System25\T3sports\StatsIndexer\PlayerStatsInterface;
+use System25\T3sports\StatsIndexer\RefereeStatsInterface;
 use System25\T3sports\Utility\ServiceRegistry;
 use System25\T3sports\Utility\StatsDataBag;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
@@ -456,7 +458,7 @@ class Statistics
      */
     public function lookupCoachServices()
     {
-        return $this->lookupStatsServices('t3sportsCoachStats');
+        return $this->lookupStatsServices(CoachStatsInterface::INDEXER_TYPE);
     }
 
     /**
@@ -466,7 +468,7 @@ class Statistics
      */
     public function lookupRefereeServices()
     {
-        return $this->lookupStatsServices('t3sportsRefereeStats');
+        return $this->lookupStatsServices(RefereeStatsInterface::INDEXER_TYPE);
     }
 
     /**
