@@ -13,6 +13,9 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league']['search_Match_getJoins_hook
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['search_Match_getTableMapping_hook'][] = 'System25\T3sports\Hooks\Search->getTableMappingMatch';
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['search_Match_getJoins_hook'][] = 'System25\T3sports\Hooks\Search->getJoinsMatch';
 
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league']['search_Club_getTableMapping_hook'][] = 'System25\T3sports\Hooks\ClubSearch->getTableMappingMatch';
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league']['search_Club_getJoins_hook'][] = 'System25\T3sports\Hooks\ClubSearch->getJoinsMatch';
+
 // Hook for profile marker
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['profileMarker_afterSubst'][] = 'System25\T3sports\Hooks\Marker->parseProfile';
 
@@ -26,6 +29,10 @@ if (!\Sys25\RnBase\Utility\TYPO3::isTYPO104OrHigher()) {
     $provider->addStatsIndexer(new \System25\T3sports\StatsIndexer\PlayerGoalStats());
     $provider->addStatsIndexer(new \System25\T3sports\StatsIndexer\PlayerTimeStats());
     $provider->addStatsIndexer(new \System25\T3sports\StatsIndexer\RefereeStats());
+
+    $provider = \System25\T3sports\Series\SeriesRuleProvider::getInstance();
+    $provider->addSeriesRule(new \System25\T3sports\Series\Rule\WinRule());
+    $provider->addSeriesRule(new \System25\T3sports\Series\Rule\LostRule());
 }
 
 System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('goals', '10,11,12,13');

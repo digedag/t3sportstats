@@ -1,11 +1,14 @@
 <?php
 
-namespace System25\T3sports\StatsIndexer;
+namespace System25\T3sports\Repository;
+
+use Sys25\RnBase\Domain\Repository\PersistenceRepository;
+use System25\T3sports\Search\SeriesSearch;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
+ *  (c) 2017-2024 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -28,12 +31,11 @@ namespace System25\T3sports\StatsIndexer;
 /**
  * @author Rene Nitzsche
  */
-interface StatsInterface
+class SeriesRepository extends PersistenceRepository
 {
-    const TAG = 't3sports.stats.indexer';
+    public function getSearchClass()
+    {
+        return SeriesSearch::class;
+    }
 
-    /**
-     * @return string
-     */
-    public function getIndexerType();
 }

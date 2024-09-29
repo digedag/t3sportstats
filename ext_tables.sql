@@ -167,29 +167,102 @@ CREATE TABLE tx_t3sportstats_referees (
 );
 
 #
-# Table structure for table 'tx_t3sportstats_players'
-# Scope data for a match
+# Table structure for table 'tx_t3sportstats_series'
 #
 
-#CREATE TABLE tx_t3sportstats_matchs (
-#	uid int(11) NOT NULL auto_increment,
-#	tstamp int(11) DEFAULT '0' NOT NULL,
-#	crdate int(11) DEFAULT '0' NOT NULL,
+CREATE TABLE tx_t3sportstats_series (
+	uid int(11) NOT NULL auto_increment,
+	tstamp int(11) DEFAULT '0' NOT NULL,
+	crdate int(11) DEFAULT '0' NOT NULL,
+	pid int(11) DEFAULT '0' NOT NULL,
+	cruser_id int(11) DEFAULT '0' NOT NULL,
+	deleted tinyint(4) DEFAULT '0' NOT NULL,
+	hidden tinyint(4) DEFAULT '0' NOT NULL,
 
-#	t3match int(11) DEFAULT '0' NOT NULL,
-#	competition int(11) DEFAULT '0' NOT NULL,
-#	saison int(11) DEFAULT '0' NOT NULL,
-#	group int(11) DEFAULT '0' NOT NULL,
 
-#	round int(11) DEFAULT '0' NOT NULL,
-#	round_name varchar(100) DEFAULT '' NOT NULL,
+	name varchar(255) DEFAULT '' NOT NULL,
+	label varchar(255) DEFAULT '' NOT NULL,
+	saison int(11) DEFAULT '0' NOT NULL,
+	agegroup int(11) DEFAULT '0' NOT NULL,
+	club int(11) DEFAULT '0' NOT NULL,
+	competition int(11) DEFAULT '0' NOT NULL,
+	competitiontag int(11) DEFAULT '0' NOT NULL,
 
-#	betgame int(11) DEFAULT '0' NOT NULL,
-#	status tinyint(4) DEFAULT '0' NOT NULL,
-#	teamquestions int(11) DEFAULT '0' NOT NULL,
-#	comment text NOT NULL,
+	rules int(11) DEFAULT '0' NOT NULL,
+	results int(11) DEFAULT '0' NOT NULL,
+	comment text NOT NULL,
 
-#	PRIMARY KEY (uid),
-#	KEY parent (pid)
-#);
+	PRIMARY KEY (uid),
+	KEY parent (pid)
+);
 
+CREATE TABLE tx_t3sportstats_series_rule (
+	uid int(11) NOT NULL auto_increment,
+	tstamp int(11) DEFAULT '0' NOT NULL,
+	crdate int(11) DEFAULT '0' NOT NULL,
+	pid int(11) DEFAULT '0' NOT NULL,
+	cruser_id int(11) DEFAULT '0' NOT NULL,
+	deleted tinyint(4) DEFAULT '0' NOT NULL,
+
+	parentid int(11) DEFAULT '0' NOT NULL,
+	parenttable varchar(50) DEFAULT '' NOT NULL,
+
+	rulealias varchar(255) DEFAULT '' NOT NULL,
+	config text NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY parent (pid)
+);
+
+#
+# Table structure for table 'tx_t3sportstats_series_result'
+#
+CREATE TABLE tx_t3sportstats_series_result (
+	uid int(11) NOT NULL auto_increment,
+	tstamp int(11) DEFAULT '0' NOT NULL,
+	crdate int(11) DEFAULT '0' NOT NULL,
+	pid int(11) DEFAULT '0' NOT NULL,
+	cruser_id int(11) DEFAULT '0' NOT NULL,
+	deleted tinyint(4) DEFAULT '0' NOT NULL,
+
+	parentid int(11) DEFAULT '0' NOT NULL,
+	parenttable varchar(50) DEFAULT '' NOT NULL,
+
+	club int(11) DEFAULT '0' NOT NULL,
+
+	quantity int(11) DEFAULT '0' NOT NULL,
+	firstmatch int(11) DEFAULT '0' NOT NULL,
+	lastmatch int(11) DEFAULT '0' NOT NULL,
+	uniquekey varchar(50) DEFAULT '' NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY parent (pid)
+);
+
+#
+# Table structure for table 'tx_t3sportstats_series_scope_mm'
+# uid_local used for series
+#
+CREATE TABLE tx_t3sportstats_series_scope_mm (
+	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
+	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	tablenames varchar(50) DEFAULT '' NOT NULL,
+	sorting int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	KEY uid_local (uid_local),
+	KEY uid_foreign (uid_foreign)
+);
+
+#
+# Table structure for table 'tx_t3sportstats_series_result_mm'
+# uid_local used for series_result
+#
+CREATE TABLE tx_t3sportstats_series_result_mm (
+	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
+	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	tablenames varchar(50) DEFAULT '' NOT NULL,
+	sorting int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	KEY uid_local (uid_local),
+	KEY uid_foreign (uid_foreign)
+);

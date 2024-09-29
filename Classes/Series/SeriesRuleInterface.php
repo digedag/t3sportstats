@@ -1,11 +1,15 @@
 <?php
 
-namespace System25\T3sports\StatsIndexer;
+namespace System25\T3sports\Series;
+
+use System25\T3sports\Model\Club;
+use System25\T3sports\Model\Fixture;
+use System25\T3sports\Model\Team;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2024 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,14 +30,14 @@ namespace System25\T3sports\StatsIndexer;
  ***************************************************************/
 
 /**
- * @author Rene Nitzsche
+ * Interface for series rule
+ *
  */
-interface StatsInterface
+interface SeriesRuleInterface
 {
-    const TAG = 't3sports.stats.indexer';
+    const TAG = 't3sports.stats.seriesrule';
 
-    /**
-     * @return string
-     */
-    public function getIndexerType();
+    function getAlias(): string;
+    function getTcaLabel(): string;
+    function isSatified(Fixture $match, bool $isHome, $config): bool;
 }

@@ -1,11 +1,12 @@
 <?php
 
-namespace System25\T3sports\StatsIndexer;
+namespace System25\T3sports\Series\Rule;
+
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2024 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,14 +27,20 @@ namespace System25\T3sports\StatsIndexer;
  ***************************************************************/
 
 /**
- * @author Rene Nitzsche
+ * Interface for series rule
+ *
  */
-interface StatsInterface
+class LostRule extends MatchResultRule
 {
-    const TAG = 't3sports.stats.indexer';
+    const ALIAS = 'LOST_RULE';
 
-    /**
-     * @return string
-     */
-    public function getIndexerType();
+    public function getAlias(): string
+    {
+        return self::ALIAS;
+    }
+
+    protected function getStates(): array
+    {
+        return [self::RESULT_LOST];
+    }
 }

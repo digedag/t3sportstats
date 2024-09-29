@@ -1,11 +1,16 @@
 <?php
 
-namespace System25\T3sports\StatsIndexer;
+namespace System25\T3sports\Series;
+
+use Contrib\Doctrine\Common\Collections\Collection;
+use System25\T3sports\Model\Club;
+use System25\T3sports\Model\Fixture;
+use System25\T3sports\Model\Series;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2024 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,14 +31,13 @@ namespace System25\T3sports\StatsIndexer;
  ***************************************************************/
 
 /**
- * @author Rene Nitzsche
+ * Interface for series rule
+ *
  */
-interface StatsInterface
+interface SeriesCalculationVisitorInterface
 {
-    const TAG = 't3sports.stats.indexer';
-
-    /**
-     * @return string
-     */
-    public function getIndexerType();
+    function seriesLoaded(Series $series, array $clubUids): void;
+    function clubProcessed(Club $club, SeriesBag $seriesBag): void;
+    function matchesLoaded(Collection $matches): void;
+    function matchProcessed(Fixture $match): void;
 }
