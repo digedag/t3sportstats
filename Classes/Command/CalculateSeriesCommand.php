@@ -69,7 +69,7 @@ class CalculateSeriesCommand extends Command implements SeriesCalculationVisitor
         $this->output = $output;
         $output->writeln('<info>Calculate series.</info>');
         $uid = $input->getOption('uid');
-        if ($uid === null) {
+        if (null === $uid) {
             $output->writeln('<error>Option --uid missing.</error>');
         }
         $uid = (int) $uid;
@@ -78,6 +78,7 @@ class CalculateSeriesCommand extends Command implements SeriesCalculationVisitor
 
         $this->clubProgress->finish();
         $this->matchProgress->finish();
+
         // Do awesome stuff
         return Command::SUCCESS;
     }
@@ -106,8 +107,8 @@ class CalculateSeriesCommand extends Command implements SeriesCalculationVisitor
     {
         $this->clubProgress->advance();
         $firstMatch = $seriesBag->getBestSeriesFixtures()[0];
-        $lastMatch = $seriesBag->getBestSeriesFixtures()[count($seriesBag->getBestSeriesFixtures())-1];
-        $this->output->section()->writeln(sprintf('<info>Club (%s) %d series length: %d from %s to %s</info>', 
+        $lastMatch = $seriesBag->getBestSeriesFixtures()[count($seriesBag->getBestSeriesFixtures()) - 1];
+        $this->output->section()->writeln(sprintf('<info>Club (%s) %d series length: %d from %s to %s</info>',
             $club->getName(),
             $club->getUid(), count($seriesBag->getBestSeriesFixtures()),
             date('d.m.Y', $firstMatch->getProperty('date')),
@@ -119,5 +120,4 @@ class CalculateSeriesCommand extends Command implements SeriesCalculationVisitor
     {
         $this->matchProgress->advance();
     }
-
 }

@@ -2,8 +2,6 @@
 
 namespace System25\T3sports\Series\Rule;
 
-use System25\T3sports\Series\SeriesRuleInterface;
-
 /***************************************************************
  *  Copyright notice
  *
@@ -28,12 +26,11 @@ use System25\T3sports\Series\SeriesRuleInterface;
  ***************************************************************/
 
 /**
- * Interface for series rule
- *
+ * Interface for series rule.
  */
 class WinRule extends MatchResultRule
 {
-    const ALIAS = 'WIN_RULE';
+    public const ALIAS = 'WIN_RULE';
 
     public function getAlias(): string
     {

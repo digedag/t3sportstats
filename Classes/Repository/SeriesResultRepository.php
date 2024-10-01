@@ -63,17 +63,16 @@ class SeriesResultRepository extends PersistenceRepository
     }
 
     /**
-     * 
-     * @param Series $series 
-     * @param mixed $clubUid 
-     * @return int 
+     * @param Series $series
+     * @param mixed $clubUid
+     * @return int
      */
     public function clearSeriesResultByClub(Series $series, $clubUid): int
     {
         $result = 0;
         // Zuerst die Referenzen auf die Spiele entfernen
         $existingSeries = $this->findBySeriesAndClub($series, $clubUid);
-        foreach($existingSeries as $existing) {
+        foreach ($existingSeries as $existing) {
             $result += $this->clearSeriesResult($existing);
         }
 
@@ -83,7 +82,7 @@ class SeriesResultRepository extends PersistenceRepository
     public function clearSeriesResult(SeriesResult $seriesResult): int
     {
         // Zuerst die Referenzen auf die Spiele entfernen
-        $this->getConnection()->doDelete('tx_t3sportstats_series_result_mm', function(QueryBuilder $qb) use ($seriesResult) {
+        $this->getConnection()->doDelete('tx_t3sportstats_series_result_mm', function (QueryBuilder $qb) use ($seriesResult) {
             $qb->where('uid_local = :seriesId')
                 ->setParameter('seriesId', $seriesResult->getUid());
         });

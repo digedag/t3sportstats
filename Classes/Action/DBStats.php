@@ -2,6 +2,7 @@
 
 namespace System25\T3sports\Action;
 
+use Exception;
 use Sys25\RnBase\Database\Connection;
 use Sys25\RnBase\Frontend\Controller\AbstractAction;
 use Sys25\RnBase\Frontend\Request\RequestInterface;
@@ -50,7 +51,7 @@ class DBStats extends AbstractAction
         $tables = Strings::trimExplode(',', $configurations->get($this->getConfId().'tables'), 1);
         if (!count($tables)) {
             // Abbruch kein Typ angegeben
-            throw new \Exception('No database table configured in: '.$this->getConfId().'tables');
+            throw new Exception('No database table configured in: '.$this->getConfId().'tables');
         }
 
         $statsData = [];

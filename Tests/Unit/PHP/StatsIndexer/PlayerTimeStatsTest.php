@@ -8,6 +8,8 @@ use System25\T3sports\Sports\ServiceLocator;
 use System25\T3sports\StatsIndexer\PlayerTimeStats;
 use System25\T3sports\Tests\StatsFixtureUtil;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
+use tx_rnbase;
+use tx_rnbase_tests_BaseTestCase;
 
 /***************************************************************
 *  Copyright notice
@@ -32,7 +34,7 @@ use System25\T3sports\Utility\StatsMatchNoteProvider;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class PlayerTimeStatsTest extends \tx_rnbase_tests_BaseTestCase
+class PlayerTimeStatsTest extends tx_rnbase_tests_BaseTestCase
 {
     private $statsService;
 
@@ -124,6 +126,6 @@ class PlayerTimeStatsTest extends \tx_rnbase_tests_BaseTestCase
      */
     private static function getService($arg = null)
     {
-        return \tx_rnbase::makeInstance(PlayerTimeStats::class, $arg);
+        return tx_rnbase::makeInstance(PlayerTimeStats::class, $arg);
     }
 }

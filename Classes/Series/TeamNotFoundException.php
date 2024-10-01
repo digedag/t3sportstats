@@ -27,9 +27,6 @@ use Exception;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-/**
- *
- */
 class TeamNotFoundException extends Exception
 {
 }

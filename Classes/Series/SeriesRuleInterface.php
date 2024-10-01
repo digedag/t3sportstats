@@ -2,9 +2,7 @@
 
 namespace System25\T3sports\Series;
 
-use System25\T3sports\Model\Club;
 use System25\T3sports\Model\Fixture;
-use System25\T3sports\Model\Team;
 
 /***************************************************************
  *  Copyright notice
@@ -30,14 +28,15 @@ use System25\T3sports\Model\Team;
  ***************************************************************/
 
 /**
- * Interface for series rule
- *
+ * Interface for series rule.
  */
 interface SeriesRuleInterface
 {
-    const TAG = 't3sports.stats.seriesrule';
+    public const TAG = 't3sports.stats.seriesrule';
 
-    function getAlias(): string;
-    function getTcaLabel(): string;
-    function isSatified(Fixture $match, bool $isHome, $config): bool;
+    public function getAlias(): string;
+
+    public function getTcaLabel(): string;
+
+    public function isSatified(Fixture $match, bool $isHome, $config): bool;
 }

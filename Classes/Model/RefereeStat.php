@@ -2,6 +2,8 @@
 
 namespace System25\T3sports\Model;
 
+use Tx_Rnbase_Domain_Model_Base;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -28,7 +30,7 @@ namespace System25\T3sports\Model;
 /**
  * Model for a referee stats record.
  */
-class RefereeStat extends \Tx_Rnbase_Domain_Model_Base
+class RefereeStat extends Tx_Rnbase_Domain_Model_Base
 {
     public function getTableName()
     {

@@ -176,7 +176,7 @@ $tx_t3sportstats_series = [
     ],
 ];
 
-if (\Sys25\RnBase\Utility\TYPO3::isTYPO104OrHigher()) {
+if (Sys25\RnBase\Utility\TYPO3::isTYPO104OrHigher()) {
     unset($tx_t3sportstats_series['interface']['showRecordFieldList']);
 }
 

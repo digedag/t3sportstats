@@ -37,5 +37,4 @@ class SeriesRepository extends PersistenceRepository
     {
         return SeriesSearch::class;
     }
-
 }

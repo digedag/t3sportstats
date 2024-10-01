@@ -2,6 +2,7 @@
 
 namespace System25\T3sports\Hooks;
 
+use Exception;
 use Sys25\RnBase\Configuration\ConfigurationInterface;
 use Sys25\RnBase\Frontend\Filter\BaseFilter;
 use Sys25\RnBase\Frontend\Marker\Templates;
@@ -61,7 +62,7 @@ class Marker
 
     private $statsSrv;
 
-    public function __construct(Statistics $statisticsService = null)
+    public function __construct(?Statistics $statisticsService = null)
     {
         $this->statsSrv = $statisticsService ?: new Statistics();
     }
@@ -112,9 +113,8 @@ class Marker
      * @param string $confId
      * @param string $type
      *
-     * @throws \Exception
-     *
      * @return array
+     * @throws Exception
      */
     private function findData(Profile $profile, ConfigurationInterface $configurations, $confId, $type)
     {
@@ -122,16 +122,16 @@ class Marker
         $confId = $confId.$type.'.';
         $filter = BaseFilter::createFilter(
             $request,
-//             new \ArrayObject(),
-//             $configurations,
-//             new \ArrayObject(),
+            //             new \ArrayObject(),
+            //             $configurations,
+            //             new \ArrayObject(),
             $confId
         );
 
         $fields = [];
         $filterType = $configurations->get($confId.'filterType');
         if (!$filterType) {
-            throw new \Exception('t3sportstats: No filter type configured in '.$confId.'filterType');
+            throw new Exception('t3sportstats: No filter type configured in '.$confId.'filterType');
         }
         $filterType = strtolower($filterType);
         $fields[self::$filterData[$filterType]['tableAlias'].'.'.self::$filterData[$filterType]['colName']][OP_EQ_INT] = $profile->getUid();

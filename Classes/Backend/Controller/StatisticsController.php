@@ -6,6 +6,7 @@ use Sys25\RnBase\Frontend\Marker\Templates;
 use Sys25\RnBase\Utility\Misc;
 use System25\T3sports\Controller\Club\ClubStadiumHandler;
 use tx_rnbase;
+use tx_rnbase_mod_ExtendedModFunc;
 
 /***************************************************************
 *  Copyright notice
@@ -35,7 +36,7 @@ use tx_rnbase;
  *
  * @author	Rene Nitzsche <rene@system25.de>
  */
-class StatisticsController extends \tx_rnbase_mod_ExtendedModFunc
+class StatisticsController extends tx_rnbase_mod_ExtendedModFunc
 {
     protected function getContent($template, &$configurations, &$formatter, $formTool)
     {

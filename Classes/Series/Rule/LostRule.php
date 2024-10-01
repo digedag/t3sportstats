@@ -2,7 +2,6 @@
 
 namespace System25\T3sports\Series\Rule;
 
-
 /***************************************************************
  *  Copyright notice
  *
@@ -27,12 +26,11 @@ namespace System25\T3sports\Series\Rule;
  ***************************************************************/
 
 /**
- * Interface for series rule
- *
+ * Interface for series rule.
  */
 class LostRule extends MatchResultRule
 {
-    const ALIAS = 'LOST_RULE';
+    public const ALIAS = 'LOST_RULE';
 
     public function getAlias(): string
     {

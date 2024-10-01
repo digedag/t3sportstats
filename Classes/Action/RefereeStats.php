@@ -2,6 +2,8 @@
 
 namespace System25\T3sports\Action;
 
+use ArrayObject;
+use Exception;
 use Sys25\RnBase\Configuration\ConfigurationInterface;
 use Sys25\RnBase\Frontend\Controller\AbstractAction;
 use Sys25\RnBase\Frontend\Filter\BaseFilter;
@@ -10,6 +12,7 @@ use Sys25\RnBase\Utility\Strings;
 use System25\T3sports\Model\Team;
 use System25\T3sports\Service\StatsServiceRegistry;
 use tx_rnbase;
+use tx_rnbase_configurations;
 
 /***************************************************************
  *  Copyright notice
@@ -54,7 +57,7 @@ class RefereeStats extends AbstractAction
         $types = Strings::trimExplode(',', $configurations->get($this->getConfId().'statisticTypes'), 1);
         if (!count($types)) {
             // Abbruch kein Typ angegeben
-            throw new \Exception('No statistics type configured in: '.$this->getConfId().'statisticTypes');
+            throw new Exception('No statistics type configured in: '.$this->getConfId().'statisticTypes');
         }
 
         $statsData = [];
@@ -108,8 +111,8 @@ class RefereeStats extends AbstractAction
      *
      * @param string $confid
      *            Die Confid des PageBrowsers. z.B. myview.org.pagebrowser ohne Punkt!
-     * @param \tx_rnbase_configurations $configurations
-     * @param \ArrayObject $viewdata
+     * @param tx_rnbase_configurations $configurations
+     * @param ArrayObject $viewdata
      * @param array $fields
      * @param array $options
      */
@@ -126,7 +129,7 @@ class RefereeStats extends AbstractAction
                 $options['what'] = 'count(DISTINCT referee) AS cnt';
                 $searchCallback = $cfg['searchcallback'];
                 if (!$searchCallback) {
-                    throw new \Exception('No search callback defined!');
+                    throw new Exception('No search callback defined!');
                 }
                 $listSize = call_user_func($searchCallback, $fields, $options);
                 // $listSize = $service->search($fields, $options);

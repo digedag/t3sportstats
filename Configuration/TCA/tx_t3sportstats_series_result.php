@@ -79,17 +79,17 @@ $tx_t3sportstats_series_result = [
         ],
         'parentid' => [
             'config' => [
-                'type' => 'passthrough'
+                'type' => 'passthrough',
             ],
         ],
         'parenttable' => [
             'config' => [
-                'type' => 'passthrough'
+                'type' => 'passthrough',
             ],
         ],
         'uniquekey' => [
             'config' => [
-                'type' => 'passthrough'
+                'type' => 'passthrough',
             ],
         ],
     ],
@@ -105,7 +105,7 @@ $tx_t3sportstats_series_result = [
     ],
 ];
 
-if (\Sys25\RnBase\Utility\TYPO3::isTYPO104OrHigher()) {
+if (Sys25\RnBase\Utility\TYPO3::isTYPO104OrHigher()) {
     unset($tx_t3sportstats_series_result['interface']['showRecordFieldList']);
 }
 

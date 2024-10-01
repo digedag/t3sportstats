@@ -47,7 +47,6 @@ $tx_t3sportstats_series_rule = [
                 'rows' => '5',
             ],
         ],
-
     ],
     'types' => [
         '0' => [
@@ -61,7 +60,7 @@ $tx_t3sportstats_series_rule = [
     ],
 ];
 
-if (\Sys25\RnBase\Utility\TYPO3::isTYPO104OrHigher()) {
+if (Sys25\RnBase\Utility\TYPO3::isTYPO104OrHigher()) {
     unset($tx_t3sportstats_series_rule['interface']['showRecordFieldList']);
 }
 

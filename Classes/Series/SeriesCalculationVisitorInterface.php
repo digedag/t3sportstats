@@ -31,13 +31,15 @@ use System25\T3sports\Model\Series;
  ***************************************************************/
 
 /**
- * Interface for series rule
- *
+ * Interface for series rule.
  */
 interface SeriesCalculationVisitorInterface
 {
-    function seriesLoaded(Series $series, array $clubUids): void;
-    function clubProcessed(Club $club, SeriesBag $seriesBag): void;
-    function matchesLoaded(Collection $matches): void;
-    function matchProcessed(Fixture $match): void;
+    public function seriesLoaded(Series $series, array $clubUids): void;
+
+    public function clubProcessed(Club $club, SeriesBag $seriesBag): void;
+
+    public function matchesLoaded(Collection $matches): void;
+
+    public function matchProcessed(Fixture $match): void;
 }

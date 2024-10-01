@@ -3,6 +3,7 @@
 namespace System25\T3sports\Utility;
 
 use Sys25\RnBase\Utility\Strings;
+use Tx_Rnbase_Utility_Strings;
 
 /***************************************************************
 *  Copyright notice
@@ -54,7 +55,7 @@ class StatsConfig
     public static function lookupCoachStatsReport($config)
     {
         if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports'])) {
-            $types = \Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports']);
+            $types = Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports']);
             foreach ($types as $type) {
                 $config['items'][] = [$type, $type];
             }
@@ -71,7 +72,7 @@ class StatsConfig
     public static function lookupRefereeStatsReport($config)
     {
         if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports'])) {
-            $types = \Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports']);
+            $types = Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports']);
             foreach ($types as $type) {
                 $config['items'][] = [$type, $type];
             }
@@ -99,7 +100,7 @@ class StatsConfig
     {
         $current = [];
         if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports'])) {
-            $current = array_flip(\Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports']));
+            $current = array_flip(Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports']));
         }
         if (!array_key_exists($statsType, $current)) {
             $current = array_flip($current);

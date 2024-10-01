@@ -34,7 +34,7 @@ use System25\T3sports\Series\SeriesRuleInterface;
  */
 class SeriesRule extends BaseModel
 {
-    private $rule = null;
+    private $rule;
 
     public function getTableName()
     {
@@ -53,7 +53,7 @@ class SeriesRule extends BaseModel
 
     private function getRule(): SeriesRuleInterface
     {
-        if ($this->rule === null) {
+        if (null === $this->rule) {
             throw new Exception('Missing rule implementation for '.$this->getUid());
         }
 

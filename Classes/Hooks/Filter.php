@@ -2,6 +2,9 @@
 
 namespace System25\T3sports\Hooks;
 
+use tx_rnbase_util_SearchBase;
+use Tx_Rnbase_Utility_Strings;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -94,7 +97,7 @@ class Filter
         if (!$cols) {
             return;
         }
-        $cols = array_flip(\Tx_Rnbase_Utility_Strings::trimExplode(',', $cols));
+        $cols = array_flip(Tx_Rnbase_Utility_Strings::trimExplode(',', $cols));
 
         if ($statsKey && array_key_exists(strtolower($statsKey), $cols)) {
             $fields[self::$tableData[$profileType]['tableAlias'].'.'.strtoupper($statsKey)][OP_GT_INT] = 0;
@@ -104,7 +107,7 @@ class Filter
 
         // Ziel ist ein JOIN auf die playerstats, für den aktuellen Spieler und die aktuellen
         // fields der stats
-        \tx_rnbase_util_SearchBase::setConfigFields($fields, $configurations, $confId.'fields.');
+        tx_rnbase_util_SearchBase::setConfigFields($fields, $configurations, $confId.'fields.');
         $fields[self::$tableData[$profileType]['tableAlias'].'.'.self::$tableData[$profileType]['colName']][OP_EQ_INT] = $profile;
         $parent->addFilterData($profileType, $profile);
     }

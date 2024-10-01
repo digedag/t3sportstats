@@ -13,6 +13,7 @@ use System25\T3sports\Model\Competition;
 use System25\T3sports\Model\PlayerStat;
 use System25\T3sports\Model\Profile;
 use tx_rnbase;
+use tx_rnbase_util_FormatUtil;
 
 /***************************************************************
  *  Copyright notice
@@ -45,7 +46,7 @@ class PlayerStatsMarker extends BaseMarker
     /**
      * @param string $template das HTML-Template
      * @param PlayerStat $item
-     * @param \tx_rnbase_util_FormatUtil $formatter der zu verwendente Formatter
+     * @param tx_rnbase_util_FormatUtil $formatter der zu verwendente Formatter
      * @param string $confId Pfad der TS-Config des Spiels, z.B. 'listView.match.'
      * @param string $marker Name des Markers für ein Spiel, z.B. MATCH
      *
@@ -100,7 +101,7 @@ class PlayerStatsMarker extends BaseMarker
      *
      * @param string $template
      * @param PlayerStat $item
-     * @param \tx_rnbase_util_FormatUtil $formatter
+     * @param tx_rnbase_util_FormatUtil $formatter
      * @param string $confId
      * @param string $markerPrefix
      *
@@ -126,7 +127,7 @@ class PlayerStatsMarker extends BaseMarker
      *
      * @param string $template
      * @param PlayerStat $item
-     * @param \tx_rnbase_util_FormatUtil $formatter
+     * @param tx_rnbase_util_FormatUtil $formatter
      * @param string $confId
      * @param string $markerPrefix
      *
@@ -152,7 +153,7 @@ class PlayerStatsMarker extends BaseMarker
      *
      * @param string $template
      * @param PlayerStat $item
-     * @param \tx_rnbase_util_FormatUtil $formatter
+     * @param tx_rnbase_util_FormatUtil $formatter
      * @param string $confId
      * @param string $markerPrefix
      *
@@ -204,7 +205,7 @@ class PlayerStatsMarker extends BaseMarker
      * @param array $markerArray
      * @param array $wrappedSubpartArray
      * @param string $confId
-     * @param \tx_rnbase_util_FormatUtil $formatter
+     * @param tx_rnbase_util_FormatUtil $formatter
      */
     private function prepareLinks($item, $marker, &$markerArray, &$subpartArray, &$wrappedSubpartArray, $confId, &$formatter, $template)
     {

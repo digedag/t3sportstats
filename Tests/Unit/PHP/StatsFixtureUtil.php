@@ -2,6 +2,10 @@
 
 namespace System25\T3sports\Tests;
 
+use tx_cfcleague_models_Competition;
+use tx_rnbase_util_Extensions;
+use tx_rnbase_util_Spyc;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -29,12 +33,12 @@ class StatsFixtureUtil
 {
     public static function createCompetition($uid, $saison, $agegroup)
     {
-        return new \tx_cfcleague_models_Competition(['uid' => $uid, 'saison' => $saison, 'agegroup' => $agegroup]);
+        return new tx_cfcleague_models_Competition(['uid' => $uid, 'saison' => $saison, 'agegroup' => $agegroup]);
     }
 
     public static function getMatches()
     {
-        $data = \tx_rnbase_util_Spyc::YAMLLoad(self::getFixturePath('statistics.yaml'));
+        $data = tx_rnbase_util_Spyc::YAMLLoad(self::getFixturePath('statistics.yaml'));
         $comps = self::makeInstances($data['league_1'], $data['league_1']['clazz']);
         $teamData = $data['league_1']['teams'];
         $teams = [];
@@ -55,7 +59,7 @@ class StatsFixtureUtil
 
     public static function getMatchNotes($matchIdx)
     {
-        $data = \tx_rnbase_util_Spyc::YAMLLoad(self::getFixturePath('statistics.yaml'));
+        $data = tx_rnbase_util_Spyc::YAMLLoad(self::getFixturePath('statistics.yaml'));
         $data = $data['league_1']['matches'][$matchIdx]['matchnotes'];
         $notes = self::makeInstances($data, $data['clazz']);
 
@@ -77,6 +81,6 @@ class StatsFixtureUtil
 
     private static function getFixturePath($filename)
     {
-        return \tx_rnbase_util_Extensions::extPath('t3sportstats').'Tests/fixtures/'.$filename;
+        return tx_rnbase_util_Extensions::extPath('t3sportstats').'Tests/fixtures/'.$filename;
     }
 }

@@ -5,7 +5,6 @@ namespace System25\T3sports\Series;
 use Contrib\Doctrine\Common\Collections\Collection;
 use Exception;
 use Sys25\RnBase\Database\Connection;
-use System25\T3sports\Model\Club;
 use System25\T3sports\Model\Fixture;
 use System25\T3sports\Model\Repository\ClubRepository;
 use System25\T3sports\Model\Repository\TeamRepository;
@@ -66,7 +65,7 @@ class SeriesCalculator
         SeriesResultRepository $seriesResultRepo,
         SeriesRuleRepository $seriesRuleRepo,
         TeamRepository $teamRepo,
-        MatchService $matchService = null
+        ?MatchService $matchService = null
     ) {
         $this->ruleProvider = $ruleProvider;
         $this->matchService = $matchService ?: ServiceRegistry::getMatchService();
@@ -79,37 +78,37 @@ class SeriesCalculator
     }
 
     /**
-     * (Re-)Calculate given series
+     * (Re-)Calculate given series.
      *
      * @param int $seriesUid
      */
     public function calculate(int $seriesUid, SeriesCalculationVisitorInterface $visitor)
     {
         $series = $this->seriesRepo->findByUid($seriesUid);
-        if ($series === null) {
+        if (null === $series) {
             throw new Exception(sprintf('Match series with uid %d not found in database', $seriesUid));
         }
 
         $scopeRules = $this->seriesRuleRepo->findBySeries($series);
-        foreach($scopeRules as $scopeRule) {
-            /** @var SeriesRule $scopeRule */
+        foreach ($scopeRules as $scopeRule) {
+            /* @var SeriesRule $scopeRule */
             $scopeRule->setRule(
                 $this->ruleProvider->getSeriesRuleByAlias($scopeRule->getProperty('rulealias'))
             );
         }
 
         $clubs = $this->clubRepo->search(
-            ['SERIES_SCOPE_MM.uid_local' => [OP_EQ_INT => $series->getUid()],],
-            ['what' => 'CLUB.uid',]
+            ['SERIES_SCOPE_MM.uid_local' => [OP_EQ_INT => $series->getUid()]],
+            ['what' => 'CLUB.uid']
         );
-        $clubs = $clubs->map(function($item){ return $item['uid'];})->toArray();
+        $clubs = $clubs->map(function ($item) { return $item['uid']; })->toArray();
         $ageGroup = $series->getProperty('agegroup');
 
         if ($visitor) {
             $visitor->seriesLoaded($series, $clubs);
         }
 
-        foreach($clubs as $clubUid) {
+        foreach ($clubs as $clubUid) {
             $club = $this->clubRepo->findByUid($clubUid);
             $seriesBag = new SeriesBag($club);
             $matches = $this->lookupMatches($clubUid, $ageGroup);
@@ -117,7 +116,7 @@ class SeriesCalculator
                 $visitor->matchesLoaded($matches);
             }
 
-            foreach($matches as $match) {
+            foreach ($matches as $match) {
                 try {
                     if ($this->isRuleSatisfied($match, $scopeRules, $clubUid, $ageGroup)) {
                         $seriesBag->appendToSeries($match);
@@ -138,6 +137,7 @@ class SeriesCalculator
                 $visitor->clubProcessed($club, $seriesBag);
             }
         }
+
         return;
     }
 
@@ -145,36 +145,36 @@ class SeriesCalculator
     {
         $existingResults = $this->seriesResultRepo->findBySeriesAndClub($series, $seriesBag->getClub());
 
-        $oldBestResults = $existingResults->filter(function(SeriesResult $r) { return $r->isTypeBest();});
+        $oldBestResults = $existingResults->filter(function (SeriesResult $r) { return $r->isTypeBest(); });
 
         $results = $seriesBag->getBestSeriesResults($series);
-        $newHashes = $results->map(function(SeriesResult $r) { return $r->getUniqueKey(); });
+        $newHashes = $results->map(function (SeriesResult $r) { return $r->getUniqueKey(); });
         // wir haben Set an Ergebnissen. Alle Ergebnisse, die wir in den vorhandenen Ergebnissen finden,
         // können erhalten bleiben. Was wir da nicht finden, wird gelöscht.
 
         // Was hier gefunden wird, muss gelöscht werden
-        $missingExistingResults = $oldBestResults->filter(function(SeriesResult $r) use ($newHashes) { return !$newHashes->contains($r->getUniqueKey());});
-        $alreadyExistingResults = $oldBestResults->filter(function(SeriesResult $r) use ($newHashes) { return $newHashes->contains($r->getUniqueKey());});
-        foreach($alreadyExistingResults as $resultSeries) {
-            /** @var SeriesResult $resultSeries */
+        $missingExistingResults = $oldBestResults->filter(function (SeriesResult $r) use ($newHashes) { return !$newHashes->contains($r->getUniqueKey()); });
+        $alreadyExistingResults = $oldBestResults->filter(function (SeriesResult $r) use ($newHashes) { return $newHashes->contains($r->getUniqueKey()); });
+        foreach ($alreadyExistingResults as $resultSeries) {
+            /* @var SeriesResult $resultSeries */
             $newHashes->removeElement($resultSeries->getUniqueKey());
         }
         // Jetzt sind nur noch nicht gespeicherte Elemente in den newHashes
 
-        foreach($missingExistingResults as $resultSeries) {
-            /** @var SeriesResult $resultSeries */
+        foreach ($missingExistingResults as $resultSeries) {
+            /* @var SeriesResult $resultSeries */
             $this->seriesResultRepo->clearSeriesResult($resultSeries);
         }
 
-        $missingNewResults = $results->filter(function(SeriesResult $r) use ($newHashes) { return $newHashes->contains($r->getUniqueKey());});
+        $missingNewResults = $results->filter(function (SeriesResult $r) use ($newHashes) { return $newHashes->contains($r->getUniqueKey()); });
 
         // Was muss jetzt noch gespeichert werden?
-        foreach($missingNewResults as $resultSeries) {
+        foreach ($missingNewResults as $resultSeries) {
             $this->persistOrRemove($resultSeries, null);
         }
 
         // Das das current
-        $existingResult = $existingResults->filter(function(SeriesResult $r) { return $r->isTypeCurrent();})
+        $existingResult = $existingResults->filter(function (SeriesResult $r) { return $r->isTypeCurrent(); })
             ->first();
         $result = $seriesBag->getCurrentSeriesResult($series);
         $this->persistOrRemove($result, $existingResult ?: null);
@@ -197,7 +197,7 @@ class SeriesCalculator
         $this->clearResult($existingResult);
 
         $this->seriesResultRepo->persist($result);
-        foreach($result->getFixtures() as $idx => $match) {
+        foreach ($result->getFixtures() as $idx => $match) {
             $this->dbConnection->doInsert('tx_t3sportstats_series_result_mm', [
                 'uid_local' => $result->getUid(),
                 'uid_foreign' => $match->getUid(),
@@ -218,17 +218,16 @@ class SeriesCalculator
             $seriesResults = [$seriesResults];
         }
 
-        foreach($seriesResults as $seriesResult) {
+        foreach ($seriesResults as $seriesResult) {
             $this->seriesResultRepo->clearSeriesResult($seriesResult);
         }
     }
 
     /**
-     * 
-     * @param Fixture $match 
-     * @param Collection<SeriesRule> $rules 
-     * @param mixed $clubUid 
-     * @param mixed $ageGroupUid 
+     * @param Fixture $match
+     * @param Collection<SeriesRule> $rules
+     * @param mixed $clubUid
+     * @param mixed $ageGroupUid
      * @return bool
      */
     private function isRuleSatisfied(Fixture $match, Collection $rules, $clubUid, $ageGroupUid): bool
@@ -237,7 +236,7 @@ class SeriesCalculator
         $isHome = $this->isTeamHome($match, $clubUid, $ageGroupUid);
 
         $isSatified = true;
-        foreach($rules as $rule) {
+        foreach ($rules as $rule) {
             /** @var SeriesRule $rule */
             if (!$rule->isSatisfied($match, $isHome)) {
                 return false;
@@ -251,14 +250,14 @@ class SeriesCalculator
     {
         /** @var Team $team */
         $team = $this->teamRepo->findByUid($match->getProperty('home'));
-        if ($team->getProperty('club') === $clubUid 
-            && ($team->getGroupUid() === $ageGroupUid || $team->getGroupUid() === 0)) {
+        if ($team->getProperty('club') === $clubUid
+            && ($team->getGroupUid() === $ageGroupUid || 0 === $team->getGroupUid())) {
             return true;
         }
         /** @var Team $team */
         $team = $this->teamRepo->findByUid($match->getProperty('guest'));
-        if ($team->getProperty('club') === $clubUid 
-            && ($team->getGroupUid() === $ageGroupUid || $team->getGroupUid() === 0)) {
+        if ($team->getProperty('club') === $clubUid
+            && ($team->getGroupUid() === $ageGroupUid || 0 === $team->getGroupUid())) {
             return false;
         }
 

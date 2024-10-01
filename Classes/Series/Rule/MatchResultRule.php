@@ -3,7 +3,6 @@
 namespace System25\T3sports\Series\Rule;
 
 use System25\T3sports\Model\Fixture;
-use System25\T3sports\Model\Team;
 use System25\T3sports\Series\SeriesRuleInterface;
 
 /***************************************************************
@@ -30,32 +29,30 @@ use System25\T3sports\Series\SeriesRuleInterface;
  ***************************************************************/
 
 /**
- * Interface for series rule
- *
+ * Interface for series rule.
  */
 abstract class MatchResultRule implements SeriesRuleInterface
 {
-    const RESULT_WIN = 'win';
-    const RESULT_LOST = 'lost';
-    const RESULT_DRAW = 'draw';
+    public const RESULT_WIN = 'win';
+    public const RESULT_LOST = 'lost';
+    public const RESULT_DRAW = 'draw';
 
     public function getTcaLabel(): string
     {
         return sprintf('LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_rule.%s', strtolower($this->getAlias()));
     }
 
-    function setConfig($config): void
+    public function setConfig($config): void
     {
-        
     }
 
     public function isSatified(Fixture $match, bool $isHome, $config): bool
     {
         $toto = $match->getToto();
         $result = self::RESULT_DRAW;
-        if ($toto === 1) {
+        if (1 === $toto) {
             $result = $isHome ? self::RESULT_WIN : self::RESULT_LOST;
-        } elseif ($toto === 2) {
+        } elseif (2 === $toto) {
             $result = $isHome ? self::RESULT_LOST : self::RESULT_WIN;
         }
 

@@ -6,6 +6,9 @@ use System25\T3sports\Service\Statistics;
 use System25\T3sports\StatsIndexer\PlayerGoalStats;
 use System25\T3sports\Tests\StatsFixtureUtil;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
+use tx_rnbase;
+use tx_rnbase_tests_BaseTestCase;
+use tx_rnbase_util_Misc;
 
 /***************************************************************
 *  Copyright notice
@@ -30,7 +33,7 @@ use System25\T3sports\Utility\StatsMatchNoteProvider;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class PlayerGoalStatsTest extends \tx_rnbase_tests_BaseTestCase
+class PlayerGoalStatsTest extends tx_rnbase_tests_BaseTestCase
 {
     private $statsService;
 
@@ -105,7 +108,7 @@ class PlayerGoalStatsTest extends \tx_rnbase_tests_BaseTestCase
 
     public function testGetInstance()
     {
-        $this->assertTrue(is_object(\tx_rnbase_util_Misc::getService('t3sportsPlayerStats', 'goals')), 'Service not registered.');
+        $this->assertTrue(is_object(tx_rnbase_util_Misc::getService('t3sportsPlayerStats', 'goals')), 'Service not registered.');
     }
 
     /**
@@ -113,6 +116,6 @@ class PlayerGoalStatsTest extends \tx_rnbase_tests_BaseTestCase
      */
     private static function getService()
     {
-        return \tx_rnbase::makeInstance(PlayerGoalStats::class);
+        return tx_rnbase::makeInstance(PlayerGoalStats::class);
     }
 }

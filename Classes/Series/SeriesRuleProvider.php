@@ -39,7 +39,7 @@ class SeriesRuleProvider implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @var SeriesRuleProvider
      */
-    private static $instance = null;
+    private static $instance;
 
     public function addSeriesRule(SeriesRuleInterface $rule)
     {

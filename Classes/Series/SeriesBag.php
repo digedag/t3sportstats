@@ -4,7 +4,6 @@ namespace System25\T3sports\Series;
 
 use Contrib\Doctrine\Common\Collections\ArrayCollection;
 use Contrib\Doctrine\Common\Collections\Collection;
-use PhpParser\ErrorHandler\Collecting;
 use System25\T3sports\Model\Club;
 use System25\T3sports\Model\Fixture;
 use System25\T3sports\Model\Series;
@@ -35,7 +34,6 @@ use System25\T3sports\Model\SeriesResult;
 
 /**
  * Sammel-Container für Serien bei der Ermittlung.
- *
  */
 class SeriesBag
 {
@@ -68,19 +66,20 @@ class SeriesBag
         // Am Ende sortieren
         if (count($this->bestSeries) < $this->bestBagSize) {
             $this->bestSeries[] = $this->currentSeries;
-        } elseif (count($this->currentSeries) > count($this->bestSeries[$this->bestBagSize-1])) {
+        } elseif (count($this->currentSeries) > count($this->bestSeries[$this->bestBagSize - 1])) {
             $this->bestSeries[] = $this->currentSeries;
         } else {
             $this->currentSeries = [];
 
             return;
         }
-        usort($this->bestSeries, function($a, $b) {
+        usort($this->bestSeries, function ($a, $b) {
             $ca = count($a);
             $cb = count($b);
-            if($ca === $cb) {
+            if ($ca === $cb) {
                 return 0;
             }
+
             return $ca < $cb ? 1 : -1;
         });
         $this->bestSeries = array_slice($this->bestSeries, 0, $this->bestBagSize);
@@ -88,7 +87,6 @@ class SeriesBag
     }
 
     /**
-     * 
      * @return Fixture[]
      */
     public function getBestSeriesFixtures(): array
@@ -125,7 +123,7 @@ class SeriesBag
     {
         $uids = [];
 
-        foreach($fixtures as $fixture) {
+        foreach ($fixtures as $fixture) {
             $uids[] = $fixture->getUid();
         }
 
@@ -133,14 +131,13 @@ class SeriesBag
     }
 
     /**
-     * 
      * @param Series $series
      * @return Collection<SeriesResult>
      */
     public function getBestSeriesResults(Series $series): Collection
     {
         $result = new ArrayCollection();
-        foreach($this->bestSeries as $bestSeries) {
+        foreach ($this->bestSeries as $bestSeries) {
             $resultSeries = $this->buildSeriesResult($series, $bestSeries);
             if ($resultSeries) {
                 $resultSeries->setTypeBest();
@@ -163,25 +160,23 @@ class SeriesBag
 
     private function buildSeriesResult(Series $series, array $fixtures): ?SeriesResult
     {
-        if(empty($fixtures)) {
-
+        if (empty($fixtures)) {
             return null;
         }
 
         $result = new SeriesResult();
         $size = count($fixtures);
         $result->setProperty('club', $this->getClubUid());
-        $result->setProperty('firstmatch', $fixtures[0]->getUid()); 
-        $result->setProperty('lastmatch', $fixtures[$size - 1]->getUid()); 
-        $result->setProperty('quantity', $size); 
-        $result->setProperty('pid', $series->getPid()); 
-        $result->setProperty('parentid', $series->getUid()); 
-        $result->setProperty('parenttable', 'tx_t3sportstats_series'); 
-        $result->setProperty('uniquekey', $this->getHash($fixtures)); 
+        $result->setProperty('firstmatch', $fixtures[0]->getUid());
+        $result->setProperty('lastmatch', $fixtures[$size - 1]->getUid());
+        $result->setProperty('quantity', $size);
+        $result->setProperty('pid', $series->getPid());
+        $result->setProperty('parentid', $series->getUid());
+        $result->setProperty('parenttable', 'tx_t3sportstats_series');
+        $result->setProperty('uniquekey', $this->getHash($fixtures));
 
         $result->setFixtures($fixtures);
 
         return $result;
     }
-
 }

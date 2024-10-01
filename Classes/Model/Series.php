@@ -51,5 +51,4 @@ class Series extends BaseModel
     {
         return $this->getProperty('t3match');
     }
-
 }

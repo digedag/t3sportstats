@@ -3,7 +3,6 @@
 namespace System25\T3sports\Model;
 
 use Sys25\RnBase\Domain\Model\BaseModel;
-use System25\T3sports\Series\SeriesBag;
 
 /***************************************************************
 *  Copyright notice
@@ -64,12 +63,12 @@ class SeriesResult extends BaseModel
 
     public function isTypeBest(): bool
     {
-        return $this->getProperty('resulttype') === self::TYPE_BEST;
+        return self::TYPE_BEST === $this->getProperty('resulttype');
     }
 
     public function isTypeCurrent(): bool
     {
-        return $this->getProperty('resulttype') === self::TYPE_CURRENT;
+        return self::TYPE_CURRENT === $this->getProperty('resulttype');
     }
 
     public function setFixtures(array $fixtures): void
@@ -78,7 +77,6 @@ class SeriesResult extends BaseModel
     }
 
     /**
-     * 
      * @return Fixtures[]
      */
     public function getFixtures(): array
