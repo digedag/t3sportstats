@@ -101,20 +101,20 @@
 				<target>Konfiguration (optional)</target>
 			</trans-unit>
 			<trans-unit id="tx_t3sportstats_series_rule.win_rule" xml:space="preserve">
-				<source>Won matches</source>
-				<target>Gewonnene Spiele</target>
+				<source>Match won</source>
+				<target>Spiel gewonnen</target>
 			</trans-unit>
 			<trans-unit id="tx_t3sportstats_series_rule.lost_rule" xml:space="preserve">
-				<source>Lost matches</source>
-				<target>Verlorene Spiele</target>
+				<source>Match lost</source>
+				<target>Spiel verlorenen</target>
 			</trans-unit>
 			<trans-unit id="tx_t3sportstats_series_rule.not_won_rule" xml:space="preserve">
-				<source>Not won matches</source>
-				<target>Nicht gewonnene Spiele</target>
+				<source>Match not won</source>
+				<target>Spiele nicht gewonnen</target>
 			</trans-unit>
 			<trans-unit id="tx_t3sportstats_series_rule.not_lost_rule" xml:space="preserve">
-				<source>Not lost matches</source>
-				<target>Nicht verlorene Spiele</target>
+				<source>Match not lost</source>
+				<target>Spiel nicht verloren</target>
 			</trans-unit>
 		</body>
 	</file>

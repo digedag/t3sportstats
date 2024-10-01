@@ -8,7 +8,7 @@ $tx_t3sportstats_series_result = [
     'ctrl' => [
         'title' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_result',
         'label' => 'uid',
-        'label_alt' => 'club',
+        'label_alt' => 'club,resulttype,quantity',
         'label_alt_force' => 1,
         'searchFields' => '',
         'tstamp' => 'tstamp',
@@ -70,19 +70,32 @@ $tx_t3sportstats_series_result = [
                 'size' => '1',
             ],
         ],
+        'resulttype' => [
+            'label' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_result_type',
+            'config' => [
+                'type' => 'input',
+                'readonly' => '1',
+            ],
+        ],
         'parentid' => [
-            'type' => 'passthrough'
+            'config' => [
+                'type' => 'passthrough'
+            ],
         ],
         'parenttable' => [
-            'type' => 'passthrough'
+            'config' => [
+                'type' => 'passthrough'
+            ],
         ],
         'uniquekey' => [
-            'type' => 'passthrough'
+            'config' => [
+                'type' => 'passthrough'
+            ],
         ],
     ],
     'types' => [
         '0' => [
-            'showitem' => 'club,quantity,firstmatch,lastmatch',
+            'showitem' => 'resulttype,club,quantity,firstmatch,lastmatch',
         ],
     ],
     'palettes' => [

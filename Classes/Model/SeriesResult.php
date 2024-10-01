@@ -3,6 +3,7 @@
 namespace System25\T3sports\Model;
 
 use Sys25\RnBase\Domain\Model\BaseModel;
+use System25\T3sports\Series\SeriesBag;
 
 /***************************************************************
 *  Copyright notice
@@ -32,13 +33,56 @@ use Sys25\RnBase\Domain\Model\BaseModel;
  */
 class SeriesResult extends BaseModel
 {
+    public const TYPE_BEST = 'best';
+    public const TYPE_CURRENT = 'current';
+    private $fixtures = [];
+
     public function getTableName()
     {
         return 'tx_t3sportstats_series_result';
     }
 
+    public function getQuantity(): int
+    {
+        return $this->getProperty('quantity');
+    }
+
     public function getUniqueKey(): ?string
     {
         return $this->getProperty('uniquekey');
+    }
+
+    public function setTypeBest(): void
+    {
+        $this->setProperty('resulttype', self::TYPE_BEST);
+    }
+
+    public function setTypeCurrent(): void
+    {
+        $this->setProperty('resulttype', self::TYPE_CURRENT);
+    }
+
+    public function isTypeBest(): bool
+    {
+        return $this->getProperty('resulttype') === self::TYPE_BEST;
+    }
+
+    public function isTypeCurrent(): bool
+    {
+        return $this->getProperty('resulttype') === self::TYPE_CURRENT;
+    }
+
+    public function setFixtures(array $fixtures): void
+    {
+        $this->fixtures = $fixtures;
+    }
+
+    /**
+     * 
+     * @return Fixtures[]
+     */
+    public function getFixtures(): array
+    {
+        return $this->fixtures;
     }
 }

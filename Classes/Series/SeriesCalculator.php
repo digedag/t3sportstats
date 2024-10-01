@@ -143,41 +143,61 @@ class SeriesCalculator
 
     private function persistResult(SeriesBag $seriesBag, Series $series): void
     {
-        $existingSeries = $this->seriesResultRepo->findBySeriesAndClub($series, $seriesBag->getClub());
-        if ($existingSeries->count() > 1) {
-            // Das sollte nicht vorkommen. Also löschen wir alles weg.
-            $this->clearResult($existingSeries);
-            $existingSeries = $this->seriesResultRepo->findBySeriesAndClub($series, $seriesBag->getClub());
+        $existingResults = $this->seriesResultRepo->findBySeriesAndClub($series, $seriesBag->getClub());
+
+        $oldBestResults = $existingResults->filter(function(SeriesResult $r) { return $r->isTypeBest();});
+
+        $results = $seriesBag->getBestSeriesResults($series);
+        $newHashes = $results->map(function(SeriesResult $r) { return $r->getUniqueKey(); });
+        // wir haben Set an Ergebnissen. Alle Ergebnisse, die wir in den vorhandenen Ergebnissen finden,
+        // können erhalten bleiben. Was wir da nicht finden, wird gelöscht.
+
+        // Was hier gefunden wird, muss gelöscht werden
+        $missingExistingResults = $oldBestResults->filter(function(SeriesResult $r) use ($newHashes) { return !$newHashes->contains($r->getUniqueKey());});
+        $alreadyExistingResults = $oldBestResults->filter(function(SeriesResult $r) use ($newHashes) { return $newHashes->contains($r->getUniqueKey());});
+        foreach($alreadyExistingResults as $resultSeries) {
+            /** @var SeriesResult $resultSeries */
+            $newHashes->removeElement($resultSeries->getUniqueKey());
+        }
+        // Jetzt sind nur noch nicht gespeicherte Elemente in den newHashes
+
+        foreach($missingExistingResults as $resultSeries) {
+            /** @var SeriesResult $resultSeries */
+            $this->seriesResultRepo->clearSeriesResult($resultSeries);
         }
 
-        if ($seriesBag->getSize() < 2) {
-            $this->clearResult($existingSeries);
+        $missingNewResults = $results->filter(function(SeriesResult $r) use ($newHashes) { return $newHashes->contains($r->getUniqueKey());});
+
+        // Was muss jetzt noch gespeichert werden?
+        foreach($missingNewResults as $resultSeries) {
+            $this->persistOrRemove($resultSeries, null);
+        }
+
+        // Das das current
+        $existingResult = $existingResults->filter(function(SeriesResult $r) { return $r->isTypeCurrent();})
+            ->first();
+        $result = $seriesBag->getCurrentSeriesResult($series);
+        $this->persistOrRemove($result, $existingResult ?: null);
+    }
+
+    private function persistOrRemove(?SeriesResult $result, ?SeriesResult $existingResult): void
+    {
+        if (!$result || $result->getQuantity() < 2) {
+            $this->clearResult($existingResult);
 
             return;
         }
 
-        /** @var SeriesResult $existingSeries */
-        $existingSeries = $existingSeries->first();
-
-        if ($existingSeries && $existingSeries->getUniqueKey() === $seriesBag->getHash()) {
+        if ($existingResult && $existingResult->getUniqueKey() === $result->getUniqueKey()) {
             // Es hat sich nix verändert.
 
             return;
         }
 
-        $this->clearResult($existingSeries);
-        $result = new SeriesResult();
-        $result->setProperty('club', $seriesBag->getClubUid());
-        $result->setProperty('firstmatch', $seriesBag->getFirstMatch()->getUid()); 
-        $result->setProperty('lastmatch', $seriesBag->getLastMatch()->getUid()); 
-        $result->setProperty('quantity', $seriesBag->getSize()); 
-        $result->setProperty('pid', $series->getPid()); 
-        $result->setProperty('parentid', $series->getUid()); 
-        $result->setProperty('parenttable', 'tx_t3sportstats_series'); 
-        $result->setProperty('uniquekey', $seriesBag->getHash()); 
+        $this->clearResult($existingResult);
 
         $this->seriesResultRepo->persist($result);
-        foreach($seriesBag->getBestSeries() as $idx => $match) {
+        foreach($result->getFixtures() as $idx => $match) {
             $this->dbConnection->doInsert('tx_t3sportstats_series_result_mm', [
                 'uid_local' => $result->getUid(),
                 'uid_foreign' => $match->getUid(),

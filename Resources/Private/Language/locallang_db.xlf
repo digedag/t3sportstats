@@ -103,20 +103,23 @@
 				<source>Config (optional)</source>
 			</trans-unit>
 			<trans-unit id="tx_t3sportstats_series_rule.win_rule" xml:space="preserve">
-				<source>Won matches</source>
+				<source>Match won</source>
 			</trans-unit>
 			<trans-unit id="tx_t3sportstats_series_rule.lost_rule" xml:space="preserve">
-				<source>Lost matches</source>
+				<source>Match lost</source>
 			</trans-unit>
 			<trans-unit id="tx_t3sportstats_series_rule.not_won_rule" xml:space="preserve">
-				<source>Not won matches</source>
+				<source>Match not won</source>
 			</trans-unit>
 			<trans-unit id="tx_t3sportstats_series_rule.not_lost_rule" xml:space="preserve">
-				<source>Not lost matches</source>
+				<source>Match not lost</source>
 			</trans-unit>
 
 			<trans-unit id="tx_t3sportstats_series_result" xml:space="preserve">
 				<source>Series Result</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_result_type" xml:space="preserve">
+				<source>Type</source>
 			</trans-unit>
 			<trans-unit id="tx_t3sportstats_series_result_club" xml:space="preserve">
 				<source>Club</source>

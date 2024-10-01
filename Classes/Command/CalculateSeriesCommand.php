@@ -105,11 +105,11 @@ class CalculateSeriesCommand extends Command implements SeriesCalculationVisitor
     public function clubProcessed(Club $club, SeriesBag $seriesBag): void
     {
         $this->clubProgress->advance();
-        $firstMatch = $seriesBag->getBestSeries()[0];
-        $lastMatch = $seriesBag->getBestSeries()[count($seriesBag->getBestSeries())-1];
+        $firstMatch = $seriesBag->getBestSeriesFixtures()[0];
+        $lastMatch = $seriesBag->getBestSeriesFixtures()[count($seriesBag->getBestSeriesFixtures())-1];
         $this->output->section()->writeln(sprintf('<info>Club (%s) %d series length: %d from %s to %s</info>', 
             $club->getName(),
-            $club->getUid(), count($seriesBag->getBestSeries()),
+            $club->getUid(), count($seriesBag->getBestSeriesFixtures()),
             date('d.m.Y', $firstMatch->getProperty('date')),
             date('d.m.Y', $lastMatch->getProperty('date'))
         ));

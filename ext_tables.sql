@@ -228,6 +228,7 @@ CREATE TABLE tx_t3sportstats_series_result (
 	parentid int(11) DEFAULT '0' NOT NULL,
 	parenttable varchar(50) DEFAULT '' NOT NULL,
 
+	resulttype varchar(10) DEFAULT '' NOT NULL,
 	club int(11) DEFAULT '0' NOT NULL,
 
 	quantity int(11) DEFAULT '0' NOT NULL,

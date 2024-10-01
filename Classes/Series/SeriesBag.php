@@ -2,8 +2,13 @@
 
 namespace System25\T3sports\Series;
 
+use Contrib\Doctrine\Common\Collections\ArrayCollection;
+use Contrib\Doctrine\Common\Collections\Collection;
+use PhpParser\ErrorHandler\Collecting;
 use System25\T3sports\Model\Club;
 use System25\T3sports\Model\Fixture;
+use System25\T3sports\Model\Series;
+use System25\T3sports\Model\SeriesResult;
 
 /***************************************************************
  *  Copyright notice
@@ -37,10 +42,12 @@ class SeriesBag
     private $bestSeries = [];
     private $currentSeries = [];
     private $club;
+    private $bestBagSize;
 
-    public function __construct(Club $club)
+    public function __construct(Club $club, int $bestBagSize = 3)
     {
         $this->club = $club;
+        $this->bestBagSize = $bestBagSize;
     }
 
     public function appendToSeries(Fixture $match)
@@ -50,9 +57,33 @@ class SeriesBag
 
     public function breakSeries()
     {
-        if (count($this->currentSeries) > count($this->bestSeries)) {
-            $this->bestSeries = $this->currentSeries;
+        if (count($this->currentSeries) < 2) {
+            $this->currentSeries = [];
+
+            return;
         }
+        // Die Serie wird übernommen, wenn
+        // wir noch Platz haben,
+        // sie länger ist, als die bisher kürzeste Serie
+        // Am Ende sortieren
+        if (count($this->bestSeries) < $this->bestBagSize) {
+            $this->bestSeries[] = $this->currentSeries;
+        } elseif (count($this->currentSeries) > count($this->bestSeries[$this->bestBagSize-1])) {
+            $this->bestSeries[] = $this->currentSeries;
+        } else {
+            $this->currentSeries = [];
+
+            return;
+        }
+        usort($this->bestSeries, function($a, $b) {
+            $ca = count($a);
+            $cb = count($b);
+            if($ca === $cb) {
+                return 0;
+            }
+            return $ca < $cb ? 1 : -1;
+        });
+        $this->bestSeries = array_slice($this->bestSeries, 0, $this->bestBagSize);
         $this->currentSeries = [];
     }
 
@@ -60,9 +91,9 @@ class SeriesBag
      * 
      * @return Fixture[]
      */
-    public function getBestSeries(): array
+    public function getBestSeriesFixtures(): array
     {
-        return $this->bestSeries;
+        return $this->bestSeries[0];
     }
 
     public function getClub(): ?Club
@@ -77,27 +108,80 @@ class SeriesBag
 
     public function getFirstMatch(): ?Fixture
     {
-        return $this->bestSeries[0] ?? null;
+        return $this->bestSeries[0][0] ?? null;
     }
 
     public function getLastMatch(): ?Fixture
     {
-        return $this->bestSeries[$this->getSize() - 1] ?? null;
+        return $this->bestSeries[0][$this->getSize() - 1] ?? null;
     }
 
     public function getSize(): int
     {
-        return count($this->bestSeries);
+        return count($this->bestSeries[0]);
     }
 
-    public function getHash(): string
+    private function getHash(array $fixtures): string
     {
         $uids = [];
 
-        foreach($this->bestSeries as $fixture) {
+        foreach($fixtures as $fixture) {
             $uids[] = $fixture->getUid();
         }
 
         return md5(implode(',', $uids));
     }
+
+    /**
+     * 
+     * @param Series $series
+     * @return Collection<SeriesResult>
+     */
+    public function getBestSeriesResults(Series $series): Collection
+    {
+        $result = new ArrayCollection();
+        foreach($this->bestSeries as $bestSeries) {
+            $resultSeries = $this->buildSeriesResult($series, $bestSeries);
+            if ($resultSeries) {
+                $resultSeries->setTypeBest();
+                $result->add($resultSeries);
+            }
+        }
+
+        return $result;
+    }
+
+    public function getCurrentSeriesResult(Series $series): ?SeriesResult
+    {
+        $result = $this->buildSeriesResult($series, $this->currentSeries);
+        if ($result) {
+            $result->setTypeCurrent();
+        }
+
+        return $result;
+    }
+
+    private function buildSeriesResult(Series $series, array $fixtures): ?SeriesResult
+    {
+        if(empty($fixtures)) {
+
+            return null;
+        }
+
+        $result = new SeriesResult();
+        $size = count($fixtures);
+        $result->setProperty('club', $this->getClubUid());
+        $result->setProperty('firstmatch', $fixtures[0]->getUid()); 
+        $result->setProperty('lastmatch', $fixtures[$size - 1]->getUid()); 
+        $result->setProperty('quantity', $size); 
+        $result->setProperty('pid', $series->getPid()); 
+        $result->setProperty('parentid', $series->getUid()); 
+        $result->setProperty('parenttable', 'tx_t3sportstats_series'); 
+        $result->setProperty('uniquekey', $this->getHash($fixtures)); 
+
+        $result->setFixtures($fixtures);
+
+        return $result;
+    }
+
 }
