@@ -187,6 +187,8 @@ CREATE TABLE tx_t3sportstats_series (
 	club int(11) DEFAULT '0' NOT NULL,
 	competition int(11) DEFAULT '0' NOT NULL,
 	competitiontag int(11) DEFAULT '0' NOT NULL,
+	matchtype varchar(10) DEFAULT '' NOT NULL,
+	obligation varchar(10) DEFAULT '' NOT NULL,
 
 	rules int(11) DEFAULT '0' NOT NULL,
 	results int(11) DEFAULT '0' NOT NULL,

@@ -132,6 +132,41 @@ $tx_t3sportstats_series = [
                 ],
             ],
         ],
+        'matchtype' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_matchtype',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_matchtype_all', 'all'],
+                    ['LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_matchtype_home', 'home'],
+                    ['LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_matchtype_away', 'away'],
+                ],
+                'size' => 1,
+                'minitems' => 0,
+                'maxitems' => 1,
+                'default' => 'all',
+            ],
+        ],
+        'obligation' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_obligation',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_obligation_yes', 'yes'],
+                    ['LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_obligation_no', 'no'],
+                    ['LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_obligation_all', 'all'],
+                ],
+                'size' => 1,
+                'minitems' => 0,
+                'maxitems' => 1,
+                'default' => 'yes',
+            ],
+        ],
+
         'rules' => [
             'label' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_rules',
             'description' => 'field description',
@@ -163,7 +198,7 @@ $tx_t3sportstats_series = [
     ],
     'types' => [
         '0' => [
-            'showitem' => 'hidden,name,label,saison,competitiontag,competition,agegroup,club,
+            'showitem' => 'hidden,name,label,saison,competitiontag,competition,agegroup,club,matchtype,obligation,
             --div--;LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_rules,rules,
             --div--;LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_results,results
             ',

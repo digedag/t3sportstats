@@ -92,6 +92,30 @@
 			<trans-unit id="tx_t3sportstats_series_results" xml:space="preserve">
 				<source>Results</source>
 			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_matchtype" xml:space="preserve">
+				<source>Match type</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_matchtype_home" xml:space="preserve">
+				<source>Home series</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_matchtype_away" xml:space="preserve">
+				<source>Away series</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_matchtype_all" xml:space="preserve">
+				<source>Both</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_obligation" xml:space="preserve">
+				<source>Obligation</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_obligation_yes" xml:space="preserve">
+				<source>Yes</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_obligation_no" xml:space="preserve">
+				<source>No</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_obligation_all" xml:space="preserve">
+				<source>Both</source>
+			</trans-unit>
 
 			<trans-unit id="tx_t3sportstats_series_rule" xml:space="preserve">
 				<source>Series Rule</source>

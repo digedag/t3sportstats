@@ -103,6 +103,8 @@ class SeriesCalculator
         );
         $clubs = $clubs->map(function ($item) { return $item['uid']; })->toArray();
         $ageGroup = $series->getProperty('agegroup');
+        $matchType = $series->getProperty('matchtype');
+        $obligation = $series->getProperty('obligation');
 
         if ($visitor) {
             $visitor->seriesLoaded($series, $clubs);
@@ -111,7 +113,7 @@ class SeriesCalculator
         foreach ($clubs as $clubUid) {
             $club = $this->clubRepo->findByUid($clubUid);
             $seriesBag = new SeriesBag($club);
-            $matches = $this->lookupMatches($clubUid, $ageGroup);
+            $matches = $this->lookupMatches($clubUid, $ageGroup, $matchType, $obligation);
             if ($visitor) {
                 $visitor->matchesLoaded($matches);
             }
@@ -264,14 +266,26 @@ class SeriesCalculator
         throw new TeamNotFoundException(sprintf('Team for club %d not found in match %d', $clubUid, $match->getUid()));
     }
 
-    private function lookupMatches($clubUid, $ageGroupUid): Collection
+    private function lookupMatches($clubUid, $ageGroupUid, string $matchType, string $obligation): Collection
     {
         $builder = $this->matchService->getMatchTableBuilder();
         $builder->setStatus(Fixture::MATCH_STATUS_FINISHED);
         $builder->setAgeGroups($ageGroupUid);
-        $builder->setClubs(''.$clubUid);
+        if ($matchType === Series::MATCHTYPE_HOME) {
+            $builder->setHomeClubs(''.$clubUid);
+        } elseif ($matchType === Series::MATCHTYPE_HOME) {
+            $builder->setGuestClubs(''.$clubUid);
+        } else {
+            $builder->setClubs(''.$clubUid);
+        }
         $builder->setOrderByDate(false);
-        $builder->setCompetitionObligation(1);
+        if ($obligation === Series::OBLIGATION_ALL) {
+            $builder->setCompetitionObligation(0);
+        } elseif ($obligation === Series::OBLIGATION_NO) {
+            $builder->setCompetitionObligation(2);
+        } else {
+            $builder->setCompetitionObligation(1);
+        }
 
         $fields = $options = [];
         $builder->getFields($fields, $options);

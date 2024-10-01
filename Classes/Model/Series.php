@@ -32,6 +32,13 @@ use Sys25\RnBase\Domain\Model\BaseModel;
  */
 class Series extends BaseModel
 {
+    public const MATCHTYPE_HOME = 'home';
+    public const MATCHTYPE_AWAY = 'away';
+    public const MATCHTYPE_ALL = 'all';
+    public const OBLIGATION_YES = 'yes';
+    public const OBLIGATION_NO = 'no';
+    public const OBLIGATION_ALL = 'all';
+
     public function getTableName()
     {
         return 'tx_t3sportstats_series';
