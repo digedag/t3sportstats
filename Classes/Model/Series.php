@@ -38,6 +38,9 @@ class Series extends BaseModel
     public const OBLIGATION_YES = 'yes';
     public const OBLIGATION_NO = 'no';
     public const OBLIGATION_ALL = 'all';
+    public const COMPTYPE_LEAGUE = 'league';
+    public const COMPTYPE_KO = 'ko';
+    public const COMPTYPE_OTHER = 'other';
 
     public function getTableName()
     {

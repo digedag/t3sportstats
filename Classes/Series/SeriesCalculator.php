@@ -103,8 +103,7 @@ class SeriesCalculator
         );
         $clubs = $clubs->map(function ($item) { return $item['uid']; })->toArray();
         $ageGroup = $series->getProperty('agegroup');
-        $matchType = $series->getProperty('matchtype');
-        $obligation = $series->getProperty('obligation');
+        $bestResults = (int) $series->getProperty('numresults');
 
         if ($visitor) {
             $visitor->seriesLoaded($series, $clubs);
@@ -112,8 +111,8 @@ class SeriesCalculator
 
         foreach ($clubs as $clubUid) {
             $club = $this->clubRepo->findByUid($clubUid);
-            $seriesBag = new SeriesBag($club);
-            $matches = $this->lookupMatches($clubUid, $ageGroup, $matchType, $obligation);
+            $seriesBag = new SeriesBag($club, $bestResults);
+            $matches = $this->lookupMatches($clubUid, $series);
             if ($visitor) {
                 $visitor->matchesLoaded($matches);
             }
@@ -266,25 +265,34 @@ class SeriesCalculator
         throw new TeamNotFoundException(sprintf('Team for club %d not found in match %d', $clubUid, $match->getUid()));
     }
 
-    private function lookupMatches($clubUid, $ageGroupUid, string $matchType, string $obligation): Collection
+    private function lookupMatches($clubUid, Series $series): Collection
     {
+        $ageGroupUid = $series->getProperty('agegroup');
+        $matchType = $series->getProperty('matchtype');
+        $obligation = $series->getProperty('obligation');
+        $compType = $series->getProperty('competitiontype');
+
         $builder = $this->matchService->getMatchTableBuilder();
         $builder->setStatus(Fixture::MATCH_STATUS_FINISHED);
         $builder->setAgeGroups($ageGroupUid);
-        if ($matchType === Series::MATCHTYPE_HOME) {
+        if (Series::MATCHTYPE_HOME === $matchType) {
             $builder->setHomeClubs(''.$clubUid);
-        } elseif ($matchType === Series::MATCHTYPE_HOME) {
+        } elseif (Series::MATCHTYPE_HOME === $matchType) {
             $builder->setGuestClubs(''.$clubUid);
         } else {
             $builder->setClubs(''.$clubUid);
         }
         $builder->setOrderByDate(false);
-        if ($obligation === Series::OBLIGATION_ALL) {
+        if (Series::OBLIGATION_ALL === $obligation) {
             $builder->setCompetitionObligation(0);
-        } elseif ($obligation === Series::OBLIGATION_NO) {
+        } elseif (Series::OBLIGATION_NO === $obligation) {
             $builder->setCompetitionObligation(2);
         } else {
             $builder->setCompetitionObligation(1);
+        }
+
+        if ($compType) {
+            $builder->setCompetitionTypes($compType);
         }
 
         $fields = $options = [];

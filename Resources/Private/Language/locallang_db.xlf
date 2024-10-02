@@ -116,6 +116,12 @@
 			<trans-unit id="tx_t3sportstats_series_obligation_all" xml:space="preserve">
 				<source>Both</source>
 			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_numresults" xml:space="preserve">
+				<source>Number of results</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_numresults_desc" xml:space="preserve">
+				<source>Specifies how many of the best series should be saved</source>
+			</trans-unit>
 
 			<trans-unit id="tx_t3sportstats_series_rule" xml:space="preserve">
 				<source>Series Rule</source>

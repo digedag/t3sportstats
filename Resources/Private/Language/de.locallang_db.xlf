@@ -84,6 +84,13 @@
 				<target>Statistik</target>
 			</trans-unit>
 
+			<trans-unit id="tx_t3sportstats_series_numresults" xml:space="preserve">
+				<source>Anzahl Serien</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_numresults_desc" xml:space="preserve">
+				<source>Gibt an, wieviele der besten Serien gespeichert werden sollen.</source>
+			</trans-unit>
+
 			<trans-unit id="tx_t3sportstats_series_rules" xml:space="preserve">
 				<source>Rules</source>
 				<target>Regeln</target>

@@ -100,36 +100,21 @@ $tx_t3sportstats_series = [
                 ],
             ],
         ],
-        'agegroup' => [
+        'competitiontype' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_agegroup',
+            'label' => 'LLL:EXT:cfc_league_fe/Resources/Private/Language/locallang_db.xlf:plugin.competition.flexform.competitionType',
             'config' => [
                 'type' => 'select',
-                'renderType' => 'selectSingle',
-                'items' => [['', 0]],
-                'foreign_table' => 'tx_cfcleague_group',
-                'foreign_table_where' => 'ORDER BY tx_cfcleague_group.sorting',
-                'size' => 1,
-                'minitems' => 0,
-                'maxitems' => 1,
-                'default' => 0,
-            ],
-        ],
-        'club' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_club',
-            'config' => [
-                'type' => 'group',
-                'internal_type' => 'db',
-                'allowed' => 'tx_cfcleague_club',
-                'size' => 5,
-                'autoSizeMax' => 20,
-                'minitems' => 0,
-                'maxitems' => 100,
-                'MM' => 'tx_t3sportstats_series_scope_mm',
-                'MM_match_fields' => [
-                    'tablenames' => 'tx_cfcleague_club',
+                'renderType' => 'selectMultipleSideBySide',
+                'items' => [
+                    ['LLL:EXT:cfc_league/Resources/Private/Language/locallang_db.xlf:tx_cfcleague_competition.type_league', '1'],
+                    ['LLL:EXT:cfc_league/Resources/Private/Language/locallang_db.xlf:tx_cfcleague_competition.type_ko', '2'],
+                    ['LLL:EXT:cfc_league/Resources/Private/Language/locallang_db.xlf:tx_cfcleague_competition.type_other', '0'],
                 ],
+                'size' => 4,
+                'minitems' => 0,
+                'maxitems' => 4,
+                'default' => '',
             ],
         ],
         'matchtype' => [
@@ -166,6 +151,58 @@ $tx_t3sportstats_series = [
                 'default' => 'yes',
             ],
         ],
+        'agegroup' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_agegroup',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [['', 0]],
+                'foreign_table' => 'tx_cfcleague_group',
+                'foreign_table_where' => 'ORDER BY tx_cfcleague_group.sorting',
+                'size' => 1,
+                'minitems' => 0,
+                'maxitems' => 1,
+                'default' => 0,
+            ],
+        ],
+        'club' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_club',
+            'config' => [
+                'type' => 'group',
+                'internal_type' => 'db',
+                'allowed' => 'tx_cfcleague_club',
+                'size' => 5,
+                'autoSizeMax' => 20,
+                'minitems' => 0,
+                'maxitems' => 100,
+                'MM' => 'tx_t3sportstats_series_scope_mm',
+                'MM_match_fields' => [
+                    'tablenames' => 'tx_cfcleague_club',
+                ],
+            ],
+        ],
+        'numresults' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_numresults',
+            'description' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_numresults_desc',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['1', 1],
+                    ['2', 2],
+                    ['3', 3],
+                    ['4', 4],
+                    ['5', 5],
+                ],
+                'size' => 1,
+                'minitems' => 0,
+                'maxitems' => 1,
+                'default' => 2,
+            ],
+        ],
 
         'rules' => [
             'label' => 'LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_rules',
@@ -198,7 +235,7 @@ $tx_t3sportstats_series = [
     ],
     'types' => [
         '0' => [
-            'showitem' => 'hidden,name,label,saison,competitiontag,competition,agegroup,club,matchtype,obligation,
+            'showitem' => 'hidden,name,label,saison,competitiontag,competition,competitiontype,matchtype,obligation,agegroup,club,numresults,
             --div--;LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_rules,rules,
             --div--;LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:tx_t3sportstats_series_results,results
             ',

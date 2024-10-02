@@ -179,7 +179,6 @@ CREATE TABLE tx_t3sportstats_series (
 	deleted tinyint(4) DEFAULT '0' NOT NULL,
 	hidden tinyint(4) DEFAULT '0' NOT NULL,
 
-
 	name varchar(255) DEFAULT '' NOT NULL,
 	label varchar(255) DEFAULT '' NOT NULL,
 	saison int(11) DEFAULT '0' NOT NULL,
@@ -187,8 +186,11 @@ CREATE TABLE tx_t3sportstats_series (
 	club int(11) DEFAULT '0' NOT NULL,
 	competition int(11) DEFAULT '0' NOT NULL,
 	competitiontag int(11) DEFAULT '0' NOT NULL,
+	competitiontype varchar(10) DEFAULT '' NOT NULL,
 	matchtype varchar(10) DEFAULT '' NOT NULL,
 	obligation varchar(10) DEFAULT '' NOT NULL,
+
+	numresults tinyint(4) DEFAULT '0' NOT NULL,
 
 	rules int(11) DEFAULT '0' NOT NULL,
 	results int(11) DEFAULT '0' NOT NULL,
