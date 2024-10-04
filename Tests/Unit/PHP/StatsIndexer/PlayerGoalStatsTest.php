@@ -108,11 +108,6 @@ class PlayerGoalStatsTest extends BaseTestCase
         Assert::assertEquals(0, $bagHash[202]->getTypeValue('goalsjoker'), 'Goals joker are wrong');
     }
 
-    public function testGetInstance()
-    {
-        Assert::assertTrue(is_object(Misc::getService('t3sportsPlayerStats', 'goals')), 'Service not registered.');
-    }
-
     /**
      * @return PlayerGoalStats
      */

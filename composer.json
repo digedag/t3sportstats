@@ -69,7 +69,7 @@
 		"test:phpcompat": ".Build/bin/phpcs --ignore=.Build/*,Resources/* -p . --standard=.Build/vendor/phpcompatibility/php-compatibility/PHPCompatibility --runtime-set testVersion ",
         "test:phpunit": [
             "[ -e .Build/bin/phpunit ] || composer update --ansi",
-            "export TYPO3_PATH_WEB=$PWD/.Build/Web && .Build/bin/phpunit -c Tests/Unit/phpunit.php --colors=always"
+            "export TYPO3_PATH_WEB=$PWD/.Build/Web && .Build/bin/phpunit -c Tests/Unit/phpunit.xml --colors=always"
         ],
 		"post-autoload-dump": [
 			"mkdir -p .Build/Web/typo3conf/ext/",

@@ -32,7 +32,7 @@ use System25\T3sports\Tests\StatsFixtureUtil;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class NotWonTest extends BaseTestCase
+class NotWonRuleTest extends BaseTestCase
 {
     /** @var SeriesRuleInterface */
     private $rule;

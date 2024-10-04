@@ -32,7 +32,7 @@ use System25\T3sports\Tests\StatsFixtureUtil;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class WinTest extends BaseTestCase
+class WinRuleTest extends BaseTestCase
 {
     /** @var SeriesRuleInterface */
     private $rule;

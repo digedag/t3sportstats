@@ -32,7 +32,7 @@ use System25\T3sports\Tests\StatsFixtureUtil;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class LostTest extends BaseTestCase
+class LostRuleTest extends BaseTestCase
 {
     /** @var SeriesRuleInterface */
     private $rule;
