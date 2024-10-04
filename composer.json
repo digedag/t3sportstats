@@ -32,8 +32,9 @@
 	"require-dev": {
 		"friendsofphp/php-cs-fixer": "^3.0",
 		"mikey179/vfsstream": "^1.4 || ^1.6",
-		"nimut/testing-framework": "^4.0 || ^5.0 || ^6.0",
+		"typo3/testing-framework": "^2.0 || ^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
 		"phpcompatibility/php-compatibility": "^9.3.5",
+		"phpspec/prophecy-phpunit": "^1.0 || ^2.0",
 		"phpunit/phpunit": "^6.5.14 || ^7.5.20 || ^8.0 || ^9.0"
 	},
 	"autoload" : {
@@ -66,6 +67,10 @@
 	"scripts": {
 		"test:phplint": "find *.php Classes Configuration Deprecations Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
 		"test:phpcompat": ".Build/bin/phpcs --ignore=.Build/*,Resources/* -p . --standard=.Build/vendor/phpcompatibility/php-compatibility/PHPCompatibility --runtime-set testVersion ",
+        "test:phpunit": [
+            "[ -e .Build/bin/phpunit ] || composer update --ansi",
+            "export TYPO3_PATH_WEB=$PWD/.Build/Web && .Build/bin/phpunit -c Tests/Unit/phpunit.php --colors=always"
+        ],
 		"post-autoload-dump": [
 			"mkdir -p .Build/Web/typo3conf/ext/",
 			"[ -L .Build/Web/typo3conf/ext/t3sportstats ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/t3sportstats"

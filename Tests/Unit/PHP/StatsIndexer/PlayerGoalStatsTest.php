@@ -2,18 +2,19 @@
 
 namespace System25\T3sports\Tests\StatsIndexer;
 
+use PHPUnit\Framework\Assert;
+use Sys25\RnBase\Testing\BaseTestCase;
+use Sys25\RnBase\Utility\Misc;
 use System25\T3sports\Service\Statistics;
 use System25\T3sports\StatsIndexer\PlayerGoalStats;
 use System25\T3sports\Tests\StatsFixtureUtil;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
 use tx_rnbase;
-use tx_rnbase_tests_BaseTestCase;
-use tx_rnbase_util_Misc;
 
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008-2020 Rene Nitzsche (rene@system25.de)
+*  (c) 2008-2024 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -33,11 +34,12 @@ use tx_rnbase_util_Misc;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class PlayerGoalStatsTest extends tx_rnbase_tests_BaseTestCase
+class PlayerGoalStatsTest extends BaseTestCase
 {
+    /** @var Statistics */
     private $statsService;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->statsService = new Statistics();
         \System25\T3sports\Utility\StatsConfig::registerPlayerStatsSimple('goals', '10,11,12,13');
@@ -67,19 +69,19 @@ class PlayerGoalStatsTest extends tx_rnbase_tests_BaseTestCase
         $mnProv = StatsMatchNoteProvider::createInstance($notes);
 
         $this->getService()->indexPlayerStats($bagHash[100], $match, $mnProv, true);
-        $this->assertEquals(2, $bagHash[100]->getTypeValue('goalshome'), 'Goals home are wrong');
-        $this->assertEquals(0, $bagHash[100]->getTypeValue('goalsaway'), 'Goals away are wrong');
-        $this->assertEquals(0, $bagHash[100]->getTypeValue('goalsjoker'), 'Goals joker are wrong');
+        Assert::assertEquals(2, $bagHash[100]->getTypeValue('goalshome'), 'Goals home are wrong');
+        Assert::assertEquals(0, $bagHash[100]->getTypeValue('goalsaway'), 'Goals away are wrong');
+        Assert::assertEquals(0, $bagHash[100]->getTypeValue('goalsjoker'), 'Goals joker are wrong');
 
         $this->getService()->indexPlayerStats($bagHash[101], $match, $mnProv, true);
-        $this->assertEquals(0, $bagHash[101]->getTypeValue('goalshome'), 'Goals home are wrong');
-        $this->assertEquals(0, $bagHash[101]->getTypeValue('goalsaway'), 'Goals away are wrong');
-        $this->assertEquals(0, $bagHash[101]->getTypeValue('goalsjoker'), 'Goals joker are wrong');
+        Assert::assertEquals(0, $bagHash[101]->getTypeValue('goalshome'), 'Goals home are wrong');
+        Assert::assertEquals(0, $bagHash[101]->getTypeValue('goalsaway'), 'Goals away are wrong');
+        Assert::assertEquals(0, $bagHash[101]->getTypeValue('goalsjoker'), 'Goals joker are wrong');
 
         $this->getService()->indexPlayerStats($bagHash[110], $match, $mnProv, true);
-        $this->assertEquals(1, $bagHash[110]->getTypeValue('goalshome'), 'Goals home are wrong');
-        $this->assertEquals(0, $bagHash[110]->getTypeValue('goalsaway'), 'Goals away are wrong');
-        $this->assertEquals(1, $bagHash[110]->getTypeValue('goalsjoker'), 'Goals joker are wrong');
+        Assert::assertEquals(1, $bagHash[110]->getTypeValue('goalshome'), 'Goals home are wrong');
+        Assert::assertEquals(0, $bagHash[110]->getTypeValue('goalsaway'), 'Goals away are wrong');
+        Assert::assertEquals(1, $bagHash[110]->getTypeValue('goalsjoker'), 'Goals joker are wrong');
     }
 
     /**
@@ -101,14 +103,14 @@ class PlayerGoalStatsTest extends tx_rnbase_tests_BaseTestCase
         $mnProv = StatsMatchNoteProvider::createInstance($notes);
 
         $this->getService()->indexPlayerStats($bagHash[202], $match, $mnProv, false);
-        $this->assertEquals(0, $bagHash[202]->getTypeValue('goalshome'), 'Goals home are wrong');
-        $this->assertEquals(1, $bagHash[202]->getTypeValue('goalsaway'), 'Goals away are wrong');
-        $this->assertEquals(0, $bagHash[202]->getTypeValue('goalsjoker'), 'Goals joker are wrong');
+        Assert::assertEquals(0, $bagHash[202]->getTypeValue('goalshome'), 'Goals home are wrong');
+        Assert::assertEquals(1, $bagHash[202]->getTypeValue('goalsaway'), 'Goals away are wrong');
+        Assert::assertEquals(0, $bagHash[202]->getTypeValue('goalsjoker'), 'Goals joker are wrong');
     }
 
     public function testGetInstance()
     {
-        $this->assertTrue(is_object(tx_rnbase_util_Misc::getService('t3sportsPlayerStats', 'goals')), 'Service not registered.');
+        Assert::assertTrue(is_object(Misc::getService('t3sportsPlayerStats', 'goals')), 'Service not registered.');
     }
 
     /**
