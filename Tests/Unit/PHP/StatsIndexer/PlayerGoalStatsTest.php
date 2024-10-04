@@ -4,7 +4,6 @@ namespace System25\T3sports\Tests\StatsIndexer;
 
 use PHPUnit\Framework\Assert;
 use Sys25\RnBase\Testing\BaseTestCase;
-use Sys25\RnBase\Utility\Misc;
 use System25\T3sports\Service\Statistics;
 use System25\T3sports\StatsIndexer\PlayerGoalStats;
 use System25\T3sports\Tests\StatsFixtureUtil;
