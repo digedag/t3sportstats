@@ -227,6 +227,7 @@ $tx_t3sportstats_series = [
                 'foreign_table' => 'tx_t3sportstats_series_result',
                 'foreign_field' => 'parentid',
                 'foreign_table_field' => 'parenttable',
+                //                'foreign_sortby' => 'quantity',
                 'appearance' => [
                     'showNewRecordLink' => false,
                 ],

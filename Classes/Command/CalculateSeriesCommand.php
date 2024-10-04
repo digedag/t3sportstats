@@ -106,14 +106,19 @@ class CalculateSeriesCommand extends Command implements SeriesCalculationVisitor
     public function clubProcessed(Club $club, SeriesBag $seriesBag): void
     {
         $this->clubProgress->advance();
-        $firstMatch = $seriesBag->getBestSeriesFixtures()[0];
-        $lastMatch = $seriesBag->getBestSeriesFixtures()[count($seriesBag->getBestSeriesFixtures()) - 1];
-        $this->output->section()->writeln(sprintf('<info>Club (%s) %d series length: %d from %s to %s</info>',
-            $club->getName(),
-            $club->getUid(), count($seriesBag->getBestSeriesFixtures()),
-            date('d.m.Y', $firstMatch->getProperty('date')),
-            date('d.m.Y', $lastMatch->getProperty('date'))
-        ));
+        $bestSeriesFixtures = $seriesBag->getBestSeriesFixtures();
+        if (!empty($bestSeriesFixtures)) {
+            $firstMatch = $bestSeriesFixtures[0];
+            $lastMatch = $bestSeriesFixtures[count($bestSeriesFixtures) - 1];
+            $this->output->section()->writeln(sprintf('<info>Club (%s) %d series length: %d from %s to %s</info>',
+                $club->getName(),
+                $club->getUid(), count($bestSeriesFixtures),
+                date('d.m.Y', $firstMatch->getProperty('date')),
+                date('d.m.Y', $lastMatch->getProperty('date'))
+            ));
+        } else {
+            $this->output->section()->writeln('<info>No series found.</info>');
+        }
     }
 
     public function matchProcessed(Fixture $match): void

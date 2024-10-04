@@ -45,7 +45,7 @@ class SeriesBag
     public function __construct(Club $club, int $bestBagSize = 3)
     {
         $this->club = $club;
-        $this->bestBagSize = $bestBagSize;
+        $this->bestBagSize = $bestBagSize ?: 1;
     }
 
     public function appendToSeries(Fixture $match)
@@ -91,7 +91,7 @@ class SeriesBag
      */
     public function getBestSeriesFixtures(): array
     {
-        return $this->bestSeries[0];
+        return $this->bestSeries[0] ?? [];
     }
 
     public function getClub(): ?Club

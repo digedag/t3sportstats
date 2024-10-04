@@ -15,6 +15,7 @@ use System25\T3sports\Model\Team;
 use System25\T3sports\Repository\SeriesRepository;
 use System25\T3sports\Repository\SeriesResultRepository;
 use System25\T3sports\Repository\SeriesRuleRepository;
+use System25\T3sports\Repository\TagRepository;
 use System25\T3sports\Service\MatchService;
 use System25\T3sports\Utility\ServiceRegistry;
 
@@ -52,6 +53,7 @@ class SeriesCalculator
     private $seriesRepo;
     private $seriesRuleRepo;
     private $seriesResultRepo;
+    private $tagRepo;
     private $teamRepo;
     private $clubRepo;
     private $ruleProvider;
@@ -64,6 +66,7 @@ class SeriesCalculator
         SeriesRepository $seriesRepo,
         SeriesResultRepository $seriesResultRepo,
         SeriesRuleRepository $seriesRuleRepo,
+        TagRepository $tagRepo,
         TeamRepository $teamRepo,
         ?MatchService $matchService = null
     ) {
@@ -72,6 +75,7 @@ class SeriesCalculator
         $this->seriesRepo = $seriesRepo;
         $this->seriesResultRepo = $seriesResultRepo;
         $this->seriesRuleRepo = $seriesRuleRepo;
+        $this->tagRepo = $tagRepo;
         $this->teamRepo = $teamRepo;
         $this->clubRepo = $clubRepo;
         $this->dbConnection = Connection::getInstance();
@@ -104,6 +108,11 @@ class SeriesCalculator
         $clubs = $clubs->map(function ($item) { return $item['uid']; })->toArray();
         $ageGroup = $series->getProperty('agegroup');
         $bestResults = (int) $series->getProperty('numresults');
+        $tagUids = $this->tagRepo->search(
+            ['SERIES_SCOPE_MM.uid_local' => [OP_EQ_INT => $series->getUid()]],
+            ['what' => 'SERIES_SCOPE_MM.uid_foreign']
+        );
+        $tagUids = $tagUids->map(function ($item) { return $item['uid_foreign']; })->toArray();
 
         if ($visitor) {
             $visitor->seriesLoaded($series, $clubs);
@@ -112,7 +121,7 @@ class SeriesCalculator
         foreach ($clubs as $clubUid) {
             $club = $this->clubRepo->findByUid($clubUid);
             $seriesBag = new SeriesBag($club, $bestResults);
-            $matches = $this->lookupMatches($clubUid, $series);
+            $matches = $this->lookupMatches($clubUid, $series, $tagUids);
             if ($visitor) {
                 $visitor->matchesLoaded($matches);
             }
@@ -133,6 +142,7 @@ class SeriesCalculator
                     }
                 }
             }
+
             $this->persistResult($seriesBag, $series);
             if ($visitor) {
                 $visitor->clubProcessed($club, $seriesBag);
@@ -146,9 +156,18 @@ class SeriesCalculator
     {
         $existingResults = $this->seriesResultRepo->findBySeriesAndClub($series, $seriesBag->getClub());
 
-        $oldBestResults = $existingResults->filter(function (SeriesResult $r) { return $r->isTypeBest(); });
-
+        // Zuerst die aktuelle Serie sofern vorhanden
+        $existingResult = $existingResults->filter(function (SeriesResult $r) { return $r->isTypeCurrent(); })
+            ->first();
+        $result = $seriesBag->getCurrentSeriesResult($series);
+        $this->persistOrRemove($result, $existingResult ?: null);
+        // Jetzt die aktuelle Serie beenden. Damit kommt sie ggf. auch noch in die besten Serien
+        $seriesBag->breakSeries();
         $results = $seriesBag->getBestSeriesResults($series);
+
+        // Die besten Serien
+
+        $oldBestResults = $existingResults->filter(function (SeriesResult $r) { return $r->isTypeBest(); });
         $newHashes = $results->map(function (SeriesResult $r) { return $r->getUniqueKey(); });
         // wir haben Set an Ergebnissen. Alle Ergebnisse, die wir in den vorhandenen Ergebnissen finden,
         // können erhalten bleiben. Was wir da nicht finden, wird gelöscht.
@@ -173,12 +192,6 @@ class SeriesCalculator
         foreach ($missingNewResults as $resultSeries) {
             $this->persistOrRemove($resultSeries, null);
         }
-
-        // Das das current
-        $existingResult = $existingResults->filter(function (SeriesResult $r) { return $r->isTypeCurrent(); })
-            ->first();
-        $result = $seriesBag->getCurrentSeriesResult($series);
-        $this->persistOrRemove($result, $existingResult ?: null);
     }
 
     private function persistOrRemove(?SeriesResult $result, ?SeriesResult $existingResult): void
@@ -265,7 +278,7 @@ class SeriesCalculator
         throw new TeamNotFoundException(sprintf('Team for club %d not found in match %d', $clubUid, $match->getUid()));
     }
 
-    private function lookupMatches($clubUid, Series $series): Collection
+    private function lookupMatches($clubUid, Series $series, array $tagUids): Collection
     {
         $ageGroupUid = $series->getProperty('agegroup');
         $matchType = $series->getProperty('matchtype');
@@ -297,6 +310,11 @@ class SeriesCalculator
 
         $fields = $options = [];
         $builder->getFields($fields, $options);
+        if (!empty($tagUids)) {
+            $fields['TAG.UID'] = [OP_IN_INT => implode(',', $tagUids)];
+            //            $options['debug'] = 1;
+        }
+        //\tx_rnbase_util_Debug::debug(['f' => $fields], __FILE__.':'.__LINE__); // TODO: remove me
         /** @var \Sys25\RnBase\Domain\Collection\BaseCollection $matches */
         $matches = $this->matchService->search($fields, $options);
 

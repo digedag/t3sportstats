@@ -254,8 +254,10 @@ CREATE TABLE tx_t3sportstats_series_scope_mm (
 	tablenames varchar(50) DEFAULT '' NOT NULL,
 	sorting int(11) unsigned DEFAULT '0' NOT NULL,
 	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	PRIMARY KEY (uid_local, uid_foreign, tablenames),
 	KEY uid_local (uid_local),
-	KEY uid_foreign (uid_foreign)
+	KEY uid_foreign (uid_foreign),
+	KEY tablenames (tablenames)
 );
 
 #
@@ -268,6 +270,7 @@ CREATE TABLE tx_t3sportstats_series_result_mm (
 	tablenames varchar(50) DEFAULT '' NOT NULL,
 	sorting int(11) unsigned DEFAULT '0' NOT NULL,
 	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	PRIMARY KEY (uid_local, uid_foreign, tablenames),
 	KEY uid_local (uid_local),
 	KEY uid_foreign (uid_foreign)
 );

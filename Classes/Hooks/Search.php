@@ -38,6 +38,8 @@ class Search
         $params['tableMapping']['PLAYERSTAT'] = 'tx_t3sportstats_players';
         $params['tableMapping']['COACHSTAT'] = 'tx_t3sportstats_coachs';
         $params['tableMapping']['REFEREESTAT'] = 'tx_t3sportstats_referees';
+        $params['tableMapping']['TAG'] = 'tx_t3sportstats_tags';
+        $params['tableMapping']['TAGMM'] = 'tx_t3sportstats_tags_mm';
     }
 
     public function getJoinsMatch(&$params, $parent)
@@ -50,6 +52,15 @@ class Search
         }
         if (isset($params['tableAliases']['REFEREESTAT'])) {
             $params['join'][] = new Join('MATCH', 'tx_t3sportstats_referees', 'MATCH.uid = REFEREESTAT.t3match', 'REFEREESTAT');
+        }
+        if (isset($params['tableAliases']['TAG']) || isset($params['tableAliases']['TAGMM'])) {
+            if (!isset($params['tableAliases']['COMPETITION'])) {
+                $params['join'][] = new Join('MATCH', 'tx_cfcleague_competition', 'MATCH.competition = COMPETITION.uid', 'COMPETITION');
+            }
+            $params['join'][] = new Join('COMPETITION', 'tx_t3sportstats_tags_mm', 'COMPETITION.UID = TAGMM.uid_local AND TAGMM.tablenames = \'tx_cfcleague_competition\' ', 'TAGMM');
+        }
+        if (isset($params['tableAliases']['TAG'])) {
+            $params['join'][] = new Join('TAGMM', 'tx_t3sportstats_tags', 'TAGMM.uid_foreign = TAG.uid', 'TAG');
         }
     }
 }
