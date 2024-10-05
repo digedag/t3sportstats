@@ -3,7 +3,6 @@
 namespace System25\T3sports\Model;
 
 use Sys25\RnBase\Domain\Model\BaseModel;
-use Tx_Rnbase_Domain_Model_Base;
 
 /***************************************************************
 *  Copyright notice

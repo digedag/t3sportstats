@@ -3,17 +3,10 @@
 namespace System25\T3sports\Frontend\Marker;
 
 use Sys25\RnBase\Domain\Repository\RepositoryRegistry;
-use Sys25\RnBase\Frontend\Marker\BaseMarker;
 use Sys25\RnBase\Frontend\Marker\FormatUtil;
 use Sys25\RnBase\Frontend\Marker\ListBuilder;
-use Sys25\RnBase\Frontend\Marker\MarkerUtility;
 use Sys25\RnBase\Frontend\Marker\SimpleMarker;
-use Sys25\RnBase\Frontend\Marker\Templates;
 use Sys25\RnBase\Search\SearchBase;
-use Sys25\RnBase\Utility\Misc;
-use System25\T3sports\Frontend\Marker\ProfileMarker;
-use System25\T3sports\Model\CoachStat;
-use System25\T3sports\Model\Profile;
 use System25\T3sports\Model\Series;
 use System25\T3sports\Model\SeriesResult;
 use tx_rnbase;
@@ -46,7 +39,7 @@ use tx_rnbase;
  */
 class SeriesMarker extends SimpleMarker
 {
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         $this->setClassname(Series::class);
         parent::__construct($options);
@@ -54,12 +47,12 @@ class SeriesMarker extends SimpleMarker
 
     protected function prepareTemplate($template, $item, $formatter, $confId, $marker)
     {
-        if (self::containsMarker($template, $marker . '_RESULTS')) {
-            $template = $this->addResults($template, $item, $formatter, $confId . 'category.', $marker . '_CATEGORY');
+        if (self::containsMarker($template, $marker.'_RESULTS')) {
+            $template = $this->addResults($template, $item, $formatter, $confId.'category.', $marker.'_CATEGORY');
         }
+
         return $template;
     }
-
 
     /**
      * Bindet den gefundenen Ergebnisse ein.
@@ -78,12 +71,13 @@ class SeriesMarker extends SimpleMarker
         $options = $fields = [];
         $fields['SERIESRESULT.PARENTID'][OP_EQ_INT] = $item->getUid();
         $fields['SERIESRESULT.RESULTTYPE'][OP_EQ] = SeriesResult::TYPE_BEST;
-        SearchBase::setConfigFields($fields, $formatter->getConfigurations(), $confId . 'fields.');
-        SearchBase::setConfigOptions($options, $formatter->getConfigurations(), $confId . 'options.');
+        SearchBase::setConfigFields($fields, $formatter->getConfigurations(), $confId.'fields.');
+        SearchBase::setConfigOptions($options, $formatter->getConfigurations(), $confId.'options.');
         $children = $repo->search($fields, $options);
 
         $listBuilder = tx_rnbase::makeInstance(ListBuilder::class);
         $out = $listBuilder->render($children, false, $template, SeriesResultMarker::class, $confId, $markerPrefix, $formatter);
+
         return $out;
 
         return $template;

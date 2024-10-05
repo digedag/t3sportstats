@@ -2,21 +2,8 @@
 
 namespace System25\T3sports\Frontend\Marker;
 
-use Sys25\RnBase\Domain\Repository\RepositoryRegistry;
-use Sys25\RnBase\Frontend\Marker\BaseMarker;
-use Sys25\RnBase\Frontend\Marker\FormatUtil;
-use Sys25\RnBase\Frontend\Marker\ListBuilder;
-use Sys25\RnBase\Frontend\Marker\MarkerUtility;
 use Sys25\RnBase\Frontend\Marker\SimpleMarker;
-use Sys25\RnBase\Frontend\Marker\Templates;
-use Sys25\RnBase\Search\SearchBase;
-use Sys25\RnBase\Utility\Misc;
-use System25\T3sports\Frontend\Marker\ProfileMarker;
-use System25\T3sports\Model\CoachStat;
-use System25\T3sports\Model\Profile;
-use System25\T3sports\Model\Series;
 use System25\T3sports\Model\SeriesResult;
-use tx_rnbase;
 
 /***************************************************************
  *  Copyright notice
@@ -46,7 +33,7 @@ use tx_rnbase;
  */
 class SeriesResultMarker extends SimpleMarker
 {
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         $this->setClassname(SeriesResult::class);
         parent::__construct($options);
@@ -59,5 +46,4 @@ class SeriesResultMarker extends SimpleMarker
         // }
         return $template;
     }
-
 }

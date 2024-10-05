@@ -32,6 +32,7 @@ use tx_rnbase;
 class StatsConfig
 {
     private $seriesRepo;
+
     public function __construct(?SeriesRepository $seriesRepo = null)
     {
         $this->seriesRepo = $seriesRepo ?: tx_rnbase::makeInstance(SeriesRepository::class);

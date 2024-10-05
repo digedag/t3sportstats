@@ -7,7 +7,6 @@ use Sys25\RnBase\Frontend\Marker\FormatUtil;
 use Sys25\RnBase\Frontend\Marker\MarkerUtility;
 use Sys25\RnBase\Frontend\Marker\Templates;
 use Sys25\RnBase\Utility\Misc;
-use System25\T3sports\Frontend\Marker\ProfileMarker;
 use System25\T3sports\Model\Profile;
 use System25\T3sports\Model\RefereeStat;
 use tx_rnbase;
