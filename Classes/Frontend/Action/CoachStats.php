@@ -1,6 +1,6 @@
 <?php
 
-namespace System25\T3sports\Action;
+namespace System25\T3sports\Frontend\Action;
 
 use ArrayObject;
 use Exception;
@@ -17,7 +17,7 @@ use tx_rnbase_configurations;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2022 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2024 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -38,9 +38,9 @@ use tx_rnbase_configurations;
  ***************************************************************/
 
 /**
- * Controller für Suchformular für Dokumenten.
+ * Controller.
  */
-class RefereeStats extends AbstractAction
+class CoachStats extends AbstractAction
 {
     /**
      * @param RequestInterface $request
@@ -49,7 +49,6 @@ class RefereeStats extends AbstractAction
      */
     protected function handleRequest(RequestInterface $request)
     {
-        $parameters = $request->getParameters();
         $configurations = $request->getConfigurations();
         $viewData = $request->getViewContext();
 
@@ -95,12 +94,12 @@ class RefereeStats extends AbstractAction
         self::handlePageBrowser($request->getConfigurations(), $confId.'data.pagebrowser', $viewData, $fields, $options, [
             'searchcallback' => [
                 $srv,
-                'searchRefereeStats',
+                'searchCoachStats',
             ],
             'pbid' => $type.'ps',
         ]);
 
-        $items = $srv->searchRefereeStats($fields, $options);
+        $items = $srv->searchCoachStats($fields, $options);
 
         return $items;
     }
@@ -116,7 +115,7 @@ class RefereeStats extends AbstractAction
      * @param array $fields
      * @param array $options
      */
-    private static function handlePageBrowser(ConfigurationInterface $configurations, $confid, $viewdata, &$fields, &$options, $cfg = [])
+    private static function handlePageBrowser(ConfigurationInterface $configurations, $confid, &$viewdata, &$fields, &$options, $cfg = [])
     {
         $confid .= '.';
         if (is_array($configurations->get($confid))) {
@@ -126,7 +125,7 @@ class RefereeStats extends AbstractAction
                 // Mit Pagebrowser benötigen wir zwei Zugriffe, um die Gesamtanzahl der Items zu ermitteln
                 $options['count'] = 1;
                 $oldWhat = $options['what'];
-                $options['what'] = 'count(DISTINCT referee) AS cnt';
+                $options['what'] = 'count(DISTINCT coach) AS cnt';
                 $searchCallback = $cfg['searchcallback'];
                 if (!$searchCallback) {
                     throw new Exception('No search callback defined!');
@@ -152,11 +151,11 @@ class RefereeStats extends AbstractAction
 
     public function getTemplateName()
     {
-        return 'refereestats';
+        return 'coachstats';
     }
 
     public function getViewClassName()
     {
-        return \System25\T3sports\View\RefereeStats::class;
+        return \System25\T3sports\Frontend\View\CoachStats::class;
     }
 }

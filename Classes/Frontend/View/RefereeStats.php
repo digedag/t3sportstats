@@ -1,16 +1,19 @@
 <?php
 
-namespace System25\T3sports\View;
+namespace System25\T3sports\Frontend\View;
 
+use Sys25\RnBase\Frontend\Marker\ListBuilder;
 use Sys25\RnBase\Frontend\Marker\Templates;
 use Sys25\RnBase\Frontend\Request\RequestInterface;
 use Sys25\RnBase\Frontend\View\ContextInterface;
 use Sys25\RnBase\Frontend\View\Marker\BaseView;
+use System25\T3sports\Frontend\Marker\RefereeStatsMarker;
+use tx_rnbase;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2024 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -31,29 +34,23 @@ use Sys25\RnBase\Frontend\View\Marker\BaseView;
  ***************************************************************/
 
 /**
- * Viewklasse.
+ * Viewklasse für die Darstellung von Nutzerinformationen aus der DB.
  */
-class DBStats extends BaseView
+class RefereeStats extends BaseView
 {
-    /**
-     * @param string $template
-     * @param RequestInterface $request
-     */
     protected function createOutput($template, RequestInterface $request, $formatter)
     {
         $viewData = $request->getViewContext();
-        $items = &$viewData->offsetGet('items');
 
-        $subpartArr = [];
-        foreach ($items as $table => $data) {
-            $tableMarker = '###'.strtoupper($table).'###';
-            $subpart = Templates::getSubpart($template, $tableMarker);
-            // Jetzt die Tabelle rein
-            $markerArr = $formatter->getItemMarkerArrayWrapped($data, $request
-                ->getConfId().$table.'.', 0, strtoupper($table).'_');
-            $subpartArr[$tableMarker] = Templates::substituteMarkerArrayCached($subpart, $markerArr);
+        $items = &$viewData->offsetGet('items');
+        $listBuilder = tx_rnbase::makeInstance(ListBuilder::class);
+
+        $out = '';
+        foreach ($items as $type => $data) {
+            $subTemplate = Templates::getSubpart($template, '###'.strtoupper($type).'###');
+            $out .= $listBuilder->render($data, $viewData, $subTemplate, RefereeStatsMarker::class, $request
+                ->getConfId().$type.'.data.', 'DATA', $formatter);
         }
-        $out = Templates::substituteMarkerArrayCached($template, [], $subpartArr);
 
         return $out;
     }
@@ -67,6 +64,6 @@ class DBStats extends BaseView
      */
     protected function getMainSubpart(ContextInterface $viewData)
     {
-        return '###DBSTATS###';
+        return '###REFEREESTATS###';
     }
 }

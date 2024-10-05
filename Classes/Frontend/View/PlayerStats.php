@@ -1,19 +1,20 @@
 <?php
 
-namespace System25\T3sports\View;
+namespace System25\T3sports\Frontend\View;
 
 use Sys25\RnBase\Frontend\Marker\ListBuilder;
 use Sys25\RnBase\Frontend\Marker\Templates;
 use Sys25\RnBase\Frontend\Request\RequestInterface;
 use Sys25\RnBase\Frontend\View\ContextInterface;
 use Sys25\RnBase\Frontend\View\Marker\BaseView;
-use System25\T3sports\Marker\RefereeStatsMarker;
+use Sys25\RnBase\Utility\Strings;
+use System25\T3sports\Frontend\Marker\PlayerStatsMarker;
 use tx_rnbase;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2024 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -36,23 +37,46 @@ use tx_rnbase;
 /**
  * Viewklasse für die Darstellung von Nutzerinformationen aus der DB.
  */
-class RefereeStats extends BaseView
+class PlayerStats extends BaseView
 {
+    private $playerIds = [];
+
     protected function createOutput($template, RequestInterface $request, $formatter)
     {
+        $configurations = $request->getConfigurations();
         $viewData = $request->getViewContext();
-
         $items = &$viewData->offsetGet('items');
         $listBuilder = tx_rnbase::makeInstance(ListBuilder::class);
+        if ($viewData->offsetExists('team')) {
+            $team = $viewData->offsetGet('team');
+            $this->playerIds = array_flip(Strings::intExplode(',', $team->getProperty('players')));
+            $listBuilder->addVisitor([
+                $this,
+                'highlightPlayer',
+            ]);
+        }
 
         $out = '';
         foreach ($items as $type => $data) {
+            // Marker class can be configured
+            $markerClass = $configurations->get($request->getConfId().$type.'.markerClass');
+            if (!$markerClass) {
+                $markerClass = PlayerStatsMarker::class;
+            }
+
             $subTemplate = Templates::getSubpart($template, '###'.strtoupper($type).'###');
-            $out .= $listBuilder->render($data, $viewData, $subTemplate, RefereeStatsMarker::class, $request
+            $out .= $listBuilder->render($data, $viewData, $subTemplate, $markerClass, $request
                 ->getConfId().$type.'.data.', 'DATA', $formatter);
         }
 
         return $out;
+    }
+
+    public function highlightPlayer($item)
+    {
+        if (array_key_exists($item->getProperty('player'), $this->playerIds)) {
+            $item->setProperty('hlTeam', 1);
+        }
     }
 
     /**
@@ -64,6 +88,6 @@ class RefereeStats extends BaseView
      */
     protected function getMainSubpart(ContextInterface $viewData)
     {
-        return '###REFEREESTATS###';
+        return '###PLAYERSTATS###';
     }
 }

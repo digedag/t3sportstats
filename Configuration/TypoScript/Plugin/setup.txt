@@ -8,7 +8,7 @@ plugin.tx_t3sportstats.toUserInt      = 1
 plugin.tx_t3sportstats.userFunc       = tx_rnbase_controller->main
 plugin.tx_t3sportstats.defaultAction  = System25\T3sports\Action\PlayerStats
 plugin.tx_t3sportstats.qualifier      = cfc_league_fe
-plugin.tx_t3sportstats.templatePath   = EXT:t3sportstats/templates
+plugin.tx_t3sportstats.templatePath   = EXT:t3sportstats/Resources/Private/Templates
 plugin.tx_t3sportstats.locallangFilename = EXT:t3sportstats/Resources/Private/Language/locallang.xlf
 
 
@@ -183,4 +183,19 @@ plugin.tx_cfcleaguefe_competition {
     defaultCoach =< lib.t3sports.statsCoachFilter
     defaultRef =< lib.t3sports.statsRefereeFilter
   }
+}
+
+plugin.tx_t3sportstats_series                = USER
+plugin.tx_t3sportstats_series.flexform       = flexform_series.xml
+plugin.tx_t3sportstats_series.toUserInt      = 1
+plugin.tx_t3sportstats_series.userFunc       = tx_rnbase_controller->main
+plugin.tx_t3sportstats_series.defaultAction  = System25\T3sports\Action\SeriesList
+plugin.tx_t3sportstats_series.qualifier      = t3sports
+plugin.tx_t3sportstats_series.templatePath   = EXT:t3sportstats/Resources/Private/Templates
+plugin.tx_t3sportstats_series.locallangFilename = EXT:t3sportstats/Resources/Private/Language/locallang.xlf
+
+
+tt_content.list.20.tx_t3sportstats_series    =< plugin.tx_t3sportstats_series
+
+plugin.tx_t3sportstats_series {
 }

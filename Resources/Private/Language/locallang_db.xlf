@@ -9,6 +9,12 @@
 			<trans-unit id="plugin.t3sportstats.description" xml:space="preserve">
 				<source>Shows extensive statistics of players, trainers and referees</source>
 			</trans-unit>
+			<trans-unit id="plugin.t3sportstatsseries.label" xml:space="preserve">
+				<source>T3sports: Series</source>
+			</trans-unit>
+			<trans-unit id="plugin.t3sportstatsseries.description" xml:space="preserve">
+				<source>Shows series of fixtures</source>
+			</trans-unit>
 			<trans-unit id="plugin.t3sportstats.flexform.tab.common" xml:space="preserve">
 				<source>Common</source>
 			</trans-unit>
@@ -27,6 +33,9 @@
 			<trans-unit id="plugin.t3sportstats.flexform.highlightteam" xml:space="preserve">
 				<source>Highlight team players</source>
 			</trans-unit>
+			<trans-unit id="plugin.t3sportstats.flexform.seriesname" xml:space="preserve">
+				<source>Series</source>
+			</trans-unit>
 			<trans-unit id="plugin.t3sportstats.flexform.action.playerstats" xml:space="preserve">
 				<source>Player statistics</source>
 			</trans-unit>
@@ -38,6 +47,9 @@
 			</trans-unit>
 			<trans-unit id="plugin.t3sportstats.flexform.action.dbstats" xml:space="preserve">
 				<source>Database statistics</source>
+			</trans-unit>
+			<trans-unit id="plugin.t3sportstats.flexform.action.serieslist" xml:space="preserve">
+				<source>List of series</source>
 			</trans-unit>
 			<trans-unit id="service_t3sports_statistics_title" xml:space="preserve">
 				<source>Statistics service</source>

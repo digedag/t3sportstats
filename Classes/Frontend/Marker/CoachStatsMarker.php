@@ -1,24 +1,21 @@
 <?php
 
-namespace System25\T3sports\Marker;
+namespace System25\T3sports\Frontend\Marker;
 
 use Sys25\RnBase\Frontend\Marker\BaseMarker;
+use Sys25\RnBase\Frontend\Marker\FormatUtil;
+use Sys25\RnBase\Frontend\Marker\MarkerUtility;
 use Sys25\RnBase\Frontend\Marker\Templates;
 use Sys25\RnBase\Utility\Misc;
-use System25\T3sports\Frontend\Marker\ClubMarker;
-use System25\T3sports\Frontend\Marker\CompetitionMarker;
 use System25\T3sports\Frontend\Marker\ProfileMarker;
-use System25\T3sports\Model\Club;
-use System25\T3sports\Model\Competition;
-use System25\T3sports\Model\PlayerStat;
+use System25\T3sports\Model\CoachStat;
 use System25\T3sports\Model\Profile;
 use tx_rnbase;
-use tx_rnbase_util_FormatUtil;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2022 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2024 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -39,14 +36,14 @@ use tx_rnbase_util_FormatUtil;
  ***************************************************************/
 
 /**
- * Diese Klasse ist für die Erstellung von Markerarrays für Spiele verantwortlich.
+ * Diese Klasse ist für die Erstellung von Markerarrays verantwortlich.
  */
-class PlayerStatsMarker extends BaseMarker
+class CoachStatsMarker extends BaseMarker
 {
     /**
      * @param string $template das HTML-Template
-     * @param PlayerStat $item
-     * @param tx_rnbase_util_FormatUtil $formatter der zu verwendente Formatter
+     * @param CoachStat $item
+     * @param FormatUtil $formatter der zu verwendente Formatter
      * @param string $confId Pfad der TS-Config des Spiels, z.B. 'listView.match.'
      * @param string $marker Name des Markers für ein Spiel, z.B. MATCH
      *
@@ -58,8 +55,8 @@ class PlayerStatsMarker extends BaseMarker
             return $formatter->getConfigurations()->getLL('item_notFound');
         }
         $this->prepareFields($item, $template, $marker);
-        Misc::callHook('t3sportstats', 'playerStatsMarker_initRecord', [
-            'item' => $item,
+        Misc::callHook('t3sportstats', 'coachStatsMarker_initRecord', [
+            'item' => &$item,
             'template' => &$template,
             'confid' => $confId,
             'marker' => $marker,
@@ -67,26 +64,21 @@ class PlayerStatsMarker extends BaseMarker
         ], $this);
 
         // Das Markerarray wird gefüllt
-        $ignore = self::findUnusedCols($item->getProperties(), $template, $marker);
+        $ignore = MarkerUtility::findUnusedAttributes($item, $template, $marker);
         $markerArray = $formatter->getItemMarkerArrayWrapped($item->getProperties(), $confId, $ignore, $marker.'_');
         $wrappedSubpartArray = [];
         $subpartArray = [];
 
         $this->prepareLinks($item, $marker, $markerArray, $subpartArray, $wrappedSubpartArray, $confId, $formatter, $template);
         // Es wird jetzt das Template verändert und die Daten der Teams eingetragen
-        if ($this->containsMarker($template, $marker.'_PLAYER_')) {
-            $template = $this->addPlayer($template, $item, $formatter, $confId.'player.', $marker.'_PLAYER');
-        }
-        if ($this->containsMarker($template, $marker.'_COMPETITION_')) {
-            $template = $this->addCompetition($template, $item, $formatter, $confId.'competition.', $marker.'_COMPETITION');
-        }
-        if ($this->containsMarker($template, $marker.'_CLUB_')) {
-            $template = $this->addClub($template, $item, $formatter, $confId.'club.', $marker.'_CLUB');
+
+        if ($this->containsMarker($template, $marker.'_COACH_')) {
+            $template = $this->_addCoach($template, $item, $formatter, $confId.'coach.', $marker.'_COACH');
         }
 
         $template = Templates::substituteMarkerArrayCached($template, $markerArray, $subpartArray, $wrappedSubpartArray);
-        Misc::callHook('t3sportstats', 'playerStatsMarker_afterSubst', [
-            'item' => $item,
+        Misc::callHook('t3sportstats', 'coachStatsMarker_afterSubst', [
+            'item' => &$item,
             'template' => &$template,
             'confid' => $confId,
             'marker' => $marker,
@@ -100,75 +92,23 @@ class PlayerStatsMarker extends BaseMarker
      * Bindet den Spieler ein.
      *
      * @param string $template
-     * @param PlayerStat $item
-     * @param tx_rnbase_util_FormatUtil $formatter
+     * @param CoachStat $item
+     * @param FormatUtil $formatter
      * @param string $confId
      * @param string $markerPrefix
      *
      * @return string
      */
-    protected function addPlayer($template, $item, $formatter, $confId, $markerPrefix)
+    protected function _addCoach($template, &$item, &$formatter, $confId, $markerPrefix)
     {
-        $sub = $item->getPlayerUid();
+        $sub = $item->getCoachUid();
         if (!$sub) {
-            // Kein Item vorhanden. Leere Instanz anlegen und altname setzen
+            // Kein Stadium vorhanden. Leere Instanz anlegen und altname setzen
             $sub = BaseMarker::getEmptyInstance(Profile::class);
         } else {
             $sub = Profile::getProfileInstance($sub);
         }
         $marker = tx_rnbase::makeInstance(ProfileMarker::class);
-        $template = $marker->parseTemplate($template, $sub, $formatter, $confId, $markerPrefix);
-
-        return $template;
-    }
-
-    /**
-     * Bindet den Wettbewerb ein.
-     *
-     * @param string $template
-     * @param PlayerStat $item
-     * @param tx_rnbase_util_FormatUtil $formatter
-     * @param string $confId
-     * @param string $markerPrefix
-     *
-     * @return string
-     */
-    protected function addCompetition($template, $item, $formatter, $confId, $markerPrefix)
-    {
-        $sub = $item->getCompetitionUid();
-        if (!$sub) {
-            // Kein Item vorhanden. Leere Instanz anlegen und altname setzen
-            $sub = BaseMarker::getEmptyInstance(Competition::class);
-        } else {
-            $sub = Competition::getCompetitionInstance($sub);
-        }
-        $marker = tx_rnbase::makeInstance(CompetitionMarker::class);
-        $template = $marker->parseTemplate($template, $sub, $formatter, $confId, $markerPrefix);
-
-        return $template;
-    }
-
-    /**
-     * Bindet den Verein ein.
-     *
-     * @param string $template
-     * @param PlayerStat $item
-     * @param tx_rnbase_util_FormatUtil $formatter
-     * @param string $confId
-     * @param string $markerPrefix
-     *
-     * @return string
-     */
-    protected function addClub($template, $item, $formatter, $confId, $markerPrefix)
-    {
-        $sub = $item->getClubUid();
-        if (!$sub) {
-            // Kein Item vorhanden. Leere Instanz anlegen und altname setzen
-            $sub = BaseMarker::getEmptyInstance(Club::class);
-        } else {
-            $sub = tx_rnbase::makeInstance(Club::class, $sub);
-        }
-        $marker = tx_rnbase::makeInstance(ClubMarker::class);
         $template = $marker->parseTemplate($template, $sub, $formatter, $confId, $markerPrefix);
 
         return $template;
@@ -181,7 +121,7 @@ class PlayerStatsMarker extends BaseMarker
      * werden auch vorhandene MatchNotes berücksichtigt, so daß ein Spieler mit gelber
      * Karte diese z.B. neben seinem Namen angezeigt bekommt.
      *
-     * @param PlayerStat $item
+     * @param CoachStat $item
      */
     private function prepareFields($item, $template, $markerPrefix)
     {
@@ -200,12 +140,12 @@ class PlayerStatsMarker extends BaseMarker
     /**
      * Links vorbereiten.
      *
-     * @param PlayerStat $item
+     * @param CoachStat $item
      * @param string $marker
      * @param array $markerArray
      * @param array $wrappedSubpartArray
      * @param string $confId
-     * @param tx_rnbase_util_FormatUtil $formatter
+     * @param FormatUtil $formatter
      */
     private function prepareLinks($item, $marker, &$markerArray, &$subpartArray, &$wrappedSubpartArray, $confId, &$formatter, $template)
     {
@@ -216,7 +156,7 @@ class PlayerStatsMarker extends BaseMarker
                 // Link nur bei Wert größer 0 ausführen, damit keine leere Liste verlinkt wird.
                 $params = [
                     'statskey' => $linkId,
-                    'player' => $item->getProperty('player'),
+                    'coach' => $item->getProperty('coach'),
                 ];
                 $this->initLink($markerArray, $subpartArray, $wrappedSubpartArray, $formatter, $confId, $linkId, $marker, $params, $template);
             } else {

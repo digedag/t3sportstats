@@ -1,6 +1,6 @@
 <?php
 
-namespace System25\T3sports\Action;
+namespace System25\T3sports\Frontend\Action;
 
 use ArrayObject;
 use Exception;
@@ -18,7 +18,7 @@ use tx_rnbase;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2024 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -114,8 +114,7 @@ class PlayerStats extends AbstractAction
      * Pagebrowser vorbereiten.
      * Für die Statistik benötigen wir eine spezielle Anfrage zu Ermittlung der Listenlänge.
      *
-     * @param string $confid
-     *            Die Confid des PageBrowsers. z.B. myview.org.pagebrowser ohne Punkt!
+     * @param string $confid Die Confid des PageBrowsers. z.B. myview.org.pagebrowser ohne Punkt!
      * @param ConfigurationInterface $configurations
      * @param ArrayObject $viewdata
      * @param array $fields
@@ -163,6 +162,6 @@ class PlayerStats extends AbstractAction
 
     protected function getViewClassName()
     {
-        return \System25\T3sports\View\PlayerStats::class;
+        return \System25\T3sports\Frontend\View\PlayerStats::class;
     }
 }

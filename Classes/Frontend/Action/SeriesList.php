@@ -1,17 +1,18 @@
 <?php
 
-namespace System25\T3sports\Action;
+namespace System25\T3sports\Frontend\Action;
 
-use Exception;
-use Sys25\RnBase\Database\Connection;
 use Sys25\RnBase\Frontend\Controller\AbstractAction;
+use Sys25\RnBase\Frontend\Filter\BaseFilter;
 use Sys25\RnBase\Frontend\Request\RequestInterface;
-use Sys25\RnBase\Utility\Strings;
+use Sys25\RnBase\Frontend\View\Marker\ListView;
+use System25\T3sports\Repository\SeriesRepository;
+use tx_rnbase;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2022 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2024 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -34,8 +35,15 @@ use Sys25\RnBase\Utility\Strings;
 /**
  * Controller.
  */
-class DBStats extends AbstractAction
+class SeriesList extends AbstractAction
 {
+    private $seriesRepo;
+
+    public function __construct(?SeriesRepository $seriesRepo = null)
+    {
+        $this->seriesRepo = $seriesRepo ?: tx_rnbase::makeInstance(SeriesRepository::class);
+    }
+
     /**
      * @param RequestInterface $request
      *
@@ -43,49 +51,27 @@ class DBStats extends AbstractAction
      */
     protected function handleRequest(RequestInterface $request)
     {
-        $parameters = $request->getParameters();
-        $configurations = $request->getConfigurations();
         $viewData = $request->getViewContext();
 
-        // Zuerst die Art der Statistik ermitteln
-        $tables = Strings::trimExplode(',', $configurations->get($this->getConfId().'tables'), 1);
-        if (!count($tables)) {
-            // Abbruch kein Typ angegeben
-            throw new Exception('No database table configured in: '.$this->getConfId().'tables');
-        }
+        $filter = BaseFilter::createFilter($request, $this->getConfId().'filter.');
+        $fields = [];
+        $options = [];
+        $filter->init($fields, $options);
 
-        $statsData = [];
-        foreach ($tables as $table) {
-            $statsData[$table] = $this->findData($parameters, $configurations, $viewData, $table);
-        }
-        $viewData->offsetSet('items', $statsData);
+        $items = $this->seriesRepo->search($fields, $options);
+
+        $viewData->offsetSet('items', $items);
 
         return null;
     }
 
-    private function findData($parameters, $configurations, $viewData, $table)
-    {
-        // SELECT count(*) FROM table
-        $options = [];
-        $debug = $configurations->get($this->getConfId().'options.debug');
-        if ($debug) {
-            $options['debug'] = 1;
-        }
-
-        $res = Connection::getInstance()->doSelect('count(*) AS cnt', $table, $options);
-
-        $items['size'] = $res[0]['cnt'];
-
-        return $items;
-    }
-
     protected function getTemplateName()
     {
-        return 'dbstats';
+        return 'serieslist';
     }
 
     protected function getViewClassName()
     {
-        return \System25\T3sports\View\DBStats::class;
+        return ListView::class;
     }
 }

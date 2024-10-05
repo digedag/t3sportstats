@@ -2,12 +2,12 @@
 
 namespace System25\T3sports\Model;
 
-use Tx_Rnbase_Domain_Model_Base;
+use Sys25\RnBase\Domain\Model\BaseModel;
 
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2020 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2024 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -30,7 +30,7 @@ use Tx_Rnbase_Domain_Model_Base;
 /**
  * Model for a coach stats record.
  */
-class CoachStat extends Tx_Rnbase_Domain_Model_Base
+class CoachStat extends BaseModel
 {
     public function getTableName()
     {

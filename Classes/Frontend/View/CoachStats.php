@@ -1,19 +1,19 @@
 <?php
 
-namespace System25\T3sports\View;
+namespace System25\T3sports\Frontend\View;
 
 use Sys25\RnBase\Frontend\Marker\ListBuilder;
 use Sys25\RnBase\Frontend\Marker\Templates;
 use Sys25\RnBase\Frontend\Request\RequestInterface;
 use Sys25\RnBase\Frontend\View\ContextInterface;
 use Sys25\RnBase\Frontend\View\Marker\BaseView;
-use System25\T3sports\Marker\CoachStatsMarker;
+use System25\T3sports\Frontend\Marker\CoachStatsMarker;
 use tx_rnbase;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2024 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is

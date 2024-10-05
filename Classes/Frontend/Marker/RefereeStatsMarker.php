@@ -1,20 +1,21 @@
 <?php
 
-namespace System25\T3sports\Marker;
+namespace System25\T3sports\Frontend\Marker;
 
 use Sys25\RnBase\Frontend\Marker\BaseMarker;
+use Sys25\RnBase\Frontend\Marker\FormatUtil;
+use Sys25\RnBase\Frontend\Marker\MarkerUtility;
 use Sys25\RnBase\Frontend\Marker\Templates;
 use Sys25\RnBase\Utility\Misc;
 use System25\T3sports\Frontend\Marker\ProfileMarker;
-use System25\T3sports\Model\CoachStat;
 use System25\T3sports\Model\Profile;
+use System25\T3sports\Model\RefereeStat;
 use tx_rnbase;
-use tx_rnbase_util_FormatUtil;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2022 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2024 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -37,12 +38,12 @@ use tx_rnbase_util_FormatUtil;
 /**
  * Diese Klasse ist für die Erstellung von Markerarrays verantwortlich.
  */
-class CoachStatsMarker extends BaseMarker
+class RefereeStatsMarker extends BaseMarker
 {
     /**
      * @param string $template das HTML-Template
-     * @param CoachStat $item
-     * @param tx_rnbase_util_FormatUtil $formatter der zu verwendente Formatter
+     * @param RefereeStat $item
+     * @param FormatUtil $formatter der zu verwendente Formatter
      * @param string $confId Pfad der TS-Config des Spiels, z.B. 'listView.match.'
      * @param string $marker Name des Markers für ein Spiel, z.B. MATCH
      *
@@ -54,8 +55,8 @@ class CoachStatsMarker extends BaseMarker
             return $formatter->getConfigurations()->getLL('item_notFound');
         }
         $this->prepareFields($item, $template, $marker);
-        Misc::callHook('t3sportstats', 'coachStatsMarker_initRecord', [
-            'item' => &$item,
+        Misc::callHook('t3sportstats', 'refereeStatsMarker_initRecord', [
+            'item' => $item,
             'template' => &$template,
             'confid' => $confId,
             'marker' => $marker,
@@ -63,21 +64,21 @@ class CoachStatsMarker extends BaseMarker
         ], $this);
 
         // Das Markerarray wird gefüllt
-        $ignore = self::findUnusedCols($item->getProperties(), $template, $marker);
-        $markerArray = $formatter->getItemMarkerArrayWrapped($item->getProperties(), $confId, $ignore, $marker.'_');
+        $ignore = MarkerUtility::findUnusedAttributes($item, $template, $marker);
+        $markerArray = $formatter->getItemMarkerArrayWrapped($item->getProperty(), $confId, $ignore, $marker.'_');
         $wrappedSubpartArray = [];
         $subpartArray = [];
 
         $this->prepareLinks($item, $marker, $markerArray, $subpartArray, $wrappedSubpartArray, $confId, $formatter, $template);
         // Es wird jetzt das Template verändert und die Daten der Teams eingetragen
 
-        if ($this->containsMarker($template, $marker.'_COACH_')) {
-            $template = $this->_addCoach($template, $item, $formatter, $confId.'coach.', $marker.'_COACH');
+        if ($this->containsMarker($template, $marker.'_REFEREE_')) {
+            $template = $this->addReferee($template, $item, $formatter, $confId.'referee.', $marker.'_REFEREE');
         }
 
         $template = Templates::substituteMarkerArrayCached($template, $markerArray, $subpartArray, $wrappedSubpartArray);
-        Misc::callHook('t3sportstats', 'coachStatsMarker_afterSubst', [
-            'item' => &$item,
+        Misc::callHook('t3sportstats', 'refereeStatsMarker_afterSubst', [
+            'item' => $item,
             'template' => &$template,
             'confid' => $confId,
             'marker' => $marker,
@@ -91,16 +92,16 @@ class CoachStatsMarker extends BaseMarker
      * Bindet den Spieler ein.
      *
      * @param string $template
-     * @param CoachStat $item
-     * @param tx_rnbase_util_FormatUtil $formatter
+     * @param RefereeStat $item
+     * @param FormatUtil $formatter
      * @param string $confId
      * @param string $markerPrefix
      *
      * @return string
      */
-    protected function _addCoach($template, &$item, &$formatter, $confId, $markerPrefix)
+    protected function addReferee($template, $item, &$formatter, $confId, $markerPrefix)
     {
-        $sub = $item->getCoachUid();
+        $sub = $item->getRefereeUid();
         if (!$sub) {
             // Kein Stadium vorhanden. Leere Instanz anlegen und altname setzen
             $sub = BaseMarker::getEmptyInstance(Profile::class);
@@ -120,7 +121,7 @@ class CoachStatsMarker extends BaseMarker
      * werden auch vorhandene MatchNotes berücksichtigt, so daß ein Spieler mit gelber
      * Karte diese z.B. neben seinem Namen angezeigt bekommt.
      *
-     * @param CoachStat $item
+     * @param RefereeStat $item
      */
     private function prepareFields($item, $template, $markerPrefix)
     {
@@ -139,12 +140,12 @@ class CoachStatsMarker extends BaseMarker
     /**
      * Links vorbereiten.
      *
-     * @param CoachStat $item
+     * @param RefereeStat $item
      * @param string $marker
      * @param array $markerArray
      * @param array $wrappedSubpartArray
      * @param string $confId
-     * @param tx_rnbase_util_FormatUtil $formatter
+     * @param FormatUtil $formatter
      */
     private function prepareLinks($item, $marker, &$markerArray, &$subpartArray, &$wrappedSubpartArray, $confId, &$formatter, $template)
     {
@@ -155,12 +156,12 @@ class CoachStatsMarker extends BaseMarker
                 // Link nur bei Wert größer 0 ausführen, damit keine leere Liste verlinkt wird.
                 $params = [
                     'statskey' => $linkId,
-                    'coach' => $item->getProperty('coach'),
+                    'referee' => $item->getProperty('referee'),
                 ];
                 $this->initLink($markerArray, $subpartArray, $wrappedSubpartArray, $formatter, $confId, $linkId, $marker, $params, $template);
             } else {
                 $linkMarker = $marker.'_'.strtoupper($linkId).'LINK';
-                $remove = intval($formatter->configurations->get($confId.'links.'.$linkId.'.removeIfDisabled'));
+                $remove = intval($formatter->getConfigurations()->get($confId.'links.'.$linkId.'.removeIfDisabled'));
                 $this->disableLink($markerArray, $subpartArray, $wrappedSubpartArray, $linkMarker, $remove > 0);
             }
         }
