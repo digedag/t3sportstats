@@ -79,6 +79,11 @@
 			"extension-key": "t3sportstats",
 			"web-dir": ".Build/Web"
 		},
+		"typo3/class-alias-loader": {
+			"class-alias-maps": [
+				"Migrations/Code/ClassAliasMap.php"
+			]
+		},
 		"branch-alias": {
 			"dev-master": "1.x-dev"
 		}
