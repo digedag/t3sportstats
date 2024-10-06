@@ -2,8 +2,14 @@
 
 namespace System25\T3sports\Frontend\Marker;
 
+use InvalidArgumentException;
+use Sys25\RnBase\Domain\Repository\RepositoryRegistry;
+use Sys25\RnBase\Frontend\Marker\BaseMarker;
+use Sys25\RnBase\Frontend\Marker\FormatUtil;
 use Sys25\RnBase\Frontend\Marker\SimpleMarker;
+use System25\T3sports\Model\Fixture;
 use System25\T3sports\Model\SeriesResult;
+use tx_rnbase;
 
 /***************************************************************
  *  Copyright notice
@@ -33,17 +39,58 @@ use System25\T3sports\Model\SeriesResult;
  */
 class SeriesResultMarker extends SimpleMarker
 {
+    private $fixtureRepo;
+
     public function __construct($options = [])
     {
         $this->setClassname(SeriesResult::class);
         parent::__construct($options);
+        $this->fixtureRepo = RepositoryRegistry::getRepositoryForClass(Fixture::class);
     }
 
+    /**
+     * @param string $template
+     * @param SeriesResult $item
+     * @param FormatUtil $formatter
+     * @param string $confId
+     * @param string $marker
+     * @return string
+     * @throws InvalidArgumentException
+     */
     protected function prepareTemplate($template, $item, $formatter, $confId, $marker)
     {
-        // if (self::containsMarker($template, $marker . '_RESULTS')) {
-        //     $template = $this->addResults($template, $item, $formatter, $confId . 'category.', $marker . '_CATEGORY');
-        // }
+        if (self::containsMarker($template, $marker.'_FIRSTMATCH_')) {
+            $template = $this->addFixture($template, $item->getProperty('firstmatch'), $formatter, $confId.'firstmatch.', $marker.'_FIRSTMATCH');
+        }
+        if (self::containsMarker($template, $marker.'_LASTMATCH_')) {
+            $template = $this->addFixture($template, $item->getProperty('lastmatch'), $formatter, $confId.'lastmatch.', $marker.'_LASTMATCH');
+        }
+
+        return $template;
+    }
+
+    /**
+     * Bindet den Spieler ein.
+     *
+     * @param string $template
+     * @param int $fixtureUid
+     * @param FormatUtil $formatter
+     * @param string $confId
+     * @param string $markerPrefix
+     *
+     * @return string
+     */
+    private function addFixture($template, $fixtureUid, $formatter, $confId, $markerPrefix)
+    {
+        if (!$fixtureUid) {
+            // Kein Item vorhanden. Leere Instanz anlegen und altname setzen
+            $sub = BaseMarker::getEmptyInstance(Fixture::class);
+        } else {
+            $sub = $this->fixtureRepo->findByUid($fixtureUid);
+        }
+        $marker = tx_rnbase::makeInstance(MatchMarker::class);
+        $template = $marker->parseTemplate($template, $sub, $formatter, $confId, $markerPrefix);
+
         return $template;
     }
 }

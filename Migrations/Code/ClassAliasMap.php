@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 return [
     'tx_t3sportstats_actions_SeriesList' => System25\T3sports\Frontend\Action\SeriesList::class,
+    'tx_t3sportstats_actions_SeriesResultList' => System25\T3sports\Frontend\Action\SeriesResultList::class,
     'tx_t3sportstats_actions_PlayerStats' => System25\T3sports\Frontend\Action\PlayerStats::class,
     'tx_t3sportstats_actions_CoachStats' => System25\T3sports\Frontend\Action\CoachStats::class,
     'tx_t3sportstats_actions_RefereeStats' => System25\T3sports\Frontend\Action\RefereeStats::class,

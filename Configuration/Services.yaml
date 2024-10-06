@@ -10,7 +10,7 @@ services:
 
   # public, damit das Autowiring beim Hook-Aufruf klappt. Gibt es ein Tag für Hooks?
   System25\T3sports\Hooks\ClearStats:
-      public: true
+    public: true
   System25\T3sports\Command\CalculateSeriesCommand:
     tags:
       - name: 'console.command'

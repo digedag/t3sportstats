@@ -40,6 +40,9 @@ class Search
         $params['tableMapping']['REFEREESTAT'] = 'tx_t3sportstats_referees';
         $params['tableMapping']['TAG'] = 'tx_t3sportstats_tags';
         $params['tableMapping']['TAGMM'] = 'tx_t3sportstats_tags_mm';
+        $params['tableMapping']['SERIESRESULT'] = 'tx_t3sportstats_series_result';
+        $params['tableMapping']['SERIESRESULTMM'] = 'tx_t3sportstats_series_result_mm';
+        $params['tableMapping']['TAGMM'] = 'tx_t3sportstats_tags_mm';
     }
 
     public function getJoinsMatch(&$params, $parent)
@@ -61,6 +64,11 @@ class Search
         }
         if (isset($params['tableAliases']['TAG'])) {
             $params['join'][] = new Join('TAGMM', 'tx_t3sportstats_tags', 'TAGMM.uid_foreign = TAG.uid', 'TAG');
+        }
+
+        if (isset($params['tableAliases']['SERIESRESULT']) || isset($params['tableAliases']['SERIESRESULTMM'])) {
+            $params['join'][] = new Join('MATCH', 'tx_t3sportstats_series_result_mm', 'MATCH.uid = SERIESRESULTMM.uid_foreign', 'SERIESRESULTMM');
+            $params['join'][] = new Join('SERIESRESULTMM', 'tx_t3sportstats_series_result', 'SERIESRESULT.UID = SERIESRESULTMM.uid_local AND SERIESRESULTMM.tablenames = \'tx_cfcleague_games\' ', 'SERIESRESULT');
         }
     }
 }

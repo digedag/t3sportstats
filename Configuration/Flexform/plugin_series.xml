@@ -22,6 +22,10 @@
                                         <numIndex index="0">LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.action.serieslist</numIndex>
                                         <numIndex index="1">tx_t3sportstats_actions_SeriesList</numIndex>
                                     </numIndex>
+                                    <numIndex index="5" type="array">
+                                        <numIndex index="0">LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.action.seriesresultlist</numIndex>
+                                        <numIndex index="1">tx_t3sportstats_actions_SeriesResultList</numIndex>
+                                    </numIndex>
 
                                 </items>
                                 <multiple>0</multiple>
@@ -41,7 +45,7 @@
 
                 <type>array</type>
                 <el>
-                    <serieslist.uids>
+                    <serieslist.filter.fields.SERIES.UID.OP_IN_INT>
                         <TCEforms>
                             <exclude>1</exclude>
                             <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.seriesname</label>
@@ -56,7 +60,7 @@
                                 <size>5</size>
                             </config>
                         </TCEforms>
-                    </serieslist.uids>
+                    </serieslist.filter.fields.SERIES.UID.OP_IN_INT>
 
                     <serieslist.filter.options.debug>
                         <TCEforms>
@@ -114,7 +118,7 @@
                     <flexformTS>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.tssetup</label>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform_series.tssetup</label>
                             <config>
                                 <type>text</type>
                                 <cols>80</cols>

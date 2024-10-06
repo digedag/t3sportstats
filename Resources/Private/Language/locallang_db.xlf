@@ -24,6 +24,9 @@
 			<trans-unit id="plugin.t3sportstats.flexform.tssetup" xml:space="preserve">
 				<source>plugin.tx_t3sportstats.</source>
 			</trans-unit>
+			<trans-unit id="plugin.t3sportstats.flexform_series.tssetup" xml:space="preserve">
+				<source>plugin.tx_t3sportstats_series.</source>
+			</trans-unit>
 			<trans-unit id="plugin.t3sportstats.flexform.action" xml:space="preserve">
 				<source>View</source>
 			</trans-unit>
@@ -49,7 +52,10 @@
 				<source>Database statistics</source>
 			</trans-unit>
 			<trans-unit id="plugin.t3sportstats.flexform.action.serieslist" xml:space="preserve">
-				<source>List of series</source>
+				<source>List of best series</source>
+			</trans-unit>
+			<trans-unit id="plugin.t3sportstats.flexform.action.seriesresultlist" xml:space="preserve">
+				<source>List of current series</source>
 			</trans-unit>
 			<trans-unit id="service_t3sports_statistics_title" xml:space="preserve">
 				<source>Statistics service</source>

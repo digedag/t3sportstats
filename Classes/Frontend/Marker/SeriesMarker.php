@@ -48,7 +48,7 @@ class SeriesMarker extends SimpleMarker
     protected function prepareTemplate($template, $item, $formatter, $confId, $marker)
     {
         if (self::containsMarker($template, $marker.'_RESULTS')) {
-            $template = $this->addResults($template, $item, $formatter, $confId.'category.', $marker.'_CATEGORY');
+            $template = $this->addResults($template, $item, $formatter, $confId.'result.', $marker.'_RESULT');
         }
 
         return $template;

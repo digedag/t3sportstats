@@ -51,6 +51,16 @@
 				<source>Database statistics</source>
 				<target>Datenbankstatistik</target>
 			</trans-unit>
+
+			<trans-unit id="plugin.t3sportstats.flexform.action.serieslist" xml:space="preserve">
+				<source>List of best series</source>
+				<target>Liste der besten Serien</target>
+			</trans-unit>
+			<trans-unit id="plugin.t3sportstats.flexform.action.seriesresultlist" xml:space="preserve">
+				<source>List of current series</source>
+				<target>Liste der aktuellen Serien</target>
+			</trans-unit>
+
 			<trans-unit id="service_t3sports_statistics_title" xml:space="preserve">
 				<source>Statistics service</source>
 				<target>Statistik Service</target>
