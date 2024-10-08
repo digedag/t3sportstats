@@ -219,11 +219,24 @@ plugin.tx_t3sportstats_series {
     }
   }
   seriesresultlist {
-    template.itempath = series
+    template.itempath = result
     template.markerclass = System25\T3sports\Frontend\Marker\SeriesResultMarker
     template.subpart = ###CURRENTSERIESLIST###
     filter.fields {
       SERIESRESULT.RESULTTYPE.OP_EQ = current
+    }
+    result {
+      firstmatch =< lib.t3sports.match
+      lastmatch =< lib.t3sports.match
+      links{
+        fixtures {
+          _cfg.params.statskey = uid
+          pid = {$plugin.tx_t3sportstats.statsmatchtablepage}
+          useKeepVars = 1
+          useKeepVars.add = cfc_league_fe::statstype=seriesfixtures
+          useKeepVars.id = cfc_league_fe::statstype=seriesfixtures
+        }
+      }
     }
   }
 }
