@@ -35,7 +35,7 @@ class ClearStats
 {
     private $statsSrv;
 
-    public function __construct(Statistics $statisticsService = null)
+    public function __construct(?Statistics $statisticsService = null)
     {
         $this->statsSrv = $statisticsService ?: new Statistics();
     }

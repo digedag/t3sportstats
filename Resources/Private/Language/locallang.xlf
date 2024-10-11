@@ -123,6 +123,9 @@
 			<trans-unit id="label_headline_assistlist" xml:space="preserve">
 				<source>Best assists</source>
 			</trans-unit>
+			<trans-unit id="label_no_series_results_found" xml:space="preserve">
+				<source>No series results found.</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

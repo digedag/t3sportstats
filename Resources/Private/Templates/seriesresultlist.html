@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+###CURRENTSERIESLIST###
+
+<h2>Die aktuellen Serien</h2>
+
+###RESULTS###
+<div class="alert alert-warning">
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">Anzahl Spiele</th>
+            <th scope="col">Erstes Spiel</th>
+            <th scope="col">Letztes Spiel</th>
+        </tr>
+    </thead>
+    <tbody>
+###RESULT###
+<tr>
+    <td colspan="3">Name: ###RESULT_SERIES_LABEL###</td>
+</tr>
+<tr>
+<td>###RESULT_FIXTURESLINK### ###RESULT_QUANTITY######RESULT_FIXTURESLINK###</td>
+<td>###RESULT_FIRSTMATCH_DATE###<br>
+    ###RESULT_FIRSTMATCH_HOME_SHORT_NAME### - ###RESULT_FIRSTMATCH_GUEST_SHORT_NAME###
+    ###RESULT_FIRSTMATCH_REPORTLINK###
+    ###RESULT_FIRSTMATCH_GOALS_HOME###&nbsp;:&nbsp;###RESULT_FIRSTMATCH_GOALS_GUEST### ###RESULT_FIRSTMATCH_DCRESULTSUFFIX###
+    ###RESULT_FIRSTMATCH_REPORTLINK###
+</td>
+<td>###RESULT_LASTMATCH_DATE###<br>
+    ###RESULT_LASTMATCH_HOME_SHORT_NAME### - ###RESULT_LASTMATCH_GUEST_SHORT_NAME###
+    ###RESULT_LASTMATCH_REPORTLINK###
+    ###RESULT_LASTMATCH_GOALS_HOME###&nbsp;:&nbsp;###RESULT_LASTMATCH_GOALS_GUEST### ###RESULT_LASTMATCH_DCRESULTSUFFIX###
+    ###RESULT_LASTMATCH_REPORTLINK###
+</td>
+</tr>
+###RESULT###
+</tbody>
+</table>
+</div>
+###RESULTEMPTYLIST###
+<span class="badge badge-warning">###LABEL_NO_RESULTS_FOUND###</span>
+###RESULTEMPTYLIST###
+###RESULTS###
+
+###CURRENTSERIESLIST###
+
+</body>
+</html>

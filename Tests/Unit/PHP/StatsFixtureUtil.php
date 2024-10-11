@@ -2,10 +2,14 @@
 
 namespace System25\T3sports\Tests;
 
+use Sys25\RnBase\Utility\Spyc;
+use System25\T3sports\Model\Competition;
+use System25\T3sports\Model\Fixture;
+
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008-2020 Rene Nitzsche (rene@system25.de)
+*  (c) 2008-2024 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -29,13 +33,17 @@ class StatsFixtureUtil
 {
     public static function createCompetition($uid, $saison, $agegroup)
     {
-        return new \tx_cfcleague_models_Competition(['uid' => $uid, 'saison' => $saison, 'agegroup' => $agegroup]);
+        return new Competition(['uid' => $uid, 'saison' => $saison, 'agegroup' => $agegroup]);
     }
 
     public static function getMatches()
     {
-        $data = \tx_rnbase_util_Spyc::YAMLLoad(self::getFixturePath('statistics.yaml'));
-        $comps = self::makeInstances($data['league_1'], $data['league_1']['clazz']);
+        $data = Spyc::YAMLLoad(self::getFixturePath('statistics.yaml'));
+
+        //        $league = Competition::getCompetitionInstance($data['record']['uid'], $data['record']);
+        $league = Competition::getCompetitionInstance($data['league_1'][0]['record']['uid'], $data['league_1'][0]['record']);
+
+        //        $comps = self::makeInstances($data['league_1'], $data['league_1']['clazz']);
         $teamData = $data['league_1']['teams'];
         $teams = [];
         foreach (self::makeInstances($teamData, $teamData['clazz']) as $team) {
@@ -44,8 +52,7 @@ class StatsFixtureUtil
         $data = $data['league_1']['matches'];
         $matches = self::makeInstances($data, $data['clazz']);
         foreach ($matches as $match) {
-            /* @var \tx_cfcleague_models_Match $match*/
-            $match->setCompetition($comps[0]);
+            /* @var Fixture $match*/
             $match->setHome($teams[$match->getProperty('home')]);
             $match->setGuest($teams[$match->getProperty('guest')]);
         }
@@ -55,7 +62,7 @@ class StatsFixtureUtil
 
     public static function getMatchNotes($matchIdx)
     {
-        $data = \tx_rnbase_util_Spyc::YAMLLoad(self::getFixturePath('statistics.yaml'));
+        $data = Spyc::YAMLLoad(self::getFixturePath('statistics.yaml'));
         $data = $data['league_1']['matches'][$matchIdx]['matchnotes'];
         $notes = self::makeInstances($data, $data['clazz']);
 
@@ -77,6 +84,6 @@ class StatsFixtureUtil
 
     private static function getFixturePath($filename)
     {
-        return \tx_rnbase_util_Extensions::extPath('t3sportstats').'Tests/fixtures/'.$filename;
+        return __DIR__.'/../../fixtures/'.$filename;
     }
 }

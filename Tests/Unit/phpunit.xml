@@ -1,0 +1,33 @@
+
+<phpunit
+    backupGlobals="true"
+    backupStaticAttributes="false"
+    bootstrap="../../.Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTestsBootstrap.php"
+    cacheResultFile="../../.Build/.phpunit.result.cache"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertWarningsToExceptions="true"
+    forceCoversAnnotation="false"
+    processIsolation="false"
+    stopOnError="false"
+    stopOnFailure="false"
+    stopOnIncomplete="false"
+    stopOnSkipped="false"
+    verbose="false"
+>
+
+    <!-- all tests in the test dir -->
+    <testsuites>
+        <testsuite name="T3sportstats Unit Tests">
+            <directory>PHP/</directory>
+        </testsuite>
+    </testsuites>
+
+    <!-- only the tests in group unit -->
+    <groups>
+        <include>
+            <group>unit</group>
+        </include>
+    </groups>
+
+</phpunit>

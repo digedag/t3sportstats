@@ -2,6 +2,7 @@
 
 namespace System25\T3sports\Service;
 
+use Exception;
 use Sys25\RnBase\Database\Connection;
 use Sys25\RnBase\Search\SearchBase;
 use Sys25\RnBase\Utility\Dates;
@@ -54,7 +55,7 @@ class Statistics
     private $matchService;
     private $indexerProvider;
 
-    public function __construct(MatchService $matchService = null, StatsIndexerProvider $indexerProvider = null)
+    public function __construct(?MatchService $matchService = null, ?StatsIndexerProvider $indexerProvider = null)
     {
         $this->matchService = $matchService ?: ServiceRegistry::getMatchService();
         $this->indexerProvider = $indexerProvider ?: StatsIndexerProvider::getInstance();
@@ -357,7 +358,7 @@ class Statistics
      *
      * @return StatsDataBag
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function createProfileBag($uid, $match, $home, $profileField)
     {
