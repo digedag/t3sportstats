@@ -2,16 +2,16 @@
 
 namespace System25\T3sports\Backend\Controller;
 
+use Sys25\RnBase\Backend\Module\BaseModFunc;
 use Sys25\RnBase\Frontend\Marker\Templates;
 use Sys25\RnBase\Utility\Misc;
 use System25\T3sports\Controller\Club\ClubStadiumHandler;
 use tx_rnbase;
-use tx_rnbase_mod_ExtendedModFunc;
 
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2022 Rene Nitzsche <rene@system25.de>
+*  (c) 2010-2024 Rene Nitzsche <rene@system25.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -36,7 +36,7 @@ use tx_rnbase_mod_ExtendedModFunc;
  *
  * @author	Rene Nitzsche <rene@system25.de>
  */
-class StatisticsController extends tx_rnbase_mod_ExtendedModFunc
+class StatisticsController extends BaseModFunc
 {
     protected function getContent($template, &$configurations, &$formatter, $formTool)
     {
@@ -74,8 +74,8 @@ class StatisticsController extends tx_rnbase_mod_ExtendedModFunc
         return $menuItems;
     }
 
-    protected function makeSubSelectors(&$selStr)
+    public function getModuleIdentifier()
     {
-        return false;
+        return 'cfc_league';
     }
 }
