@@ -133,6 +133,10 @@
 				<source>Match not lost</source>
 				<target>Spiel nicht verloren</target>
 			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_rule.draw_rule" xml:space="preserve">
+				<source>Match drawn</source>
+				<target>Unentschieden</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

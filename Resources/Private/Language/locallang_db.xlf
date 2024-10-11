@@ -162,6 +162,9 @@
 			<trans-unit id="tx_t3sportstats_series_rule.not_lost_rule" xml:space="preserve">
 				<source>Match not lost</source>
 			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_rule.draw_rule" xml:space="preserve">
+				<source>Match drawn</source>
+			</trans-unit>
 
 			<trans-unit id="tx_t3sportstats_series_result" xml:space="preserve">
 				<source>Series Result</source>
