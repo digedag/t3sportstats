@@ -8,6 +8,7 @@ use Sys25\RnBase\Frontend\Marker\BaseMarker;
 use Sys25\RnBase\Frontend\Marker\FormatUtil;
 use Sys25\RnBase\Frontend\Marker\SimpleMarker;
 use System25\T3sports\Model\Fixture;
+use System25\T3sports\Model\Series;
 use System25\T3sports\Model\SeriesResult;
 use tx_rnbase;
 
@@ -40,12 +41,14 @@ use tx_rnbase;
 class SeriesResultMarker extends SimpleMarker
 {
     private $fixtureRepo;
+    private $seriesRepo;
 
     public function __construct($options = [])
     {
         $this->setClassname(SeriesResult::class);
         parent::__construct($options);
         $this->fixtureRepo = RepositoryRegistry::getRepositoryForClass(Fixture::class);
+        $this->seriesRepo = RepositoryRegistry::getRepositoryForClass(Series::class);
     }
 
     /**
@@ -65,12 +68,15 @@ class SeriesResultMarker extends SimpleMarker
         if (self::containsMarker($template, $marker.'_LASTMATCH_')) {
             $template = $this->addFixture($template, $item->getProperty('lastmatch'), $formatter, $confId.'lastmatch.', $marker.'_LASTMATCH');
         }
+        if (self::containsMarker($template, $marker.'_SERIES_')) {
+            $template = $this->addSeries($template, $item->getProperty('parentid'), $formatter, $confId.'series.', $marker.'_SERIES');
+        }
 
         return $template;
     }
 
     /**
-     * Bindet den Spieler ein.
+     * Bindet ein Spiel ein.
      *
      * @param string $template
      * @param int $fixtureUid
@@ -80,7 +86,7 @@ class SeriesResultMarker extends SimpleMarker
      *
      * @return string
      */
-    private function addFixture($template, $fixtureUid, $formatter, $confId, $markerPrefix)
+    private function addFixture($template, $fixtureUid, FormatUtil $formatter, $confId, $markerPrefix)
     {
         if (!$fixtureUid) {
             // Kein Item vorhanden. Leere Instanz anlegen und altname setzen
@@ -89,6 +95,31 @@ class SeriesResultMarker extends SimpleMarker
             $sub = $this->fixtureRepo->findByUid($fixtureUid);
         }
         $marker = tx_rnbase::makeInstance(MatchMarker::class);
+        $template = $marker->parseTemplate($template, $sub, $formatter, $confId, $markerPrefix);
+
+        return $template;
+    }
+
+    /**
+     * Bindet die Serie ein.
+     *
+     * @param string $template
+     * @param int $fixtureUid
+     * @param FormatUtil $formatter
+     * @param string $confId
+     * @param string $markerPrefix
+     *
+     * @return string
+     */
+    private function addSeries($template, $fixtureUid, FormatUtil $formatter, $confId, $markerPrefix)
+    {
+        if (!$fixtureUid) {
+            // Kein Item vorhanden. Leere Instanz anlegen und altname setzen
+            $sub = BaseMarker::getEmptyInstance(Series::class);
+        } else {
+            $sub = $this->seriesRepo->findByUid($fixtureUid);
+        }
+        $marker = tx_rnbase::makeInstance(SeriesMarker::class);
         $template = $marker->parseTemplate($template, $sub, $formatter, $confId, $markerPrefix);
 
         return $template;
