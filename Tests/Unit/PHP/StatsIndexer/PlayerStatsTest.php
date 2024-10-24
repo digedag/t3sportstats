@@ -2,17 +2,21 @@
 
 namespace System25\T3sports\Tests\StatsIndexer;
 
+use PHPUnit\Framework\Assert;
+use Prophecy\PhpUnit\ProphecyTrait;
+use Sys25\RnBase\Testing\BaseTestCase;
 use System25\T3sports\Service\Statistics;
 use System25\T3sports\Sports\Football;
 use System25\T3sports\Sports\ServiceLocator;
 use System25\T3sports\StatsIndexer\PlayerStats;
 use System25\T3sports\Tests\StatsFixtureUtil;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
+use tx_rnbase;
 
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008-2020 Rene Nitzsche (rene@system25.de)
+*  (c) 2008-2024 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -32,13 +36,15 @@ use System25\T3sports\Utility\StatsMatchNoteProvider;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class PlayerStatsTest extends \tx_rnbase_tests_BaseTestCase
+class PlayerStatsTest extends BaseTestCase
 {
+    use ProphecyTrait;
+
     private $statsService;
 
     private $serviceLocator;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->statsService = new Statistics();
         $this->serviceLocator = $this->prophesize(ServiceLocator::class);
@@ -81,22 +87,21 @@ class PlayerStatsTest extends \tx_rnbase_tests_BaseTestCase
         $mnProv = StatsMatchNoteProvider::createInstance($notes);
         $this->getService($this->serviceLocator->reveal())->indexPlayerStats($bagHash[100], $match, $mnProv, true);
 
-        //		Tx_Rnbase_Utility_T3General::debug($bagHash[100], 'class.tx_t3sportstats_tests_srvPlayerStats_testcase.php'); // TODO: remove me
-        $this->assertEquals(2, $bagHash[100]->getTypeValue('goals'), 'Goals count is wrong');
-        $this->assertEquals(1, $bagHash[100]->getTypeValue('goalshead'), 'Goals header count is wrong');
-        $this->assertEquals(1, $bagHash[100]->getTypeValue('win'), 'Win count is wrong');
-        $this->assertEquals(0, $bagHash[100]->getTypeValue('loose'), 'Loose count is wrong');
+        Assert::assertEquals(2, $bagHash[100]->getTypeValue('goals'), 'Goals count is wrong');
+        Assert::assertEquals(1, $bagHash[100]->getTypeValue('goalshead'), 'Goals header count is wrong');
+        Assert::assertEquals(1, $bagHash[100]->getTypeValue('win'), 'Win count is wrong');
+        Assert::assertEquals(0, $bagHash[100]->getTypeValue('loose'), 'Loose count is wrong');
 
         $this->getService()->indexPlayerStats($bagHash[110], $match, $mnProv, true);
-        $this->assertEquals(1, $bagHash[110]->getTypeValue('changein'), 'Changein is wrong');
-        $this->assertEquals(1, $bagHash[110]->getTypeValue('changein'), 'Changein is wrong');
+        Assert::assertEquals(1, $bagHash[110]->getTypeValue('changein'), 'Changein is wrong');
+        Assert::assertEquals(1, $bagHash[110]->getTypeValue('changein'), 'Changein is wrong');
 
         $this->getService()->indexPlayerStats($bagHash[102], $match, $mnProv, true);
-        $this->assertEquals(1, $bagHash[102]->getTypeValue('changeout'), 'Changeout is wrong');
+        Assert::assertEquals(1, $bagHash[102]->getTypeValue('changeout'), 'Changeout is wrong');
 
         $this->getService()->indexPlayerStats($bagHash[200], $match, $mnProv, false);
-        $this->assertEquals(0, $bagHash[200]->getTypeValue('win'), 'Win count is wrong');
-        $this->assertEquals(1, $bagHash[200]->getTypeValue('loose'), 'Loose count is wrong');
+        Assert::assertEquals(0, $bagHash[200]->getTypeValue('win'), 'Win count is wrong');
+        Assert::assertEquals(1, $bagHash[200]->getTypeValue('loose'), 'Loose count is wrong');
     }
 
     /**
@@ -104,6 +109,6 @@ class PlayerStatsTest extends \tx_rnbase_tests_BaseTestCase
      */
     private static function getService($arg = null)
     {
-        return \tx_rnbase::makeInstance(PlayerStats::class, $arg);
+        return tx_rnbase::makeInstance(PlayerStats::class, $arg);
     }
 }

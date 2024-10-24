@@ -9,6 +9,12 @@
 			<trans-unit id="plugin.t3sportstats.description" xml:space="preserve">
 				<source>Shows extensive statistics of players, trainers and referees</source>
 			</trans-unit>
+			<trans-unit id="plugin.t3sportstatsseries.label" xml:space="preserve">
+				<source>T3sports: Series</source>
+			</trans-unit>
+			<trans-unit id="plugin.t3sportstatsseries.description" xml:space="preserve">
+				<source>Shows series of fixtures</source>
+			</trans-unit>
 			<trans-unit id="plugin.t3sportstats.flexform.tab.common" xml:space="preserve">
 				<source>Common</source>
 			</trans-unit>
@@ -18,6 +24,9 @@
 			<trans-unit id="plugin.t3sportstats.flexform.tssetup" xml:space="preserve">
 				<source>plugin.tx_t3sportstats.</source>
 			</trans-unit>
+			<trans-unit id="plugin.t3sportstats.flexform_series.tssetup" xml:space="preserve">
+				<source>plugin.tx_t3sportstats_series.</source>
+			</trans-unit>
 			<trans-unit id="plugin.t3sportstats.flexform.action" xml:space="preserve">
 				<source>View</source>
 			</trans-unit>
@@ -26,6 +35,9 @@
 			</trans-unit>
 			<trans-unit id="plugin.t3sportstats.flexform.highlightteam" xml:space="preserve">
 				<source>Highlight team players</source>
+			</trans-unit>
+			<trans-unit id="plugin.t3sportstats.flexform.seriesname" xml:space="preserve">
+				<source>Series</source>
 			</trans-unit>
 			<trans-unit id="plugin.t3sportstats.flexform.action.playerstats" xml:space="preserve">
 				<source>Player statistics</source>
@@ -38,6 +50,12 @@
 			</trans-unit>
 			<trans-unit id="plugin.t3sportstats.flexform.action.dbstats" xml:space="preserve">
 				<source>Database statistics</source>
+			</trans-unit>
+			<trans-unit id="plugin.t3sportstats.flexform.action.serieslist" xml:space="preserve">
+				<source>List of best series</source>
+			</trans-unit>
+			<trans-unit id="plugin.t3sportstats.flexform.action.seriesresultlist" xml:space="preserve">
+				<source>List of current series</source>
 			</trans-unit>
 			<trans-unit id="service_t3sports_statistics_title" xml:space="preserve">
 				<source>Statistics service</source>
@@ -63,6 +81,110 @@
 			<trans-unit id="tx_t3sportstats_module_name" xml:space="preserve">
 				<source>Statistics</source>
 			</trans-unit>
+
+
+			<trans-unit id="tx_t3sportstats_series" xml:space="preserve">
+				<source>Series</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_name" xml:space="preserve">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_label" xml:space="preserve">
+				<source>Label</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_saison" xml:space="preserve">
+				<source>Saisons</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_club" xml:space="preserve">
+				<source>Clubs</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_agegroup" xml:space="preserve">
+				<source>Age group</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_competition" xml:space="preserve">
+				<source>Competitions</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_rules" xml:space="preserve">
+				<source>Rules</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_results" xml:space="preserve">
+				<source>Results</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_matchtype" xml:space="preserve">
+				<source>Match type</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_matchtype_home" xml:space="preserve">
+				<source>Home series</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_matchtype_away" xml:space="preserve">
+				<source>Away series</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_matchtype_all" xml:space="preserve">
+				<source>Both</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_obligation" xml:space="preserve">
+				<source>Obligation</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_obligation_yes" xml:space="preserve">
+				<source>Yes</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_obligation_no" xml:space="preserve">
+				<source>No</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_obligation_all" xml:space="preserve">
+				<source>Both</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_numresults" xml:space="preserve">
+				<source>Number of results</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_numresults_desc" xml:space="preserve">
+				<source>Specifies how many of the best series should be saved</source>
+			</trans-unit>
+
+			<trans-unit id="tx_t3sportstats_series_rule" xml:space="preserve">
+				<source>Series Rule</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_rule_alias" xml:space="preserve">
+				<source>Rule</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_rule_config" xml:space="preserve">
+				<source>Config (optional)</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_rule.win_rule" xml:space="preserve">
+				<source>Match won</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_rule.lost_rule" xml:space="preserve">
+				<source>Match lost</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_rule.not_won_rule" xml:space="preserve">
+				<source>Match not won</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_rule.not_lost_rule" xml:space="preserve">
+				<source>Match not lost</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_rule.draw_rule" xml:space="preserve">
+				<source>Match drawn</source>
+			</trans-unit>
+
+			<trans-unit id="tx_t3sportstats_series_result" xml:space="preserve">
+				<source>Series Result</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_result_type" xml:space="preserve">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_result_club" xml:space="preserve">
+				<source>Club</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_result_quantity" xml:space="preserve">
+				<source>Number of matches</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_result_firstmatch" xml:space="preserve">
+				<source>First match</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_series_result_lastmatch" xml:space="preserve">
+				<source>Last match</source>
+			</trans-unit>
+
 		</body>
 	</file>
 </xliff>

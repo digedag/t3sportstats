@@ -8,7 +8,7 @@ plugin.tx_t3sportstats.toUserInt      = 1
 plugin.tx_t3sportstats.userFunc       = tx_rnbase_controller->main
 plugin.tx_t3sportstats.defaultAction  = System25\T3sports\Action\PlayerStats
 plugin.tx_t3sportstats.qualifier      = cfc_league_fe
-plugin.tx_t3sportstats.templatePath   = EXT:t3sportstats/templates
+plugin.tx_t3sportstats.templatePath   = EXT:t3sportstats/Resources/Private/Templates
 plugin.tx_t3sportstats.locallangFilename = EXT:t3sportstats/Resources/Private/Language/locallang.xlf
 
 
@@ -80,7 +80,7 @@ lib.t3sports.statsPlayerFilter {
   filter = System25\T3sports\Filter\PlayerStatsFilter
   options.what = player
   options.groupby = PLAYERSTAT.player
-  markerClass = System25\T3sports\Marker\PlayerStatsMarker
+  markerClass = System25\T3sports\Frontend\Marker\PlayerStatsMarker
   filterType = player
 }
 
@@ -90,7 +90,7 @@ lib.t3sports.statsCoachFilter {
   options.what = coach
   options.groupby = COACHSTAT.coach
   columns = played,win,draw,loose,cardyellow,cardyr,cardred,goals,goalshome,goalsaway,goalsjoker,changeout
-  markerClass = System25\T3sports\Marker\CoachStatsMarker
+  markerClass = System25\T3sports\Frontend\Marker\CoachStatsMarker
   filterType = coach
   data.links.played.useKeepVars.add = cfc_league_fe::statstype=defaultCoach
   data.links.goals.useKeepVars.add = cfc_league_fe::statstype=defaultCoach
@@ -107,7 +107,7 @@ lib.t3sports.statsRefereeFilter {
     cardyellowagainst,cardyragainst,cardredagainst,
     goalspenalty,goalspenaltyown,goalspenaltyagainst,penalty,penaltyown,penaltyagainst
   )
-  markerClass = System25\T3sports\Marker\RefereeStatsMarker
+  markerClass = System25\T3sports\Frontend\Marker\RefereeStatsMarker
   filterType = referee
   data.links.played.useKeepVars.add = cfc_league_fe::statstype=defaultRef
   data.links.goals.useKeepVars.add = cfc_league_fe::statstype=defaultRef
@@ -182,5 +182,61 @@ plugin.tx_cfcleaguefe_competition {
     default =< lib.t3sports.statsPlayerFilter
     defaultCoach =< lib.t3sports.statsCoachFilter
     defaultRef =< lib.t3sports.statsRefereeFilter
+  }
+}
+
+plugin.tx_t3sportstats_series                = USER
+plugin.tx_t3sportstats_series.flexform       = flexform_series.xml
+plugin.tx_t3sportstats_series.userFunc       = tx_rnbase_controller->main
+plugin.tx_t3sportstats_series.defaultAction  = System25\T3sports\Action\SeriesList
+plugin.tx_t3sportstats_series.qualifier      = cfc_league_fe
+plugin.tx_t3sportstats_series.templatePath   = EXT:t3sportstats/Resources/Private/Templates
+plugin.tx_t3sportstats_series.locallangFilename = EXT:t3sportstats/Resources/Private/Language/locallang.xlf
+
+
+tt_content.list.20.tx_t3sportstats_series    =< plugin.tx_t3sportstats_series
+
+plugin.tx_t3sportstats_series {
+  serieslist {
+    template.itempath = series
+    template.markerclass = System25\T3sports\Frontend\Marker\SeriesMarker
+    template.subpart = ###SERIESLIST###
+    series {
+      name.wrap = <strong>|<strong>
+      result {
+        firstmatch =< lib.t3sports.match
+        lastmatch =< lib.t3sports.match
+        links{
+          fixtures {
+            _cfg.params.statskey = uid
+            pid = {$plugin.tx_t3sportstats.statsmatchtablepage}
+            useKeepVars = 1
+            useKeepVars.add = cfc_league_fe::statstype=seriesfixtures
+            useKeepVars.id = cfc_league_fe::statstype=seriesfixtures
+          }
+        }
+      }
+    }
+  }
+  seriesresultlist {
+    template.itempath = result
+    template.markerclass = System25\T3sports\Frontend\Marker\SeriesResultMarker
+    template.subpart = ###CURRENTSERIESLIST###
+    filter.fields {
+      SERIESRESULT.RESULTTYPE.OP_EQ = current
+    }
+    result {
+      firstmatch =< lib.t3sports.match
+      lastmatch =< lib.t3sports.match
+      links{
+        fixtures {
+          _cfg.params.statskey = uid
+          pid = {$plugin.tx_t3sportstats.statsmatchtablepage}
+          useKeepVars = 1
+          useKeepVars.add = cfc_league_fe::statstype=seriesfixtures
+          useKeepVars.id = cfc_league_fe::statstype=seriesfixtures
+        }
+      }
+    }
   }
 }

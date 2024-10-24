@@ -55,7 +55,7 @@ class StatsDataBag
 
     public function getTypeValue($type)
     {
-        return (int) $this->data[$type];
+        return (int) ($this->data[$type] ?? 0);
     }
 
     public function getTypeValues()

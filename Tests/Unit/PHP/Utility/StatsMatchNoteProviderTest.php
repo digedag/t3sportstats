@@ -4,6 +4,7 @@ namespace System25\T3sports\Tests\Utility;
 
 use System25\T3sports\Tests\StatsFixtureUtil;
 use System25\T3sports\Utility\StatsMatchNoteProvider;
+use tx_rnbase_tests_BaseTestCase;
 
 /***************************************************************
 *  Copyright notice
@@ -28,7 +29,7 @@ use System25\T3sports\Utility\StatsMatchNoteProvider;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class StatsMatchNoteProviderTest extends \tx_rnbase_tests_BaseTestCase
+class StatsMatchNoteProviderTest extends tx_rnbase_tests_BaseTestCase
 {
     /**
      * @group unit

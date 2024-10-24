@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- used since 7.6 -->
+<T3DataStructure>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.tab.common</sheetTitle>
+                </TCEforms>
+
+                <type>array</type>
+                <el>
+                    <action> <!-- Bezeichner ist frei wählbar -->
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.action</label>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectMultipleSideBySide</renderType>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.action.serieslist</numIndex>
+                                        <numIndex index="1">tx_t3sportstats_actions_SeriesList</numIndex>
+                                    </numIndex>
+                                    <numIndex index="5" type="array">
+                                        <numIndex index="0">LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.action.seriesresultlist</numIndex>
+                                        <numIndex index="1">tx_t3sportstats_actions_SeriesResultList</numIndex>
+                                    </numIndex>
+
+                                </items>
+                                <multiple>0</multiple>
+                                <maxitems>10</maxitems>
+                                <size>6</size>
+                            </config>
+                        </TCEforms>
+                    </action>
+                </el>
+            </ROOT>
+        </sDEF>
+        <s_serieslist>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.action.serieslist</sheetTitle>
+                </TCEforms>
+
+                <type>array</type>
+                <el>
+                    <serieslist.filter.fields.SERIES.UID.OP_IN_INT>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.seriesname</label>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectMultipleSideBySide</renderType>
+                                <items type="array">
+                                </items>
+                                <itemsProcFunc>System25\T3sports\Utility\StatsConfig->lookupSeries</itemsProcFunc>
+                                <multiple>0</multiple>
+                                <maxitems>10</maxitems>
+                                <size>5</size>
+                            </config>
+                        </TCEforms>
+                    </serieslist.filter.fields.SERIES.UID.OP_IN_INT>
+
+                    <serieslist.filter.options.debug>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.common.sqldebug</label>
+                            <config>
+                                <type>check</type>
+                            </config>
+                        </TCEforms>
+                    </serieslist.filter.options.debug>
+
+                    <serieslistTemplate>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.common.template</label>
+                            <config>
+                                <type>input</type>
+                                <size>24</size>
+                                <max>256</max>
+                                <eval>trim</eval>
+                                <wizards type="array">
+                                    <_PADDING>2</_PADDING>
+                                    <link type="array">
+                                        <type>popup</type>
+                                        <title>Link</title>
+                                        <icon>link_popup.gif</icon>
+                                        <module type="array">
+                                            <name>wizard_element_browser</name>
+                                            <urlParameters type="array">
+                                                <mode>wizard</mode>
+                                                <act>file</act>
+                                            </urlParameters>
+                                        </module>
+                                        <params type="array">
+                                            <blindLinkOptions>page,url,mail,spec</blindLinkOptions>
+                                            <allowedExtensions>htm,html,tmpl,tpl</allowedExtensions>
+                                        </params>
+                                        <JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+                                    </link>
+                                </wizards>
+                            </config>
+                        </TCEforms>
+                    </serieslistTemplate>
+
+                </el>
+            </ROOT>
+        </s_serieslist>
+        <s_tssetup>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform.tab.TSSetup</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <flexformTS>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:t3sportstats/Resources/Private/Language/locallang_db.xlf:plugin.t3sportstats.flexform_series.tssetup</label>
+                            <config>
+                                <type>text</type>
+                                <cols>80</cols>
+                                <rows>10</rows>
+                            </config>
+                        </TCEforms>
+                    </flexformTS>
+                </el>
+            </ROOT>
+        </s_tssetup>
+
+    </sheets>
+</T3DataStructure>

@@ -3,11 +3,13 @@
 namespace System25\T3sports\Utility;
 
 use Sys25\RnBase\Utility\Strings;
+use System25\T3sports\Repository\SeriesRepository;
+use tx_rnbase;
 
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2023 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2024 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -29,6 +31,23 @@ use Sys25\RnBase\Utility\Strings;
 
 class StatsConfig
 {
+    private $seriesRepo;
+
+    public function __construct(?SeriesRepository $seriesRepo = null)
+    {
+        $this->seriesRepo = $seriesRepo ?: tx_rnbase::makeInstance(SeriesRepository::class);
+    }
+
+    public function lookupSeries($config)
+    {
+        $seriesList = $this->seriesRepo->findAll();
+        foreach ($seriesList as $series) {
+            $config['items'][] = [$series->getName(), $series->getUid()];
+        }
+
+        return $config;
+    }
+
     /**
      * Returns all configured statistics type for flexform.
      *
@@ -54,7 +73,7 @@ class StatsConfig
     public static function lookupCoachStatsReport($config)
     {
         if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports'])) {
-            $types = \Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports']);
+            $types = Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports']);
             foreach ($types as $type) {
                 $config['items'][] = [$type, $type];
             }
@@ -71,7 +90,7 @@ class StatsConfig
     public static function lookupRefereeStatsReport($config)
     {
         if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports'])) {
-            $types = \Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports']);
+            $types = Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports']);
             foreach ($types as $type) {
                 $config['items'][] = [$type, $type];
             }
@@ -99,7 +118,7 @@ class StatsConfig
     {
         $current = [];
         if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports'])) {
-            $current = array_flip(\Tx_Rnbase_Utility_Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports']));
+            $current = array_flip(Strings::trimExplode(',', $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports']));
         }
         if (!array_key_exists($statsType, $current)) {
             $current = array_flip($current);
