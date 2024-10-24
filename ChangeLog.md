@@ -2,6 +2,9 @@
 Changelog
 ----------
 
+v1.5.1 (24.10.2024)
+ * #35 Fix indexer lookup. Thanks to @github/cuund
+
 v1.5.0 (23.07.2023)
  * Add support for TYPO3 12.4 LTS
 
