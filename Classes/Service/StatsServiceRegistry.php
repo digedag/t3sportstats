@@ -33,7 +33,7 @@ class StatsServiceRegistry implements \TYPO3\CMS\Core\SingletonInterface
     private $statisticsService;
 
     public function __construct(
-        Statistics $statisticsService = null
+        ?Statistics $statisticsService = null
     ) {
         $this->statisticsService = $statisticsService ?: new Statistics();
     }

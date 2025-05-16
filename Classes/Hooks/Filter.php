@@ -2,10 +2,15 @@
 
 namespace System25\T3sports\Hooks;
 
+use Error;
+use Sys25\RnBase\Search\SearchBase;
+use Sys25\RnBase\Utility\Strings;
+use System25\T3sports\Filter\MatchFilter;
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2020 Rene Nitzsche
+ *  (c) 2010-2024 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -46,7 +51,13 @@ class Filter
         ],
     ];
 
-    public function handleMatchFilter($params, $parent)
+    /**
+     * @param array $params
+     * @param MatchFilter $parent
+     * @return void
+     * @throws Error
+     */
+    public function handleMatchFilter($params, MatchFilter $parent)
     {
         $configurations = $params['configurations'];
         $confId = $params['confid'];
@@ -63,6 +74,10 @@ class Filter
         $statsKey = $parameters->get('statskey');
         if (!$statsKey) { // Ist was per TS konfiguriert
             $statsKey = $configurations->get($confId.'filter.statsKey');
+        }
+
+        if ('seriesfixtures' === $statsType) {
+            return $this->handleMatchFilterSeries($statsKey, $params, $parent);
         }
 
         $profileType = 'player';
@@ -94,7 +109,7 @@ class Filter
         if (!$cols) {
             return;
         }
-        $cols = array_flip(\Tx_Rnbase_Utility_Strings::trimExplode(',', $cols));
+        $cols = array_flip(Strings::trimExplode(',', $cols));
 
         if ($statsKey && array_key_exists(strtolower($statsKey), $cols)) {
             $fields[self::$tableData[$profileType]['tableAlias'].'.'.strtoupper($statsKey)][OP_GT_INT] = 0;
@@ -104,8 +119,17 @@ class Filter
 
         // Ziel ist ein JOIN auf die playerstats, für den aktuellen Spieler und die aktuellen
         // fields der stats
-        \tx_rnbase_util_SearchBase::setConfigFields($fields, $configurations, $confId.'fields.');
+        SearchBase::setConfigFields($fields, $configurations, $confId.'fields.');
         $fields[self::$tableData[$profileType]['tableAlias'].'.'.self::$tableData[$profileType]['colName']][OP_EQ_INT] = $profile;
         $parent->addFilterData($profileType, $profile);
+    }
+
+    private function handleMatchFilterSeries($resultUid, $params, MatchFilter $parent): void
+    {
+        $fields = &$params['fields'];
+        $fields['SERIESRESULT.UID'][OP_EQ_INT] = $resultUid;
+        // Für die Anzeige von Details muss der MatchFilter umgeschrieben werden. Die festen MarkerParts für die Personen
+        // sollten konfigurierbar gestaltet werden. Eventuell könnte man dann sogar per Event umsetzen.
+        //$parent->addFilterData('seriesresult', $resultUid);
     }
 }

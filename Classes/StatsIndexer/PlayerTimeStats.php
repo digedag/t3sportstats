@@ -42,7 +42,7 @@ class PlayerTimeStats implements PlayerStatsInterface
 
     private $serviceLocator;
 
-    public function __construct(ServiceLocator $locator = null)
+    public function __construct(?ServiceLocator $locator = null)
     {
         $this->serviceLocator = $locator ? $locator : new ServiceLocator();
     }
@@ -78,9 +78,9 @@ class PlayerTimeStats implements PlayerStatsInterface
                 $isEndPlayer = true;
                 $dataBag->setType('played', 1);
             } elseif (
-                MatchNotes::isChangeOut($note) ||
-                MatchNotes::isCardYellowRed($note) ||
-                MatchNotes::isCardRed($note)) {
+                MatchNotes::isChangeOut($note)
+                || MatchNotes::isCardYellowRed($note)
+                || MatchNotes::isCardRed($note)) {
                 $time = $note->getMinute() - $startMin + $time;
                 $isEndPlayer = false;
             }

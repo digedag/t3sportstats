@@ -2,6 +2,8 @@
 
 namespace System25\T3sports\Model;
 
+use Sys25\RnBase\Domain\Model\BaseModel;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -28,7 +30,7 @@ namespace System25\T3sports\Model;
 /**
  * Model for a player stats record.
  */
-class PlayerStat extends \Tx_Rnbase_Domain_Model_Base
+class PlayerStat extends BaseModel
 {
     public function getTableName()
     {

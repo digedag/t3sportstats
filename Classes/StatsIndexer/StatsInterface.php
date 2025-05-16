@@ -30,6 +30,8 @@ namespace System25\T3sports\StatsIndexer;
  */
 interface StatsInterface
 {
+    public const TAG = 't3sports.stats.indexer';
+
     /**
      * @return string
      */

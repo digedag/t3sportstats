@@ -27,7 +27,7 @@ use System25\T3sports\Tests\StatsFixtureUtil;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-class tx_t3sportstats_tests_srvStatistics_testcase extends \tx_phpunit_testcase
+class tx_t3sportstats_tests_srvStatistics_testcase extends tx_phpunit_testcase
 {
     public function test_serviceStatistics()
     {
