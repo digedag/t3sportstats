@@ -2,8 +2,8 @@
 
 namespace System25\T3sports\Series;
 
-use Contrib\Doctrine\Common\Collections\ArrayCollection;
-use Contrib\Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use System25\T3sports\Model\Club;
 use System25\T3sports\Model\Fixture;
 use System25\T3sports\Model\Series;
@@ -12,7 +12,7 @@ use System25\T3sports\Model\SeriesResult;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2024 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2025 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is

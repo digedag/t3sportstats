@@ -2,7 +2,7 @@
 
 namespace System25\T3sports\Command;
 
-use Contrib\Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -79,7 +79,6 @@ class CalculateSeriesCommand extends Command implements SeriesCalculationVisitor
         $this->clubProgress->finish();
         $this->matchProgress->finish();
 
-        // Do awesome stuff
         return Command::SUCCESS;
     }
 

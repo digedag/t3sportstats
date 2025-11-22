@@ -2,7 +2,7 @@
 
 namespace System25\T3sports\Series;
 
-use Contrib\Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Collection;
 use Exception;
 use Sys25\RnBase\Database\Connection;
 use System25\T3sports\Model\Fixture;
