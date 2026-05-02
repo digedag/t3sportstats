@@ -25,7 +25,7 @@ use tx_rnbase;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2022 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2026 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -66,7 +66,7 @@ class Statistics
      *
      * @param Competition $competition
      */
-    public function indexPlayerStatsByCompetition(Competition $competition)
+    public function indexPlayerStatsByCompetition(Competition $competition, ?StatsCalculationVisitorInterface $visitor = null)
     {
         // Der Service lädt alle DatenServices für Spielerdaten
         // Danach lädt er die Spiele eines Wettbewerbs
@@ -79,10 +79,11 @@ class Statistics
         $fields = $options = [];
         $builder->getFields($fields, $options);
         $matches = $this->matchService->search($fields, $options);
-        $this->indexStatsByMatches($matches);
+        $visitor?->matchesLoaded($matches);
+        $this->indexStatsByMatches($matches, $visitor);
     }
 
-    public function indexStatsByMatches($matches)
+    public function indexStatsByMatches($matches, ?StatsCalculationVisitorInterface $visitor)
     {
         Logger::info('Start player statistics run for '.count($matches).' matches.', 't3sportstats');
         $time = microtime(true);
@@ -100,6 +101,7 @@ class Statistics
             $this->indexPlayerData($matches[$j], $mnProv, false);
             $this->indexCoachData($matches[$j], $mnProv, false);
             $this->indexRefereeData($matches[$j], $mnProv, false);
+            $visitor?->matchProcessed($matches[$j]);
         }
         if (Logger::isInfoEnabled()) {
             $memEnd = memory_get_usage();

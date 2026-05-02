@@ -18,7 +18,7 @@ use System25\T3sports\Series\SeriesCalculator;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2024 Rene Nitzsche
+ *  (c) 2010-2025 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -71,6 +71,8 @@ class CalculateSeriesCommand extends Command implements SeriesCalculationVisitor
         $uid = $input->getOption('uid');
         if (null === $uid) {
             $output->writeln('<error>Option --uid missing.</error>');
+
+            return Command::FAILURE;
         }
         $uid = (int) $uid;
 

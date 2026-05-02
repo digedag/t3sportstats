@@ -22,6 +22,9 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['profileMarker_afterSubs
 // Hook for match filter
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['filterMatch_setfields'][] = 'System25\T3sports\Hooks\Filter->handleMatchFilter';
 
+// TCE Hook
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'System25\T3sports\Hooks\StatsTCEHook';
+
 if (!Sys25\RnBase\Utility\TYPO3::isTYPO104OrHigher()) {
     $provider = System25\T3sports\Service\StatsIndexerProvider::getInstance();
     $provider->addStatsIndexer(new System25\T3sports\StatsIndexer\CoachStats());

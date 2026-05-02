@@ -89,6 +89,17 @@
 				<source>Label</source>
 				<target>Label</target>
 			</trans-unit>
+
+			<trans-unit id="tx_t3sportstats_stats_enabled" xml:space="preserve">
+				<source>Statistik aktiv</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_stats_refresh" xml:space="preserve">
+				<source>Statistik aktualisieren</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_stats_refreshed" xml:space="preserve">
+				<source>Statistik zuletzt aktualisiert</source>
+			</trans-unit>
+
 			<trans-unit id="tx_t3sportstats_module_name" xml:space="preserve">
 				<source>Statistics</source>
 				<target>Statistik</target>

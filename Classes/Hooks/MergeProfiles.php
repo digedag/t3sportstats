@@ -2,13 +2,13 @@
 
 namespace System25\T3sports\Hooks;
 
-use Tx_Cfcleague_Controller_Profile_ProfileMerger;
-use Tx_Rnbase_Database_Connection;
+use Sys25\RnBase\Database\Connection;
+use System25\T3sports\Controller\Profile\ProfileMerger;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2017 Rene Nitzsche
+ *  (c) 2010-2026 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -37,20 +37,20 @@ class MergeProfiles
      * Abgleich erfolgt ohne TCE, da die Tabellen nicht in der TCA beschrieben sind.
      *
      * @param array $params
-     * @param Tx_Cfcleague_Controller_Profile_ProfileMerger $parent
+     * @param ProfileMerger $parent
      */
     public function mergeProfile($params, $parent)
     {
         $leading = $params['leadingUid'];
         $obsolete = $params['obsoleteUid'];
 
-        Tx_Rnbase_Database_Connection::getInstance()->doUpdate('tx_t3sportstats_players', 'player='.$obsolete, [
+        Connection::getInstance()->doUpdate('tx_t3sportstats_players', 'player='.$obsolete, [
             'player' => $leading,
         ]);
-        Tx_Rnbase_Database_Connection::getInstance()->doUpdate('tx_t3sportstats_coachs', 'coach='.$obsolete, [
+        Connection::getInstance()->doUpdate('tx_t3sportstats_coachs', 'coach='.$obsolete, [
             'coach' => $leading,
         ]);
-        Tx_Rnbase_Database_Connection::getInstance()->doUpdate('tx_t3sportstats_referees', 'referee='.$obsolete, [
+        Connection::getInstance()->doUpdate('tx_t3sportstats_referees', 'referee='.$obsolete, [
             'referee' => $leading,
         ]);
     }

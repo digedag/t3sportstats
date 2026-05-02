@@ -11,9 +11,17 @@ services:
   # public, damit das Autowiring beim Hook-Aufruf klappt. Gibt es ein Tag für Hooks?
   System25\T3sports\Hooks\ClearStats:
     public: true
+  System25\T3sports\Hooks\StatsTCEHook:
+    public: true
   System25\T3sports\Command\CalculateSeriesCommand:
     tags:
       - name: 'console.command'
         command: 't3sports:stats:calculate-series'
         schedulable: false
         description: calculate a match series in T3sportstats
+  System25\T3sports\Command\RefreshStatsCommand:
+    tags:
+      - name: 'console.command'
+        command: 't3sports:stats:refresh-stats'
+        schedulable: true
+        description: calculate statistics cache in T3sportstats

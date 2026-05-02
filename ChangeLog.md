@@ -2,6 +2,11 @@
 Changelog
 ----------
 
+v2.0.0 (??.??.2026)
+ * Add support for TYPO3 13.4 LTS
+ * Support for series calculation
+ * Support for automatic statistics recalculation with scheduler command
+
 v1.5.0 (23.07.2023)
  * Add support for TYPO3 12.4 LTS
 

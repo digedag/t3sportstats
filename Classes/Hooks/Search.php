@@ -7,7 +7,7 @@ use Sys25\RnBase\Database\Query\Join;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2021 Rene Nitzsche
+ *  (c) 2010-2026 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *

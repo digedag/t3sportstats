@@ -148,8 +148,6 @@ class SeriesCalculator
                 $visitor->clubProcessed($club, $seriesBag);
             }
         }
-
-        return;
     }
 
     private function persistResult(SeriesBag $seriesBag, Series $series): void
@@ -228,7 +226,7 @@ class SeriesCalculator
             return;
         }
 
-        if (!($seriesResults instanceof Collection)) {
+        if (!$seriesResults instanceof Collection) {
             $seriesResults = [$seriesResults];
         }
 

@@ -21,7 +21,11 @@ CREATE TABLE tx_t3sportstats_tags (
 
 CREATE TABLE tx_cfcleague_competition (
 	tags int(11) DEFAULT '0' NOT NULL,
+	statsenabled tinyint(4)  DEFAULT '0' NOT NULL,
+	statsrefresh tinyint(4)  DEFAULT '0' NOT NULL,
+	statsrefreshed varchar(20) DEFAULT '' NOT NULL,
 );
+
 #
 # Table structure for table 'tx_t3sportstats_tag_mm'
 # uid_local used for tags

@@ -82,6 +82,15 @@
 				<source>Statistics</source>
 			</trans-unit>
 
+			<trans-unit id="tx_t3sportstats_stats_enabled" xml:space="preserve">
+				<source>Statistics enabled</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_stats_refresh" xml:space="preserve">
+				<source>Statistics refresh</source>
+			</trans-unit>
+			<trans-unit id="tx_t3sportstats_stats_refreshed" xml:space="preserve">
+				<source>Statistics last refreshed</source>
+			</trans-unit>
 
 			<trans-unit id="tx_t3sportstats_series" xml:space="preserve">
 				<source>Series</source>
