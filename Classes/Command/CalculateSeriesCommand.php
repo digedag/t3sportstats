@@ -64,7 +64,7 @@ class CalculateSeriesCommand extends Command implements SeriesCalculationVisitor
         $this->setHelp('Calculate match series in T3sports.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->output = $output;
         $output->writeln('<info>Calculate series.</info>');

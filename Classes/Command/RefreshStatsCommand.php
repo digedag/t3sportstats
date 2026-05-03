@@ -63,7 +63,7 @@ class RefreshStatsCommand extends Command implements StatsCalculationVisitorInte
         $this->setHelp('Calculate statistics cache in T3sports.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->output = $output;
         $output->writeln('<info>Refresh statistics cache.</info>');
