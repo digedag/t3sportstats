@@ -7,10 +7,12 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use System25\T3sports\Model\Club;
 use System25\T3sports\Model\Fixture;
 use System25\T3sports\Model\Series;
+use System25\T3sports\Repository\SeriesRepository;
 use System25\T3sports\Series\SeriesBag;
 use System25\T3sports\Series\SeriesCalculationVisitorInterface;
 use System25\T3sports\Series\SeriesCalculator;
@@ -18,7 +20,7 @@ use System25\T3sports\Series\SeriesCalculator;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2025 Rene Nitzsche
+ *  (c) 2010-2026 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -38,7 +40,7 @@ use System25\T3sports\Series\SeriesCalculator;
  ***************************************************************/
 
 /**
- * Default filter for coach statistics.
+ * Calculate series.
  *
  * @author Rene Nitzsche
  */
@@ -48,14 +50,18 @@ class CalculateSeriesCommand extends Command implements SeriesCalculationVisitor
     /** @var OutputInterface */
     private $output;
     /** @var ProgressBar */
+    private $seriesProgress;
+    /** @var ProgressBar */
     private $clubProgress;
     /** @var ProgressBar */
     private $matchProgress;
+    private $seriesRepo;
 
-    public function __construct(SeriesCalculator $seriesCalculator)
+    public function __construct(SeriesRepository $seriesRepo, SeriesCalculator $seriesCalculator)
     {
         parent::__construct(null);
         $this->seriesCalculator = $seriesCalculator;
+        $this->seriesRepo = $seriesRepo;
     }
 
     protected function configure()
@@ -74,23 +80,41 @@ class CalculateSeriesCommand extends Command implements SeriesCalculationVisitor
 
             return Command::FAILURE;
         }
-        $uid = (int) $uid;
+        $uids = [];
+        if ('all' === $uid) {
+            $series = $this->seriesRepo->findAll();
+            foreach ($series as $serie) {
+                $uids[] = $serie->getUid();
+            }
+        } else {
+            $uids[] = (int) $uid;
+        }
+        if ($section = $this->getSection()) {
+            $this->seriesProgress = new ProgressBar($section, count($uids));
+            $this->seriesProgress->setFormat('very_verbose');
+            $this->seriesProgress->start();
+        }
 
-        $this->seriesCalculator->calculate($uid, $this);
+        foreach ($uids as $uid) {
+            $this->seriesProgress?->advance();
+            $this->seriesCalculator->calculate($uid, $this);
 
-        $this->clubProgress->finish();
-        $this->matchProgress->finish();
+            $this->clubProgress?->finish();
+            $this->matchProgress?->finish();
+        }
+        $this->seriesProgress->finish();
 
         return Command::SUCCESS;
     }
 
     public function seriesLoaded(Series $series, array $clubUids): void
     {
-        $section = $this->output->section();
-        $this->output->writeln(sprintf('<info>Process "%s" for %d clubs</info>', $series->getProperty('label'), count($clubUids)));
-        $this->clubProgress = new ProgressBar($section, count($clubUids));
-        $this->clubProgress->setFormat('very_verbose');
-        $this->clubProgress->start();
+        if ($section = $this->getSection()) {
+            $this->output->writeln(sprintf('<info>Process "%s" for %d clubs</info>', $series->getProperty('label'), count($clubUids)));
+            $this->clubProgress = new ProgressBar($section, count($clubUids));
+            $this->clubProgress->setFormat('very_verbose');
+            $this->clubProgress->start();
+        }
     }
 
     public function matchesLoaded(Collection $matches): void
@@ -98,10 +122,11 @@ class CalculateSeriesCommand extends Command implements SeriesCalculationVisitor
         if ($this->matchProgress) {
             $this->matchProgress->finish();
         }
-        $section = $this->output->section();
-        $this->matchProgress = new ProgressBar($section, count($matches));
-        $this->matchProgress->setFormat('debug');
-        $this->matchProgress->start();
+        if ($section = $this->getSection()) {
+            $this->matchProgress = new ProgressBar($section, count($matches));
+            $this->matchProgress->setFormat('debug');
+            $this->matchProgress->start();
+        }
     }
 
     public function clubProcessed(Club $club, SeriesBag $seriesBag): void
@@ -111,19 +136,30 @@ class CalculateSeriesCommand extends Command implements SeriesCalculationVisitor
         if (!empty($bestSeriesFixtures)) {
             $firstMatch = $bestSeriesFixtures[0];
             $lastMatch = $bestSeriesFixtures[count($bestSeriesFixtures) - 1];
-            $this->output->section()->writeln(sprintf('<info>Club (%s) %d series length: %d from %s to %s</info>',
-                $club->getName(),
-                $club->getUid(), count($bestSeriesFixtures),
-                date('d.m.Y', $firstMatch->getProperty('date')),
-                date('d.m.Y', $lastMatch->getProperty('date'))
-            ));
+            if ($section = $this->getSection()) {
+                $section->writeln(sprintf('<info>Club (%s) %d series length: %d from %s to %s</info>',
+                    $club->getName(),
+                    $club->getUid(), count($bestSeriesFixtures),
+                    date('d.m.Y', $firstMatch->getProperty('date')),
+                    date('d.m.Y', $lastMatch->getProperty('date'))
+                ));
+            }
         } else {
-            $this->output->section()->writeln('<info>No series found.</info>');
+            $this->getSection()->writeln('<info>No series found.</info>');
         }
     }
 
     public function matchProcessed(Fixture $match): void
     {
         $this->matchProgress->advance();
+    }
+
+    private function getSection(): ?OutputInterface
+    {
+        if ($this->output instanceof ConsoleOutputInterface) {
+            return $this->output->section();
+        }
+
+        return null;
     }
 }

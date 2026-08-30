@@ -17,7 +17,7 @@ services:
     tags:
       - name: 'console.command'
         command: 't3sports:stats:calculate-series'
-        schedulable: false
+        schedulable: true
         description: calculate a match series in T3sportstats
   System25\T3sports\Command\RefreshStatsCommand:
     tags:
