@@ -102,7 +102,7 @@ class CalculateSeriesCommand extends Command implements SeriesCalculationVisitor
             $this->clubProgress?->finish();
             $this->matchProgress?->finish();
         }
-        $this->seriesProgress->finish();
+        $this->seriesProgress?->finish();
 
         return Command::SUCCESS;
     }
@@ -131,7 +131,7 @@ class CalculateSeriesCommand extends Command implements SeriesCalculationVisitor
 
     public function clubProcessed(Club $club, SeriesBag $seriesBag): void
     {
-        $this->clubProgress->advance();
+        $this->clubProgress?->advance();
         $bestSeriesFixtures = $seriesBag->getBestSeriesFixtures();
         if (!empty($bestSeriesFixtures)) {
             $firstMatch = $bestSeriesFixtures[0];
@@ -151,7 +151,7 @@ class CalculateSeriesCommand extends Command implements SeriesCalculationVisitor
 
     public function matchProcessed(Fixture $match): void
     {
-        $this->matchProgress->advance();
+        $this->matchProgress?->advance();
     }
 
     private function getSection(): ?OutputInterface
